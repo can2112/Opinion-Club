@@ -1,32 +1,52 @@
-'use client'
+"use client";
 
-import React, { ReactNode } from 'react'
-import { config, projectId, metadata } from '@/config'
-import { createWeb3Modal } from '@web3modal/wagmi/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { State, WagmiProvider } from 'wagmi'
+import React, { ReactNode } from "react";
+import { wagmiAdapter, projectId } from "@/config";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { State, WagmiProvider, type Config } from "wagmi";
+import { createAppKit } from "@reown/appkit/react";
+import { mainnet } from "@reown/appkit/networks";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
-if (!projectId) throw new Error('Project ID is not defined')
+if (!projectId) throw new Error("Project ID is not defined");
 
-createWeb3Modal({
-  metadata,
-  wagmiConfig: config,
+const metadata = {
+  name: "appkit-example-scroll",
+  description: "AppKit Example - Scroll",
+  url: "https://scrollapp.com",
+  icons: ["https://avatars.githubusercontent.com/u/179229932"],
+};
+
+createAppKit({
+  adapters: [wagmiAdapter],
   projectId,
-  enableAnalytics: true
-})
+  networks: [mainnet],
+  defaultNetwork: mainnet,
+  metadata: metadata,
+  features: {
+    swaps: false,
+    onramp: false,
+    email: false,
+    socials: false,
+  },
+  enableCoinbase: true,
+  coinbasePreference: "smartWalletOnly",
+});
 
 export default function AppKitProvider({
   children,
-  initialState
+  initialState,
 }: {
-  children: ReactNode
-  initialState?: State
+  children: ReactNode;
+  initialState?: State;
 }) {
   return (
-    <WagmiProvider config={config} initialState={initialState}>
+    <WagmiProvider
+      config={wagmiAdapter.wagmiConfig as Config}
+      initialState={initialState}
+    >
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
-  )
+  );
 }

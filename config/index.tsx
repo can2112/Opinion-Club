@@ -1,25 +1,22 @@
-import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
-import { cookieStorage, createStorage } from 'wagmi'
-import { mainnet, sepolia } from 'wagmi/chains'
+import { cookieStorage, createStorage, http } from "@wagmi/core";
+import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
+import { mainnet, arbitrum } from "@reown/appkit/networks";
 
-export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID
+export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
-if (!projectId) throw new Error('Project ID is not defined')
-
-export const metadata = {
-  name: 'WalletConnect App',
-  description: 'WalletConnect App Example',
-  url: 'https://walletconnect.com',
-  icons: ['https://avatars.githubusercontent.com/u/37784886']
+if (!projectId) {
+  throw new Error("Project ID is not defined");
 }
 
-const chains = [mainnet, sepolia] as const
-export const config = defaultWagmiConfig({
-  chains,
-  projectId,
-  metadata,
-  ssr: true,
+export const networks = [mainnet, arbitrum];
+
+export const wagmiAdapter = new WagmiAdapter({
   storage: createStorage({
-    storage: cookieStorage
+    storage: cookieStorage,
   }),
-})
+  ssr: true,
+  projectId,
+  networks,
+});
+
+export const config = wagmiAdapter.wagmiConfig;
