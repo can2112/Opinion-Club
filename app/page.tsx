@@ -1,5 +1,4 @@
 "use client";
-import Navbar from "@/components/Navbar";
 import { useAppKit } from "@reown/appkit/react";
 import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";

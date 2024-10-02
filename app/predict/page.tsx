@@ -6,10 +6,10 @@ import Action from "@/components/trade/Action";
 
 Chart.register(...registerables);
 
-function page() {
+function Page() {
   const [buySellState, setBuySellState] = useState("buy");
-  const [amount, setAmount] = useState("");
-  const [limitPrice, setLimitPrice] = useState("");
+  // const [amount, setAmount] = useState("");
+  // const [limitPrice, setLimitPrice] = useState("");
 
   const data = {
     labels: [
@@ -72,4 +72,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
