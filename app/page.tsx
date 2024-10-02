@@ -1,16 +1,16 @@
 "use client";
+import Navbar from "@/components/Navbar";
 import { useAppKit } from "@reown/appkit/react";
+import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
 
 export default function Home() {
   const { open } = useAppKit();
   const { address, isConnected } = useAccount();
+  const router = useRouter();
 
   return (
     <main className="">
-      <div className="bg-black/10 bg-opacity-10 backdrop-blur-md p-3 shadow-md shadow-violet-400 flex justify-end">
-        <p className="gradient-text cursor-pointer p-3" onClick={()=>open()}>Connect Wallet</p>
-      </div>
       <section className="flex h-screen w-full flex-col  justify-center items-center p-24">
         <div className=" bg-gray-400/20 px-5 py-7 rounded shadow-xl shadow-black">
           <h1 className=" text-2xl font-mono text-gray-50/20 font-bold">
@@ -23,7 +23,7 @@ export default function Home() {
           <div className="flex w-full justify-between items-center mt-5 font-mono">
             <button
               className="bg-green-500 px-10 py-2 rounded-xl text-xl font-bold"
-              onClick={() => open()}
+              onClick={() => router.push("/predict")}
             >
               Yes
             </button>
