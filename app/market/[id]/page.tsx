@@ -1,17 +1,43 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import Action from "@/components/trade/Action";
+import { useSearchParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
 Chart.register(...registerables);
 
 function Page() {
+  const searchParams = useSearchParams();
+  const eventId = searchParams?.get("mId");
   const [buySellState, setBuySellState] = useState("buy");
+
+  console.log(eventId);
+  console.log(searchParams, "searchParams");
+
   // const [amount, setAmount] = useState("");
   // const [limitPrice, setLimitPrice] = useState("");
 
-  const data = {
+  const fetchData = async () => {
+    const response = await fetch(
+      `http://localhost:3000/api/event-detail/?mId=${eventId}`
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  };
+
+  const { data } = useQuery({
+    queryKey: ["eventData", eventId],
+    queryFn: fetchData,
+    enabled: !!eventId,
+  });
+
+  console.log(data);
+
+  const eventData = {
     labels: [
       "Sep 24",
       "Sep 25",
@@ -43,11 +69,9 @@ function Page() {
         <p className="text-xl my-2">17% chance</p>
         <div className="flex justify-between gap-3">
           <div className="flex-1 w-full">
-            <Line data={data} />
+            <Line data={eventData} />
           </div>
         </div>
-
-        
 
         <div className="mt-5">
           <h2 className="text-lg">Order Book</h2>
@@ -64,7 +88,6 @@ function Page() {
         </div>
       </section>
 
-      {/* // right side section */}
       <div className="w-1/3">
         <Action setCurrentState={setBuySellState} currentState={buySellState} />
       </div>

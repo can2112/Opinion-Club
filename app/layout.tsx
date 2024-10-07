@@ -4,7 +4,9 @@ import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
 import { config } from "@/config";
 import AppKitProvider from "@/context";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "WalletConnect App",
@@ -20,8 +22,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <AppKitProvider initialState={initialState}>{children}</AppKitProvider>
+        <AppKitProvider initialState={initialState}>
+          <Navbar />
+          {children}
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
+        </AppKitProvider>
       </body>
     </html>
   );
