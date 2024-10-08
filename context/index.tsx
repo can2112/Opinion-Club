@@ -5,7 +5,7 @@ import { wagmiAdapter, projectId } from "@/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { State, WagmiProvider, type Config } from "wagmi";
 import { createAppKit } from "@reown/appkit/react";
-import { mainnet } from "@reown/appkit/networks";
+import { base, baseSepolia } from "@reown/appkit/networks";
 
 const queryClient = new QueryClient();
 
@@ -21,8 +21,8 @@ const metadata = {
 createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: [mainnet],
-  defaultNetwork: mainnet,
+  networks: [base, baseSepolia],
+  defaultNetwork: base,
   metadata: metadata,
   features: {
     swaps: false,
@@ -30,8 +30,6 @@ createAppKit({
     email: false,
     socials: false,
   },
-  enableCoinbase: true,
-  coinbasePreference: "smartWalletOnly",
 });
 
 export default function AppKitProvider({

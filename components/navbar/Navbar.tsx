@@ -11,7 +11,7 @@ function Navbar() {
   const { disconnect } = useDisconnect();
 
   return (
-    <div className="bg-black/10 backdrop-filter bg-opacity-30 backdrop-blur-md p-3 shadow-md shadow-violet-400 flex justify-between sticky top-0 z-50 ">
+    <div className="bg-black/10  backdrop-filter bg-opacity-30 backdrop-blur-md p-3 shadow-md shadow-violet-400 flex justify-between sticky top-0 z-40 ">
       <div className="flex items-center gap-5">
         <Link className="flex items-center cursor-pointer" href={"/"}>
           <CiHome size={44} />
@@ -41,7 +41,7 @@ function Navbar() {
           </>
         ) : (
           <p
-            className="gradient-text cursor-pointer p-3"
+            className="gradient-text cursor-pointer p-3 z-50"
             onClick={() => open()}
           >
             Connect Wallet

@@ -19,7 +19,7 @@ export default function Home() {
   });
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <div>Error:{error.message}</div>;
 
   return (
     <main className="">
