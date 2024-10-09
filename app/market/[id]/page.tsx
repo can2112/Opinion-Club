@@ -14,9 +14,6 @@ function Page() {
   const eventId = searchParams?.get("mId");
   const [buySellState, setBuySellState] = useState("Buy");
 
-  // const [amount, setAmount] = useState("");
-  // const [limitPrice, setLimitPrice] = useState("");
-
   const fetchData = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API}/question/?questionId=${eventId}`
@@ -58,31 +55,32 @@ function Page() {
   const { title, image, Costs, description } = data?.data || {};
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error:{error.message}</div>;
+
   return (
-    <div className="p-20 bg-gray-900 text-white font-mono">
-      <div className=" flex justify-between gap-5 ">
+    <div className="p-5 md:p-20 bg-gray-900 text-white font-mono">
+      <div className="flex flex-col md:flex-row justify-between gap-5 ">
         <section className="flex flex-col ">
           <Image
             src={image}
             width={200}
             height={200}
             alt="logo"
-            className="rounded-lg mb-5"
+            className="rounded-lg mb-5 w-full "
           />
           <h1 className="text-2xl">{title}</h1>
-          {/* <p className="text-xl my-2">17% chance</p> */}
           <div className="flex justify-between gap-3">
-            <div className="flex-1 w-full">
+            <div className="flex-1 w-full h-56 mt-3 md:mt-0">
               <Line data={eventData} />
             </div>
           </div>
         </section>
 
-        <div className="w-1/3">
+        <div className="w-full md:w-1/3">
           <Action
             price={Costs}
             setCurrentState={setBuySellState}
             currentState={buySellState}
+            questionId={eventId}
           />
         </div>
       </div>

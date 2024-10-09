@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import { CiCircleInfo } from "react-icons/ci";
 import { MdCheckBox, MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
+import useLogic from "./useLogic";
 
 interface Price {
   optionId: number;
@@ -9,16 +9,21 @@ interface Price {
 interface IProps {
   setCurrentState: (arg: string) => void;
   currentState: string;
-  price?: Price[];
+  price: Price[];
+  questionId: string | undefined | null;
 }
 
-function Action({ setCurrentState, currentState, price }: IProps) {
-  const [selected, setSelected] = useState("yes");
-  const [isChecked, setIsChecked] = useState(false);
+function Action({ setCurrentState, currentState, price, questionId }: IProps) {
+  const {
+    selected,
+    setSelected,
+    isChecked,
+    toggleCheckbox,
+    amount,
+    setAmount,
+    quoteData,
+  } = useLogic({ questionId, currentState });
 
-  const toggleCheckbox = () => {
-    setIsChecked(!isChecked);
-  };
 
   return (
     <div className="flex flex-col border-2 border-white/10 rounded-xl w-full font-mono ">
@@ -79,9 +84,9 @@ function Action({ setCurrentState, currentState, price }: IProps) {
           <input
             type="number"
             placeholder="Amount"
-            // value={amount}
-            // onChange={(e) => setAmount(e.target.value)}
-            className="mt-2 p-2 border border-gray-600 rounded bg-gray-800 text-white w-full"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="mt-2 p-2 border border-gray-600 rounded bg-gray-800 text-white w-full outline-none"
           />
 
           <div className="flex justify-between mt-7 items-center">
@@ -102,7 +107,9 @@ function Action({ setCurrentState, currentState, price }: IProps) {
           <section className="mt-3">
             <div className="flex justify-between">
               <p>Total</p>
-              <p className="text-blue-400">$0.00</p>
+              <p className="text-blue-400">
+                ${amount ? quoteData?.quote : "0"}
+              </p>
             </div>
           </section>
         </div>

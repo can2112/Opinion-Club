@@ -6,11 +6,16 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_MARKET}/markets/create`,
-      req.body
-    );
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_MARKET}/markets/create`,
+        req.body
+      );
 
-    return res.status(response.status).send(response.data);
+      return res.status(response.status).send(response.data);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({ error: "Internal Server Error" });
+    }
   }
 }

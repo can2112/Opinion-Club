@@ -5,7 +5,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_MARKET}/markets`);
-
-  res.status(response.status).send(response.data);
+  try {
+    let response = await axios.get(`${process.env.NEXT_PUBLIC_MARKET}/markets`);
+    res.status(response.status).send(response.data);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ error: "Internal Server Error" });
+  }
 }
