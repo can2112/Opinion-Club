@@ -7,6 +7,7 @@ import { useAccount, useConnect } from "wagmi";
 import { parseUnits } from "ethers";
 import { useEthersSigner } from "@/hooks/ethers";
 import { useRouter } from "next/navigation";
+import { ApiResponse, CreateMarketBody, Data } from "@/utils/Interfaces/market";
 
 function Page() {
   const [title, setTitle] = useState("");
@@ -25,7 +26,9 @@ function Page() {
 
   const sendTransaction = async ({
     data,
-  }: any): Promise<
+  }: {
+    data: Data;
+  }): Promise<
     | { txnHash: string | undefined; questionId: string | undefined }
     | null
     | undefined
@@ -106,14 +109,14 @@ function Page() {
   };
 
   const mutation = useMutation({
-    mutationFn: async (createMarketBody: any) => {
+    mutationFn: async (createMarketBody: CreateMarketBody) => {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/create-market`,
         createMarketBody
       );
       return response.data;
     },
-    onSuccess: async (data) => {
+    onSuccess: async (data: ApiResponse) => {
       const approval = await sendTransaction({ data: data?.data });
 
       if (approval) {
