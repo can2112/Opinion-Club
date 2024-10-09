@@ -8,13 +8,7 @@ export default async function handler(
   try {
     if (req.method === "POST") {
       const url = `${process.env.NEXT_PUBLIC_MARKET}/markets/status/${req.body.questionId}/${req.body.txnHash}`;
-      console.log(url, "url->");
-
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_MARKET}/markets/status/${req.body.questionId}/${req.body.txnHash}`,
-        req.body
-      );
-
+      const response = await axios.get(url);
       return res.status(response.status).send(response.data);
     }
   } catch (error) {
