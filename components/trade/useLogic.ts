@@ -72,7 +72,26 @@ const useLogic = ({ questionId, currentState }: Iprops) => {
     }
   }, [amount, selected, currentState]);
 
+  const orderMutation = useMutation({
+    mutationFn: async (body) => {
+      const response = await axios.post("/");
+      return response.data;
+    },
+    onSuccess: (data) => {
+			console.log(data);
+			
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
+  });
+
+  const handleOrder = async () => {
+    if (!amount) return toast.warning("Please enter amount");
+  };
+
   return {
+    handleOrder,
     selected,
     setSelected,
     isChecked,

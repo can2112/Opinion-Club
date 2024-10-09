@@ -4,10 +4,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useAccount, useConnect } from "wagmi";
-import { parseUnits } from "ethers";
 import { useEthersSigner } from "@/hooks/ethers";
 import { useRouter } from "next/navigation";
 import { ApiResponse, CreateMarketBody, Data } from "@/utils/Interfaces/market";
+import { prepareTxn } from "@/utils/common/prepareTx";
 
 function Page() {
   const [title, setTitle] = useState("");
@@ -39,67 +39,20 @@ function Page() {
         connect({ connector });
       }
       const transactionData = data?.txns?.[0];
+      const approveBody = prepareTxn(transactionData);
+      const sentTx = await signer?.sendTransaction(approveBody);
 
-      const tx = {
-        type: 2,
-        chainId: transactionData.chainId
-          ? parseInt(transactionData.chainId, 16)
-          : 1,
-        nonce: transactionData.nonce ? parseInt(transactionData.nonce, 16) : 0,
-        to: transactionData.to || undefined,
-        gasLimit: transactionData.gas
-          ? parseInt(transactionData.gas, 16)
-          : undefined,
-        maxPriorityFeePerGas: transactionData.maxPriorityFeePerGas
-          ? parseUnits(
-              String(parseInt(transactionData.maxPriorityFeePerGas, 16)),
-              "wei"
-            )
-          : parseUnits("0", "wei"),
-        maxFeePerGas: transactionData.maxFeePerGas
-          ? parseUnits(
-              String(parseInt(transactionData.maxFeePerGas, 16)),
-              "wei"
-            )
-          : parseUnits("0", "wei"),
-        value: transactionData.value
-          ? parseUnits(String(parseInt(transactionData.value, 16)), "ether")
-          : parseUnits("0", "ether"),
-        data: transactionData.input || "0x",
-        accessList: transactionData.accessList || [],
-      };
-
-      const sentTx = await signer?.sendTransaction(tx);
       const confirm = await signer?.provider.waitForTransaction(
         sentTx?.hash || "",
         1
       );
 
+
+
       if (confirm) {
         const fundData = data?.txns?.[1];
-        const fundTx = {
-          type: 2,
-          chainId: fundData.chainId ? parseInt(fundData.chainId, 16) : 1,
-          nonce: fundData.nonce ? parseInt(fundData.nonce, 16) + 1 : 0,
-          to: fundData.to || undefined,
-          gasLimit: fundData.gas ? parseInt(fundData.gas, 16) : undefined,
-          maxPriorityFeePerGas: fundData.maxPriorityFeePerGas
-            ? parseUnits(
-                String(parseInt(fundData.maxPriorityFeePerGas, 16)),
-                "wei"
-              )
-            : parseUnits("0", "wei"),
-          maxFeePerGas: fundData.maxFeePerGas
-            ? parseUnits(String(parseInt(fundData.maxFeePerGas, 16)), "wei")
-            : parseUnits("0", "wei"),
-          value: fundData.value
-            ? parseUnits(String(parseInt(fundData.value, 16)), "ether")
-            : parseUnits("0", "ether"),
-          data: fundData.input || "0x",
-          accessList: fundData.accessList || [],
-        };
-
-        const fundTxHx = await signer?.sendTransaction(fundTx);
+        const fundTxBody = prepareTxn(fundData);
+        const fundTxHx = await signer?.sendTransaction(fundTxBody);
         return { txnHash: fundTxHx?.hash || "", questionId: data?.questionId };
       }
     } catch (error) {

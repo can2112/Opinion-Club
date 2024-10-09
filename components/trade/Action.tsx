@@ -22,8 +22,8 @@ function Action({ setCurrentState, currentState, price, questionId }: IProps) {
     amount,
     setAmount,
     quoteData,
+    handleOrder,
   } = useLogic({ questionId, currentState });
-
 
   return (
     <div className="flex flex-col border-2 border-white/10 rounded-xl w-full font-mono ">
@@ -101,7 +101,10 @@ function Action({ setCurrentState, currentState, price, questionId }: IProps) {
           </div>
         </section>
         <div className="flex flex-col">
-          <button className="mt-4 bg-blue-500 py-2 px-4 rounded-md w-full">
+          <button
+            className="mt-4 bg-blue-500 py-2 px-4 rounded-md w-full"
+            onClick={() => handleOrder()}
+          >
             {currentState}
           </button>
           <section className="mt-3">
