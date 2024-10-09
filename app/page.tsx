@@ -5,7 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function Home() {
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3000/api/fetch-questions");
+    const url = `${process.env.NEXT_PUBLIC_API}/fetch-questions`;
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
