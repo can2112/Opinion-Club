@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { CiCircleInfo } from "react-icons/ci";
 import { MdCheckBox, MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 
+interface Price {
+  optionId: number;
+  cost: number;
+}
 interface IProps {
   setCurrentState: (arg: string) => void;
   currentState: string;
+  price?: Price[];
 }
 
-function Action({ setCurrentState, currentState }: IProps) {
+function Action({ setCurrentState, currentState, price }: IProps) {
   const [selected, setSelected] = useState("yes");
   const [isChecked, setIsChecked] = useState(false);
 
@@ -20,23 +25,23 @@ function Action({ setCurrentState, currentState }: IProps) {
       <div className="flex gap-10 p-3">
         <p
           className={`cursor-pointer relative`}
-          onClick={() => setCurrentState("buy")}
+          onClick={() => setCurrentState("Buy")}
         >
           Buy
           <span
             className={`absolute top-9 left-0 rounded-md w-8 h-1 ${
-              currentState === "buy" ? "opacity-100 bg-blue-600" : "opacity-0"
+              currentState === "Buy" ? "opacity-100 bg-blue-600" : "opacity-0"
             }`}
           />
         </p>
         <p
-          onClick={() => setCurrentState("sell")}
+          onClick={() => setCurrentState("Sell")}
           className={`cursor-pointer relative `}
         >
           Sell
           <span
             className={`absolute top-9 left-0 rounded-md w-8 h-1 ${
-              currentState === "sell" ? "opacity-100 bg-blue-600" : "opacity-0"
+              currentState === "Sell" ? "opacity-100 bg-blue-600" : "opacity-0"
             }`}
           />
         </p>
@@ -57,7 +62,7 @@ function Action({ setCurrentState, currentState }: IProps) {
             }`}
             onClick={() => setSelected("yes")}
           >
-            Yes 17.9$
+            Yes {price && price?.[0].cost.toFixed(2)}
           </button>
           <button
             className={` w-1/2  px-2 py-2  rounded-lg ${
@@ -65,7 +70,7 @@ function Action({ setCurrentState, currentState }: IProps) {
             }`}
             onClick={() => setSelected("no")}
           >
-            No 81.6$
+            No {price && price?.[1].cost.toFixed(2)}
           </button>
         </section>
 
@@ -79,14 +84,6 @@ function Action({ setCurrentState, currentState }: IProps) {
             className="mt-2 p-2 border border-gray-600 rounded bg-gray-800 text-white w-full"
           />
 
-          <h2 className="text-lg mt-3">Limit Price</h2>
-          <input
-            type="number"
-            placeholder="Limit Price"
-            // value={limitPrice}
-            // onChange={(e) => setLimitPrice(e.target.value)}
-            className="mt-2 p-2 border border-gray-600 rounded bg-gray-800 text-white w-full"
-          />
           <div className="flex justify-between mt-7 items-center">
             <p>Set Expiration</p>
             <div onClick={toggleCheckbox} className="cursor-pointer">
@@ -100,16 +97,12 @@ function Action({ setCurrentState, currentState }: IProps) {
         </section>
         <div className="flex flex-col">
           <button className="mt-4 bg-blue-500 py-2 px-4 rounded-md w-full">
-            Log In
+            {currentState}
           </button>
           <section className="mt-3">
             <div className="flex justify-between">
               <p>Total</p>
               <p className="text-blue-400">$0.00</p>
-            </div>
-            <div className="flex justify-between mt-1">
-              <p>Potential return </p>
-              <p className="text-green-400">$0.00 </p>
             </div>
           </section>
         </div>
