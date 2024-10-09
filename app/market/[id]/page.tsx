@@ -21,7 +21,7 @@ function Page() {
 
   const fetchData = async () => {
     const response = await fetch(
-      `http://localhost:3000/api/event-detail/?mId=${eventId}`
+      `${process.env.NEXT_PUBLIC_API}/question/?questionId=${eventId}`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");

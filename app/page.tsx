@@ -26,8 +26,12 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-5 py-5 px-5">
         {data?.data.map((ques: Icart) => {
           return (
-            <div key={ques.mId} className="">
-              <Cart title={ques?.title} image={ques.image} eventId={ques.mId} />
+            <div key={ques.questionId} className="">
+              <Cart
+                title={ques?.title}
+                image={ques.image}
+                eventId={ques.questionId}
+              />
             </div>
           );
         })}

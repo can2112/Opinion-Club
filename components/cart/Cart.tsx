@@ -13,7 +13,7 @@ interface Iprops {
 function Cart({ title, eventId, image }: Iprops) {
   const router = useRouter();
   const ModifiedTitle = title.replace(/\s/g, "-");
-  const dynamicRoute = `market/${ModifiedTitle}mId=${eventId}`;
+  const dynamicRoute = `market/${ModifiedTitle}?mId=${eventId}`;
   const defaultImage =
     "https://polymarket.com/_next/image?url=https%3A%2F%2Fpolymarket-upload.s3.us-east-2.amazonaws.com%2Fus-election-tipping-point-state-QaKzIk2CFwii.png&w=96&q=75";
 

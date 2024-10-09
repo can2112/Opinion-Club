@@ -4,10 +4,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useAccount, useConnect } from "wagmi";
-
 import { parseUnits } from "ethers";
 import { useEthersSigner } from "@/hooks/ethers";
-import { config } from "@/config";
+import { useRouter } from "next/navigation";
 
 function Page() {
   const [title, setTitle] = useState("");
@@ -18,8 +17,9 @@ function Page() {
   const [sourceOfTruth, setSourceOfTruth] = useState("");
   const { address } = useAccount();
   const { connect, connectors } = useConnect();
-  const [transactionHash, setTransactionHash] = useState("");
   const { isConnected } = useAccount();
+
+  const router = useRouter();
 
   const signer = useEthersSigner();
 
@@ -35,7 +35,7 @@ function Page() {
         const connector = connectors[0];
         connect({ connector });
       }
-      const transactionData = data?.[0];
+      const transactionData = data?.txns?.[0];
 
       const tx = {
         type: 2,
@@ -73,7 +73,7 @@ function Page() {
       );
 
       if (confirm) {
-        const fundData = data?.[1];
+        const fundData = data?.txns?.[1];
         const fundTx = {
           type: 2,
           chainId: fundData.chainId ? parseInt(fundData.chainId, 16) : 1,
@@ -118,8 +118,23 @@ function Page() {
 
       if (approval) {
         const { txnHash, questionId } = approval;
-        console.log("fetching txnHash and questionId", txnHash, questionId);
-        toast.success("Market created successfully!");
+        const updateTxnHash = async () => {
+          try {
+            const response = await axios.post(
+              `${process.env.NEXT_PUBLIC_API}/update-txn`,
+              { txnHash, questionId }
+            );
+            return response.data;
+          } catch (error) {
+            console.error("Failed to update TxnHash", error);
+          }
+        };
+        const status = await updateTxnHash();
+
+        if (status.success) {
+          toast.success("Market created successfully!");
+          router.push("/");
+        }
       } else {
         toast.error("Transaction failed. Please try again.");
       }
