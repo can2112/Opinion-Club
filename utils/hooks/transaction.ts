@@ -1,14 +1,18 @@
 import { parseUnits } from "ethers";
 import { useAccount, useConnect } from "wagmi";
 import { SentTxn } from "@/utils/Interfaces/common";
-import { useEthersSigner } from "./ethers";
+import { BrowserProvider, JsonRpcSigner } from "ethers";
+import { useMemo } from "react";
+import type { Account, Chain, Client, Transport } from "viem";
+import { type Config, useConnectorClient } from "wagmi";
+import { Transaction } from "../Interfaces/market";
 
-const useTxn = () => {
+const useTransaction = () => {
   const { connect, connectors } = useConnect();
   const { isConnected } = useAccount();
   const signer = useEthersSigner();
 
-  const prepareTxn = (data: any) => {
+  const prepareTxn = (data: Transaction) => {
     const txnBody = {
       type: 2,
       chainId: data.chainId ? parseInt(data?.chainId, 16) : 1,
@@ -30,6 +34,28 @@ const useTxn = () => {
 
     return txnBody;
   };
+
+  function clientToSigner(client: Client<Transport, Chain, Account>) {
+    const { account, chain, transport } = client;
+
+    const network = {
+      chainId: chain?.id,
+      name: chain?.name,
+      ensAddress: chain?.contracts?.ensRegistry?.address,
+    };
+    const provider = new BrowserProvider(transport, network);
+    const signer = new JsonRpcSigner(provider, account.address);
+    return signer;
+  }
+
+  /** Hook to convert a viem Wallet Client to an ethers.js Signer. */
+  function useEthersSigner({ chainId }: { chainId?: number } = {}) {
+    const { data: client } = useConnectorClient<Config>({ chainId });
+    return useMemo(
+      () => (client ? clientToSigner(client) : undefined),
+      [client]
+    );
+  }
 
   const sendTransaction = async ({
     data,
@@ -78,4 +104,4 @@ const useTxn = () => {
 
   return { sendTransaction };
 };
-export default useTxn;
+export default useTransaction;
