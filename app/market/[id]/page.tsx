@@ -62,10 +62,10 @@ function Page() {
         <section className="flex flex-col ">
           <Image
             src={image}
-            width={200}
-            height={200}
+            width={100}
+            height={100}
             alt="logo"
-            className="rounded-lg mb-5 w-full "
+            className="rounded-lg mb-5 w-full md:w-1/3"
           />
           <h1 className="text-2xl">{title}</h1>
           <div className="flex justify-between gap-3">

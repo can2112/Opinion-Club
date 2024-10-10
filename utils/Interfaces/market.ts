@@ -1,4 +1,4 @@
-interface Transaction {
+export interface Transaction {
   type: string;
   chainId: string;
   nonce: string;

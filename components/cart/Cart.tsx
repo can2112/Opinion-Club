@@ -4,13 +4,13 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Button from "../button/Button";
 
-interface Iprops {
+interface CartProp {
   title: string;
   eventId: string;
   image: string;
 }
 
-function Cart({ title, eventId, image }: Iprops) {
+function Cart({ title, eventId, image }: CartProp) {
   const router = useRouter();
   const ModifiedTitle = title.replace(/\s/g, "-");
   const dynamicRoute = `market/${ModifiedTitle}?mId=${eventId}`;

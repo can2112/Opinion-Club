@@ -1,19 +1,12 @@
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAccount } from "wagmi";
+import useTransaction from "@/utils/hooks/transaction";
+import { LogicProps, OrderBody, QuoteData } from "./types";
 
-interface Iprops {
-  questionId: string | null | undefined;
-  currentState: string;
-}
-
-interface QuoteData {
-  formattedQuote: string;
-  quote: string;
-}
-
-const useLogic = ({ questionId, currentState }: Iprops) => {
+const useLogic = ({ questionId, currentState }: LogicProps) => {
   const [selected, setSelected] = useState("yes");
   const [isChecked, setIsChecked] = useState(false);
   const [amount, setAmount] = useState("");
@@ -24,6 +17,8 @@ const useLogic = ({ questionId, currentState }: Iprops) => {
     selected: "",
     currentState: "",
   });
+  const { address, isConnected } = useAccount();
+  const { sendTransaction } = useTransaction();
 
   const toggleCheckbox = () => {
     setIsChecked(!isChecked);
@@ -73,13 +68,21 @@ const useLogic = ({ questionId, currentState }: Iprops) => {
   }, [amount, selected, currentState]);
 
   const orderMutation = useMutation({
-    mutationFn: async (body) => {
-      const response = await axios.post("/");
+    mutationFn: async (body: OrderBody) => {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/create-order`,
+        { body }
+      );
       return response.data;
     },
-    onSuccess: (data) => {
-			console.log(data);
-			
+
+    onSuccess: async (data) => {
+        await sendTransaction({
+        data: data.data,
+      });
+      toast.success("Transaction successful");
+
+      // TODO: remove the console and call the pricing api
     },
     onError: () => {
       toast.error("Something went wrong");
@@ -87,7 +90,18 @@ const useLogic = ({ questionId, currentState }: Iprops) => {
   });
 
   const handleOrder = async () => {
+    if (!address || !isConnected)
+      return toast.warning("Please connect your wallet");
     if (!amount) return toast.warning("Please enter amount");
+
+    const orderBody = {
+      questionId: questionId,
+      side: selected == "yes" ? 0 : 1,
+      outcomeIndex: currentState == "Buy" ? 0 : 1,
+      amount: amount,
+      fromAddress: address,
+    };
+    orderMutation.mutate(orderBody);
   };
 
   return {

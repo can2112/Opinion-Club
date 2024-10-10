@@ -7,14 +7,13 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_MARKET}/markets/create`,
-        req.body
-      );
+      const url = `${process.env.NEXT_PUBLIC_MARKET}/markets/order`;
+      const response = await axios.post(url, req.body.body);
+
       return res.status(response.status).send(response.data);
     } catch (error) {
       console.error(error);
-      return res.status(500).send({ error: "Internal Server Error" });
+      return res.status(500).send({ error: "Internal server error " });
     }
   }
 }

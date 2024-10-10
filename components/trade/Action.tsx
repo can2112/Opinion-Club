@@ -1,19 +1,14 @@
 import { CiCircleInfo } from "react-icons/ci";
 import { MdCheckBox, MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import useLogic from "./useLogic";
+import { ActionProps } from "./types";
 
-interface Price {
-  optionId: number;
-  cost: number;
-}
-interface IProps {
-  setCurrentState: (arg: string) => void;
-  currentState: string;
-  price: Price[];
-  questionId: string | undefined | null;
-}
-
-function Action({ setCurrentState, currentState, price, questionId }: IProps) {
+function Action({
+  setCurrentState,
+  currentState,
+  price,
+  questionId,
+}: ActionProps) {
   const {
     selected,
     setSelected,
