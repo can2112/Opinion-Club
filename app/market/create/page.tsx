@@ -7,6 +7,7 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 import { ApiResponse, CreateMarketBody } from "@/utils/Interfaces/market";
 import useTransaction from "@/utils/hooks/transaction";
+import Wait from "@/components/wait/Wait";
 
 function Page() {
   const [title, setTitle] = useState("");
@@ -29,6 +30,10 @@ function Page() {
   const [amountErr, setAmountErr] = useState("");
   const { address } = useAccount();
   const router = useRouter();
+  const [progress, setProgress] = useState(0);
+  const [statusMessage, setStatusMessage] = useState(
+    "Hold tight, magic in progress!"
+  );
   const { sendTransaction } = useTransaction();
 
   const mutation = useMutation({
@@ -42,7 +47,10 @@ function Page() {
     onSuccess: async (data: ApiResponse) => {
       const approval = await sendTransaction({
         data: data.data.txns,
+        setStatusMessage,
+        setProgress,
       });
+      setStatusMessage("Almost there, we're validating your payment!");
       // const approval = await sendTransaction({ data: data?.data });
 
       if (approval) {
@@ -55,20 +63,39 @@ function Page() {
             );
             return response.data;
           } catch (error) {
-            console.error("Failed to update TxnHash", error);
+            console.error("Failed to locate transaction", error);
+            setStepper([
+              { name: "MARKET DETAIL", state: true },
+              { name: "UPLOAD IMAGE", state: false },
+              { name: "CREATING MARKET", state: false },
+            ]);
           }
         };
         const status = await updateTxnHash();
 
         if (status.success) {
-          toast.success("Market created successfully!");
-          router.push("/");
+          setStatusMessage("Success! Funding approved!");
+
+          setTimeout(() => {
+            toast.success("Market created successfully!");
+            router.push("/");
+          }, 3000);
         }
       } else {
+        setStepper([
+          { name: "MARKET DETAIL", state: true },
+          { name: "UPLOAD IMAGE", state: false },
+          { name: "CREATING MARKET", state: false },
+        ]);
         toast.error("Transaction failed. Please try again.");
       }
     },
     onError: () => {
+      setStepper([
+        { name: "MARKET DETAIL", state: true },
+        { name: "UPLOAD IMAGE", state: false },
+        { name: "CREATING MARKET", state: false },
+      ]);
       toast.error("Error creating market. Please try again.");
     },
   });
@@ -111,6 +138,9 @@ function Page() {
       },
       fundingAmount,
     };
+
+    setProgress(10);
+    setStatusMessage("Initiating market creation");
 
     mutation.mutate(createMarketBody);
   };
@@ -261,7 +291,7 @@ function Page() {
         </div>
       )}
 
-      {stepper[0].state && stepper[1].state && (
+      {stepper[0].state && stepper[1].state && !stepper[2].state && (
         <div className="mt-10">
           <p className="mt-10 text-white font-semibold">UPLOAD IMAGE</p>
           <p className="text-gray-400 font-sans mt-3">
@@ -303,6 +333,10 @@ function Page() {
             </button>
           </section>
         </div>
+      )}
+
+      {stepper[0].state && stepper[1].state && stepper[2].state && (
+        <Wait progress={progress} statusMessage={statusMessage} />
       )}
     </main>
   );

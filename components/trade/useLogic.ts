@@ -77,12 +77,15 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
     },
 
     onSuccess: async (data) => {
-        await sendTransaction({
+      const txnStatus = await sendTransaction({
         data: data.data,
       });
-      toast.success("Transaction successful");
 
-      // TODO: remove the console and call the pricing api
+      if (txnStatus) {
+        toast.success("Transaction successful");
+      } else {
+        toast.error("Something went wrong");
+      }
     },
     onError: () => {
       toast.error("Something went wrong");

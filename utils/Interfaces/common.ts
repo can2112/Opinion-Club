@@ -1,6 +1,5 @@
 import { Transaction } from "../Interfaces/market";
 
-
 export interface Icart {
   Id: string;
   title: string;
@@ -19,4 +18,6 @@ interface Option {
 
 export interface SentTxn {
   data: Transaction[];
+  setStatusMessage?: (arg: string) => void;
+  setProgress?: (arg: number) => void;
 }

@@ -5,6 +5,8 @@ import { useAccount, useDisconnect } from "wagmi";
 import { FaHome } from "react-icons/fa";
 import Link from "next/link";
 import { IoIosCreate } from "react-icons/io";
+// import Image from "next/image";
+// import Logo from "../../public/logo.svg"; // Import the logo
 
 function Navbar() {
   const { open } = useAppKit();
@@ -15,6 +17,14 @@ function Navbar() {
     <div className="bg-black/10  backdrop-filter bg-opacity-30 backdrop-blur-md p-3 shadow-md shadow-primary flex justify-between sticky top-0 z-40 ">
       <div className="flex items-center gap-5">
         <Link className="flex items-center cursor-pointer" href={"/"}>
+          {/* Use the Image component for better optimization */}
+          {/* <Image
+            src={Logo}
+            width={44}
+            height={44}
+            alt="logo"
+          /> */}
+
           <FaHome size={44} />
         </Link>
         <Link

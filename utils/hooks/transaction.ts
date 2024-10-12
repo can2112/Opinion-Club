@@ -59,8 +59,13 @@ const useTransaction = () => {
 
   const sendTransaction = async ({
     data,
+    setStatusMessage,
+    setProgress,
   }: SentTxn): Promise<{ txnHash: string | undefined } | null | undefined> => {
     try {
+      if (setStatusMessage)
+        setStatusMessage("Hang on, we’re sending the wallet request!");
+      if (setProgress) setProgress(20);
       if (!isConnected) {
         const connector = connectors[0];
         connect({ connector });
@@ -68,8 +73,11 @@ const useTransaction = () => {
       const transactionData = data[0];
       const approveBody = prepareTxn(transactionData);
       const sentTx = await signer?.sendTransaction(approveBody);
-
-      // TODO: read this sentTx object and get the txnHash and update the loader
+      if (sentTx?.hash) {
+        if (setProgress) setProgress(50);
+        if (setStatusMessage)
+          setStatusMessage("You’re halfway through, keep going!");
+      }
 
       // waiting logic in case timeout logic doesn't work
       // const confirm = await signer?.provider.waitForTransaction(
@@ -89,6 +97,10 @@ const useTransaction = () => {
       const waiting = await wait();
 
       if (waiting) {
+        if (setProgress) setProgress(50);
+        if (setStatusMessage) {
+          setStatusMessage("So close! Almost complete!");
+        }
         const fundData = data?.[1];
         const fundTxBody = prepareTxn(fundData);
         const fundTxHx = await signer?.sendTransaction(fundTxBody);
