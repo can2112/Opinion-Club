@@ -1,4 +1,10 @@
-const Wait = ({ progress, statusMessage }: any) => {
+const Wait = ({
+  progress,
+  statusMessage,
+}: {
+  progress: number;
+  statusMessage: string;
+}) => {
   return (
     <div className="flex flex-col items-center justify-center h-full mt-20  text-white">
       <div className="relative">
