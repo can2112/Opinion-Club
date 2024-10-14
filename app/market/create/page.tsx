@@ -241,7 +241,7 @@ function Page() {
               </p>
               <input
                 type="text"
-                placeholder="Stake Amount"
+                placeholder="Source of truth"
                 value={sourceOfTruth}
                 onChange={(e) => setSourceOfTruth(e.target.value)}
                 required

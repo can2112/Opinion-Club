@@ -32,6 +32,7 @@ const useTransaction = () => {
       accessList: data?.accessList || [],
     };
 
+    console.log(txnBody, "body--->");
     return txnBody;
   };
 
