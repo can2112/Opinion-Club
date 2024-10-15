@@ -1,5 +1,6 @@
 "use client";
 import Cart from "@/components/cart/Cart";
+import CartSk from "@/components/skeleton/skeleton";
 import { Icart } from "@/utils/Interfaces/common";
 import { useQuery } from "@tanstack/react-query";
 
@@ -14,13 +15,23 @@ export default function Home() {
     return response.json();
   };
 
+
+
   const { data, error, isLoading } = useQuery({
     queryKey: ["fetchMarkets"],
     queryFn: fetchData,
   });
 
-  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error:{error.message}</div>;
+  if (isLoading)
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-5 py-5 px-5">
+        {Array(40).fill(null)
+        .map((_, index) => {
+          return <CartSk key={index} />;
+        })}
+      </div>
+    );
 
   return (
     <main className="">

@@ -73,8 +73,10 @@ const useTransaction = () => {
       }
       const transactionData = data[0];
       const approveBody = prepareTxn(transactionData);
-      const sentTx = await signer?.sendTransaction(approveBody);
-      if (sentTx?.hash) {
+      // const sentTx = await signer?.sendTransaction(approveBody);
+      const sentTx = await signer?.signTransaction(approveBody);
+      console.log(sentTx, "singning");
+      if (sentTx) {
         if (setProgress) setProgress(50);
         if (setStatusMessage)
           setStatusMessage("You’re halfway through, keep going!");
