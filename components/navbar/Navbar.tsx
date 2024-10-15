@@ -1,7 +1,7 @@
 "use client";
 import { useAppKit } from "@reown/appkit/react";
 import React from "react";
-import { useAccount, useDisconnect } from "wagmi";
+import { useAccount } from "wagmi";
 import Link from "next/link";
 import { IoIosCreate, IoIosArrowDown } from "react-icons/io";
 
@@ -10,7 +10,6 @@ import Image from "next/image";
 function Navbar() {
   const { open } = useAppKit();
   const { address, isConnected } = useAccount();
-  const { disconnect } = useDisconnect();
 
   return (
     <div className="bg-black/10  backdrop-filter bg-opacity-30 backdrop-blur-md p-3 shadow-md shadow-primary flex justify-between sticky top-0 z-40 ">
