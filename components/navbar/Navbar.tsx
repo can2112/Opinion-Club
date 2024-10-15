@@ -3,7 +3,8 @@ import { useAppKit } from "@reown/appkit/react";
 import React from "react";
 import { useAccount, useDisconnect } from "wagmi";
 import Link from "next/link";
-import { IoIosCreate } from "react-icons/io";
+import { IoIosCreate, IoIosArrowDown } from "react-icons/io";
+
 import Image from "next/image";
 
 function Navbar() {
@@ -28,28 +29,25 @@ function Navbar() {
         </Link>
       </div>
 
-      <section className="flex">
+      <section className="flex z-50">
         {isConnected ? (
-          <>
-            <span className="px-4 gradient-text p-3">{`${address?.slice(
+          <div
+            className="p-3 gap-2 flex items-center cursor-pointer z-50 justify-between bg-white rounded-lg bg-opacity-10 backdrop-blur-md shadow-lg"
+            onClick={() => open()}
+          >
+            <p className="gradient-text">{`${address?.slice(
               0,
               4
-            )}....${address?.slice(-4)}`}</span>
-            <p
-              className="text-red-500 cursor-pointer p-3"
-              onClick={() => disconnect()}
-            >
-              {" "}
-              Disconnect
-            </p>
-          </>
+            )}....${address?.slice(-4)}`}</p>
+            <IoIosArrowDown />
+          </div>
         ) : (
-          <p
-            className="gradient-text cursor-pointer p-3 z-50"
+          <button
+            className=" bg-primary rounded-lg text-black cursor-pointer p-3"
             onClick={() => open()}
           >
             Connect Wallet
-          </p>
+          </button>
         )}
       </section>
     </div>
