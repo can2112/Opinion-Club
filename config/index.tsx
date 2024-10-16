@@ -8,7 +8,7 @@ if (!projectId) {
   throw new Error("Project ID is not defined");
 }
 
-export const networks = [base, baseSepolia];
+export const networks = [baseSepolia, base];
 
 export const wagmiAdapter = new WagmiAdapter({
   storage: createStorage({
