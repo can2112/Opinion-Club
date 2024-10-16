@@ -14,7 +14,9 @@ const useTransaction = () => {
   const signer = useEthersSigner();
 
   const prepareTxn = async (data: Transaction) => {
+    console.log(address, "address");
     let nonce = await signer?.provider.getTransactionCount(address || "");
+    console.log(nonce, "checking nonce");
     if (!nonce) {
       toast.error("Something went wrong");
       return console.log("unable to fetch nonce");
