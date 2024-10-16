@@ -6,17 +6,25 @@ import { useMemo } from "react";
 import type { Account, Chain, Client, Transport } from "viem";
 import { type Config, useConnectorClient } from "wagmi";
 import { Transaction } from "../Interfaces/market";
+import { toast } from "react-toastify";
 
 const useTransaction = () => {
   const { connect, connectors } = useConnect();
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const signer = useEthersSigner();
 
-  const prepareTxn = (data: Transaction) => {
+  const prepareTxn = async (data: Transaction) => {
+    let nonce = await signer?.provider.getTransactionCount(address || "");
+    if (!nonce) {
+      toast.error("Something went wrong");
+      return console.log("unable to fetch nonce");
+    }
+    nonce = nonce;
+    let txnNonce = "0x" + nonce.toString(16);
     const txnBody = {
       type: 2,
       chainId: data.chainId ? parseInt(data?.chainId, 16) : 1,
-      nonce: data.nonce ? parseInt(data?.nonce, 16) + 1 : 0,
+      nonce: parseInt(txnNonce),
       to: data.to || undefined,
       gasLimit: data.gas ? parseInt(data?.gas, 16) : undefined,
       maxPriorityFeePerGas: data?.maxPriorityFeePerGas
@@ -32,7 +40,6 @@ const useTransaction = () => {
       accessList: data?.accessList || [],
     };
 
-    console.log(txnBody, "body--->");
     return txnBody;
   };
 
@@ -64,6 +71,7 @@ const useTransaction = () => {
     setProgress,
   }: SentTxn): Promise<{ txnHash: string | undefined } | null | undefined> => {
     try {
+      let signedTxn = false;
       if (setStatusMessage)
         setStatusMessage("Hang on, we’re sending the wallet request!");
       if (setProgress) setProgress(20);
@@ -71,45 +79,43 @@ const useTransaction = () => {
         const connector = connectors[0];
         connect({ connector });
       }
-      const transactionData = data[0];
-      const approveBody = prepareTxn(transactionData);
-      // const sentTx = await signer?.sendTransaction(approveBody);
-      const sentTx = await signer?.signTransaction(approveBody);
-      console.log(sentTx, "singning");
-      if (sentTx) {
-        if (setProgress) setProgress(50);
-        if (setStatusMessage)
-          setStatusMessage("You’re halfway through, keep going!");
+      if (data.length == 1) {
+        signedTxn = true;
+      }
+      let confirm;
+      if (!signedTxn) {
+        const transactionData = data[0];
+        const approveBody = await prepareTxn(transactionData);
+        if (approveBody) {
+          const sentTx = await signer?.sendTransaction(approveBody);
+          if (sentTx) {
+            if (setProgress) setProgress(50);
+            if (setStatusMessage)
+              setStatusMessage("You’re halfway through, keep going!");
+          }
+
+          confirm = await signer?.provider.waitForTransaction(
+            sentTx?.hash || "",
+            1
+          );
+        }
       }
 
-      // waiting logic in case timeout logic doesn't work
-      // const confirm = await signer?.provider.waitForTransaction(
-      //   sentTx?.hash || "",
-      //   1
-      // );
-      //
-
-      const wait = async () => {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(true);
-          }, 5000);
-        });
-      };
-
-      const waiting = await wait();
-
-      if (waiting) {
+      if (confirm || signedTxn) {
         if (setProgress) setProgress(50);
         if (setStatusMessage) {
           setStatusMessage("So close! Almost complete!");
         }
-        const fundData = data?.[1];
-        const fundTxBody = prepareTxn(fundData);
-        const fundTxHx = await signer?.sendTransaction(fundTxBody);
-        return {
-          txnHash: fundTxHx?.hash || "",
-        };
+
+        const fundData = signedTxn ? data[0] : data[1];
+        const fundTxBody = await prepareTxn(fundData);
+
+        if (fundTxBody) {
+          const fundTxHx = await signer?.sendTransaction(fundTxBody);
+          return {
+            txnHash: fundTxHx?.hash || "",
+          };
+        }
       }
     } catch (error) {
       console.log(error);
