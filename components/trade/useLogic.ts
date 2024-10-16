@@ -28,8 +28,8 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
     setQuoteErr("");
     const body = {
       questionId: questionId,
-      side: selected == "yes" ? 0 : 1,
-      outcomeIndex: currentState == "Buy" ? 0 : 1,
+      side: currentState == "Buy" ? 0 : 1,
+      outcomeIndex: selected == "yes" ? 0 : 1,
       amount: amount,
     };
     const url = `${process.env.NEXT_PUBLIC_API}/quote`;
@@ -99,11 +99,12 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
 
     const orderBody = {
       questionId: questionId,
-      side: selected == "yes" ? 0 : 1,
-      outcomeIndex: currentState == "Buy" ? 0 : 1,
+      side: currentState == "Buy" ? 0 : 1,
+      outcomeIndex: selected == "yes" ? 0 : 1,
       amount: amount,
       fromAddress: address,
     };
+
     orderMutation.mutate(orderBody);
   };
 
