@@ -57,7 +57,7 @@ function Page() {
   if (error) return <div>Error:{error.message}</div>;
 
   return (
-    <div className="p-5 md:p-20 bg-gray-900 text-white font-mono">
+    <div className=" px-1 md:px-20  text-white font-mono">
       <div className="flex flex-col md:flex-row justify-between gap-5 ">
         <section className="flex flex-col ">
           <Image

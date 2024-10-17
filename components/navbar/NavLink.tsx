@@ -13,7 +13,7 @@ function NavLink({
   Icon?: React.FC<{ size: number; color: string }>;
 }) {
   const pathname = usePathname();
-  const color = pathname === route ? "#94d409" : "white";
+  const color = pathname === route ? "#1ad5c7" : "white";
   return (
     <Link
       href={route}
