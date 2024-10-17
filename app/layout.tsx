@@ -7,7 +7,7 @@ import AppKitProvider from "@/context";
 import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Footer from "@/components/footer.tsx/Footer";
+import Footer from "@/components/navbar/Footer";
 
 export const metadata: Metadata = {
   title: "WalletConnect App",

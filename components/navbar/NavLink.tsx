@@ -10,7 +10,7 @@ function NavLink({
 }: {
   route: string;
   label: string;
-  Icon: React.FC<{ size: number; color: string }>;
+  Icon?: React.FC<{ size: number; color: string }>;
 }) {
   const pathname = usePathname();
   const color = pathname === route ? "#94d409" : "white";
@@ -21,8 +21,8 @@ function NavLink({
         pathname === route ? "text-primary" : "text-white"
       } `}
     >
-      <Icon size={34} color={color} />
-      <p>{label}</p>
+      {Icon && <Icon size={34} color={color} />}
+      <p className="tracking-widest">{label}</p>
     </Link>
   );
 }
