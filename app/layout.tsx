@@ -22,10 +22,11 @@ export default function RootLayout({
   const initialState = cookieToInitialState(config, headers().get("cookie"));
   return (
     <html lang="en">
-      <body>
+      <body className="">
         <AppKitProvider initialState={initialState}>
           <Navbar />
-          {children}
+          <div className="py-20  px-3  ">{children}</div>
+
           <ToastContainer
             position="top-right"
             autoClose={3000}
@@ -38,8 +39,8 @@ export default function RootLayout({
             pauseOnHover
             theme="colored"
           />
+          <Footer />
         </AppKitProvider>
-        <Footer />
       </body>
     </html>
   );
