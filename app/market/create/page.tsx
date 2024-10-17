@@ -181,6 +181,9 @@ function Page() {
     ]);
   };
 
+  const inputClasses =
+    "bg-box relative py-4 px-4 text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none";
+
   return (
     <main className=" px-3 md:px-52">
       <section className="">
@@ -213,7 +216,7 @@ function Page() {
                 placeholder="Which of the following candidate will win the 2024 election?"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="bg-gray-900 relative py-4 px-4 text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none"
+                className={inputClasses}
               />
               <p className="absolute text-red-500 bottom mt-2">{titleErr}</p>
             </div>
@@ -229,13 +232,13 @@ function Page() {
                 placeholder="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="bg-gray-900 relative py-5 px-4 text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none"
+                className={inputClasses}
               />
               <p className="absolute text-red-500 ">{descErr}</p>
             </div>
 
             <div>
-              <p className="mt-10 text-white font-semibold">Source of truth</p>
+              <p className="mt-10 text-white font-semibold">SOURCE OF TRUTH</p>
               <p className="text-gray-400 font-sans mt-3">
                 Enter a source of truth
               </p>
@@ -245,12 +248,12 @@ function Page() {
                 value={sourceOfTruth}
                 onChange={(e) => setSourceOfTruth(e.target.value)}
                 required
-                className="bg-gray-900 relative py-5 px-4 text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none"
+                className={inputClasses}
               />
               <p className="absolute text-red-500 mt-1">{srcErr}</p>
             </div>
             <div>
-              <p className="mt-10 text-white font-semibold">Stake amount</p>
+              <p className="mt-10 text-white font-semibold">STAKE AMOUNT</p>
               <p className="text-gray-400 font-sans mt-3">
                 Enter a funding amount for your market
               </p>
@@ -260,7 +263,7 @@ function Page() {
                 value={fundingAmount}
                 onChange={(e) => setFundingAmount(e.target.value)}
                 required
-                className="bg-gray-900 relative py-5 px-4 text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none"
+                className={inputClasses}
               />
               <p className="absolute text-red-500 mt-1">{amountErr}</p>
             </div>
@@ -275,7 +278,7 @@ function Page() {
                 placeholder="End Date"
                 value={expiryDate}
                 onChange={(e) => setExpiryDate(e.target.value)}
-                className="bg-gray-900 relative py-5 px-4 text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none"
+                className={inputClasses}
               />
               <p className="absolute text-red-500 mt-1">{dateErr}</p>
             </div>
@@ -302,7 +305,7 @@ function Page() {
             placeholder="Image URL"
             value={image}
             onChange={(e) => setImage(e.target.value)}
-            className="bg-gray-900  border-dashed border border-gray-500 focus:border-none relative   px-4 text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none py-8"
+            className={inputClasses}
           />
           <p className="absolute text-red-500 mt-1">{imgErr}</p>
           <div>

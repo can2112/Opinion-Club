@@ -7,7 +7,7 @@ import AppKitProvider from "@/context";
 import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Footer from "@/components/navbar/Footer";
+import BottomBar from "@/components/navbar/BottomBar";
 
 export const metadata: Metadata = {
   title: "WalletConnect App",
@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className="">
         <AppKitProvider initialState={initialState}>
           <Navbar />
-          <div className="py-20  px-3  ">{children}</div>
+          <div className="pb-28 pt-4 md:py-20  px-3  ">{children}</div>
 
           <ToastContainer
             position="top-right"
@@ -39,7 +39,7 @@ export default function RootLayout({
             pauseOnHover
             theme="colored"
           />
-          <Footer />
+          <BottomBar />
         </AppKitProvider>
       </body>
     </html>

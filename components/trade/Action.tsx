@@ -21,7 +21,7 @@ function Action({
   } = useLogic({ questionId, currentState });
 
   return (
-    <div className="flex flex-col border-2 border-white/10 rounded-xl w-full font-mono ">
+    <div className="flex flex-col border-2 border-white/10 bg-box rounded-xl w-full font-mono ">
       <div className="flex gap-10 p-3">
         <p
           className={`cursor-pointer relative`}
@@ -30,7 +30,7 @@ function Action({
           Buy
           <span
             className={`absolute top-9 left-0 rounded-md w-8 h-1 ${
-              currentState === "Buy" ? "opacity-100 bg-blue-600" : "opacity-0"
+              currentState === "Buy" ? "opacity-100 bg-primary" : "opacity-0"
             }`}
           />
         </p>
@@ -41,7 +41,7 @@ function Action({
           Sell
           <span
             className={`absolute top-9 left-0 rounded-md w-8 h-1 ${
-              currentState === "Sell" ? "opacity-100 bg-blue-600" : "opacity-0"
+              currentState === "Sell" ? "opacity-100 bg-primary" : "opacity-0"
             }`}
           />
         </p>
@@ -97,15 +97,15 @@ function Action({
         </section>
         <div className="flex flex-col">
           <button
-            className="mt-4 bg-blue-500 py-2 px-4 rounded-md w-full"
+            className="bg-primary mt-2 hover:bg-primary/80 text-black w-full md:w-1/2 py-3 px-4 rounded-md font-semibold"
             onClick={() => handleOrder()}
           >
-            {currentState}
+            {currentState.toUpperCase()}
           </button>
           <section className="mt-3">
             <div className="flex justify-between">
               <p>Total</p>
-              <p className="text-blue-400">
+              <p className="text-green-400">
                 ${amount ? quoteData?.quote : "0"}
               </p>
             </div>
