@@ -3,7 +3,7 @@ import { useAppKit } from "@reown/appkit/react";
 import React from "react";
 import { useAccount } from "wagmi";
 import Link from "next/link";
-import { IoIosCreate, IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 
 import Image from "next/image";
 
@@ -18,13 +18,10 @@ function Navbar() {
           <Image src={"/oc.png"} width={150} height={100} alt="logo" />
         </Link>
         <Link
-          className="flex items-center cursor-pointer"
+          className=" hidden md:flex  items-center cursor-pointer"
           href={"/market/create"}
         >
-          <span className="md:block hidden font-bold text-lg">
-            Create Question
-          </span>
-          <IoIosCreate size={44} className="md:hidden cursor-pointer" />
+          <span className=" font-bold text-lg">Create Question</span>
         </Link>
       </div>
 
