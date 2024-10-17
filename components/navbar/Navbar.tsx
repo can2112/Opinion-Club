@@ -6,7 +6,7 @@ import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
 
 import Image from "next/image";
-import NavLink from "../footer.tsx/NavLink";
+import NavLink from "./NavLink";
 
 function Navbar() {
   const { open } = useAppKit();
@@ -46,7 +46,7 @@ function Navbar() {
         )}
       </section>
     </div>
-);
+  );
 }
 
 export default Navbar;
