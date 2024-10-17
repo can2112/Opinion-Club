@@ -182,8 +182,8 @@ function Page() {
   };
 
   return (
-    <main className="py-3 px-3 md:px-52 mb-10">
-      <section className="mt-10">
+    <main className=" px-3 md:px-52">
+      <section className="">
         <center className="text-2xl font-bold">CREATE MARKET</center>
         <div className="flex mt-5  gap-4 w-full">
           {stepper.map((res) => {
