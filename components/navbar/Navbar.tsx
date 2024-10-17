@@ -41,7 +41,7 @@ function Navbar() {
             className=" bg-primary rounded-lg text-black cursor-pointer p-2"
             onClick={() => open()}
           >
-            Connect Wallet
+            CONNECT WALLET
           </button>
         )}
       </section>
