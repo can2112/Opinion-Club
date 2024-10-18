@@ -19,7 +19,6 @@ const useTransaction = () => {
       toast.error("Something went wrong");
       return console.log("unable to fetch nonce");
     }
-    nonce = nonce;
     let txnNonce = "0x" + nonce.toString(16);
     const txnBody = {
       type: 2,
@@ -39,7 +38,6 @@ const useTransaction = () => {
       data: data?.input || "0x",
       accessList: data?.accessList || [],
     };
-
     return txnBody;
   };
 

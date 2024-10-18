@@ -12,6 +12,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
   const [amount, setAmount] = useState("");
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [quoteErr, setQuoteErr] = useState("");
+  const [isLoader, setLoader] = useState(false);
   const [prevVal, setPrevVal] = useState({
     amount: "",
     selected: "",
@@ -82,21 +83,30 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
       });
 
       if (txnStatus) {
+        setLoader(false);
         toast.success("Transaction successful");
       } else {
+        setLoader(false);
         toast.error("Something went wrong");
       }
     },
     onError: () => {
+      setLoader(false);
       toast.error("Something went wrong");
     },
   });
 
   const handleOrder = async () => {
-    if (!address || !isConnected)
+    setLoader(true);
+    if (!address || !isConnected) {
+      setLoader(false);
       return toast.warning("Please connect your wallet");
-    if (!amount) return toast.warning("Please enter amount");
+    }
 
+    if (!amount) {
+      setLoader(false);
+      return toast.warning("Please enter amount");
+    }
     const orderBody = {
       questionId: questionId,
       side: currentState == "Buy" ? 0 : 1,
@@ -118,6 +128,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
     setAmount,
     quoteErr,
     quoteData,
+    isLoader,
   };
 };
 
