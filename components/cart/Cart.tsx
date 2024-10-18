@@ -35,12 +35,12 @@ function Cart({ title, eventId, image }: CartProp) {
         <Button
           click={() => console.log("Clicked")}
           text={"Yes"}
-          style="bg-green-500 text-white hover:bg-green-400"
+          style="bg-green-500 px-10  hover:bg-green-400"
         />
         <Button
           click={() => console.log("Clicked")}
           text={"No"}
-          style="bg-red-500 text-white hover:bg-red-400"
+          style="bg-red-500 px-11  hover:bg-red-400"
         />
       </div>
     </Link>

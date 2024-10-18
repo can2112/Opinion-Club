@@ -2,6 +2,7 @@ import { CiCircleInfo } from "react-icons/ci";
 import { MdCheckBox, MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import useLogic from "./useLogic";
 import { ActionProps } from "./types";
+import Button from "../button/Button";
 
 function Action({
   setCurrentState,
@@ -18,6 +19,7 @@ function Action({
     setAmount,
     quoteData,
     handleOrder,
+    isLoader,
   } = useLogic({ questionId, currentState });
 
   return (
@@ -56,22 +58,20 @@ function Action({
         </section>
 
         <section className="flex  mt-4 gap-2">
-          <button
-            className={` w-1/2  px-2 py-2  rounded-lg ${
+          <Button
+            style={` w-1/2  font-light !text-md ${
               selected == "yes" ? "bg-green-500" : "bg-gray-400/30"
             }`}
-            onClick={() => setSelected("yes")}
-          >
-            Yes {price && price?.[0].cost.toFixed(2)}
-          </button>
-          <button
-            className={` w-1/2  px-2 py-2  rounded-lg ${
+            click={() => setSelected("yes")}
+            text={`  Yes ${price && price?.[0].cost.toFixed(2)}`}
+          />
+          <Button
+            style={` w-1/2 !text-md font-light  ${
               selected == "no" ? "bg-red-500" : "bg-gray-400/30"
             }`}
-            onClick={() => setSelected("no")}
-          >
-            No {price && price?.[1].cost.toFixed(2)}
-          </button>
+            click={() => setSelected("no")}
+            text={` No ${price && price?.[1].cost.toFixed(2)}`}
+          />
         </section>
 
         <section className="mt-5 ">
@@ -81,10 +81,10 @@ function Action({
             placeholder="Amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="mt-2 p-2 border border-gray-600 rounded bg-gray-800 text-white w-full outline-none"
+            className="bg-gray-400/30 relative py-4 px-4 border-none text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none"
           />
 
-          <div className="flex justify-between mt-7 items-center">
+          <div className="flex  justify-between mt-7 items-center">
             <p>Set Expiration</p>
             <div onClick={toggleCheckbox} className="cursor-pointer">
               {isChecked ? (
@@ -95,13 +95,13 @@ function Action({
             </div>
           </div>
         </section>
-        <div className="flex flex-col">
-          <button
-            className="bg-primary mt-2 hover:bg-primary/80 text-black w-full md:w-1/2 py-3 px-4 rounded-md font-semibold"
-            onClick={() => handleOrder()}
-          >
-            {currentState.toUpperCase()}
-          </button>
+        <div className="mt-2">
+          <Button
+            style="bg-primary text-center  hover:bg-primary/80 text-black hover:text-black"
+            click={() => handleOrder()}
+            text={currentState.toUpperCase()}
+            isLoading={isLoader}
+          />
           <section className="mt-3">
             <div className="flex justify-between">
               <p>Total</p>

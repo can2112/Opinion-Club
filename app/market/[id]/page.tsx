@@ -21,7 +21,7 @@ function Page() {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    return response.json(); // Parse the response as JSON
+    return response.json();
   };
 
   const { data, isLoading, error } = useQuery({
@@ -57,7 +57,7 @@ function Page() {
   if (error) return <div>Error:{error.message}</div>;
 
   return (
-    <div className=" px-1 md:px-20  text-white font-mono">
+    <div className=" px-1 lg:px-20  text-white font-mono">
       <div className="flex flex-col md:flex-row justify-between gap-5 ">
         <section className="flex flex-col ">
           <Image
@@ -75,7 +75,7 @@ function Page() {
           </div>
         </section>
 
-        <div className="w-full md:w-1/3">
+        <div className="w-full md:w-1/2 xl:w-1/3">
           <Action
             price={Costs}
             setCurrentState={setBuySellState}
