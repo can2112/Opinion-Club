@@ -185,7 +185,7 @@ function Page() {
     "bg-box relative py-4 px-4 text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none";
 
   return (
-    <main className=" px-3 md:px-52">
+    <main className=" px-1 md:px-52">
       <section className="">
         <center className="text-2xl font-bold">CREATE MARKET</center>
         <div className="flex mt-5  gap-4 w-full">
@@ -194,7 +194,7 @@ function Page() {
               <div className="w-full" key={res.name}>
                 <p
                   className={`w-full h-1 ${
-                    res.state ? "bg-primary" : " bg-gray-800"
+                    res.state ? "bg-primary" : "bg-gray-800"
                   }`}
                 />
                 <p className="mt-3 text-sm">{res.name}</p>
