@@ -1,6 +1,12 @@
 import { cookieStorage, createStorage } from "@wagmi/core";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import { base, baseSepolia } from "@reown/appkit/networks";
+import {
+  allChains,
+  base,
+  baseSepolia,
+  mainnet,
+  polygon,
+} from "@reown/appkit/networks";
 
 export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
@@ -8,7 +14,7 @@ if (!projectId) {
   throw new Error("Project ID is not defined");
 }
 
-export const networks = [baseSepolia, base];
+export const networks = allChains;
 
 export const wagmiAdapter = new WagmiAdapter({
   storage: createStorage({

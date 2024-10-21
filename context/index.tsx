@@ -5,7 +5,14 @@ import { wagmiAdapter, projectId } from "@/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { State, WagmiProvider, type Config } from "wagmi";
 import { createAppKit } from "@reown/appkit/react";
-import { base, baseSepolia } from "@reown/appkit/networks";
+import {
+  arbitrum,
+  base,
+  baseSepolia,
+  mainnet,
+  polygon,
+  allChains,
+} from "@reown/appkit/networks";
 
 const queryClient = new QueryClient();
 
@@ -21,8 +28,8 @@ const metadata = {
 createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: [base, baseSepolia],
-  defaultNetwork: baseSepolia,
+  networks: allChains,
+  defaultNetwork: base,
   metadata: metadata,
   features: {
     swaps: false,
