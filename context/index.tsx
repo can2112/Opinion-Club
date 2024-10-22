@@ -1,38 +1,17 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import { wagmiAdapter, projectId } from "@/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { State, WagmiProvider, type Config } from "wagmi";
-import { createAppKit } from "@reown/appkit/react";
-import { base, baseSepolia } from "@reown/appkit/networks";
+import { State, WagmiProvider } from "wagmi";
+
+import { config, projectId } from "@/config/rainbow";
+import { darkTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
 const queryClient = new QueryClient();
 
 if (!projectId) throw new Error("Project ID is not defined");
 
-const metadata = {
-  name: "appkit-example-scroll",
-  description: "AppKit Example - Scroll",
-  url: "https://scrollapp.com",
-  icons: ["https://avatars.githubusercontent.com/u/179229932"],
-};
-
-createAppKit({
-  adapters: [wagmiAdapter],
-  projectId,
-  networks: [base, baseSepolia],
-  defaultNetwork: baseSepolia,
-  metadata: metadata,
-  features: {
-    swaps: false,
-    onramp: false,
-    email: false,
-    socials: false,
-  },
-});
-
-export default function AppKitProvider({
+export default function Provider({
   children,
   initialState,
 }: {
@@ -40,11 +19,10 @@ export default function AppKitProvider({
   initialState?: State;
 }) {
   return (
-    <WagmiProvider
-      config={wagmiAdapter.wagmiConfig as Config}
-      initialState={initialState}
-    >
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <WagmiProvider config={config} initialState={initialState}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider theme={darkTheme()}> {children}</RainbowKitProvider>
+      </QueryClientProvider>
     </WagmiProvider>
   );
 }

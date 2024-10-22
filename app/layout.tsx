@@ -2,12 +2,13 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
-import { config } from "@/config";
-import AppKitProvider from "@/context";
+import Provider from "@/context";
 import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "@rainbow-me/rainbowkit/styles.css";
 import BottomBar from "@/components/navbar/BottomBar";
+import { config } from "@/config/rainbow";
 
 export const metadata: Metadata = {
   title: "WalletConnect App",
@@ -19,11 +20,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialState = cookieToInitialState(config, headers().get("cookie"));
+  // const initialState = cookieToInitialState(config, headers().get("cookie"));
   return (
     <html lang="en">
       <body className="">
-        <AppKitProvider initialState={initialState}>
+        <Provider >
           <Navbar />
           <div className="pb-28 pt-4 md:py-20  px-3  ">{children}</div>
 
@@ -40,7 +41,7 @@ export default function RootLayout({
             theme="colored"
           />
           <BottomBar />
-        </AppKitProvider>
+        </Provider>
       </body>
     </html>
   );
