@@ -17,11 +17,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const initialState = cookieToInitialState(config, headers().get("cookie"));
   return (
     <html lang="en">
       <body className="">
-        <Provider >
+        <Provider>
           <Navbar />
           <div className="pb-28 pt-4 md:py-20  px-3  ">{children}</div>
 
