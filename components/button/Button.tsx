@@ -12,7 +12,9 @@ function Button({ style, text, click, isLoading }: ButtonProp) {
   return (
     <div
       className={` backdrop-blur-md cursor-pointer flex justify-center items-center   text-center py-2 w-full rounded-xl text-xl font-bold ${style}`}
-      onClick={click}
+      onClick={() => {
+        if (!isLoading) click();
+      }}
     >
       {isLoading ? <Loading /> : <span> {text}</span>}
     </div>

@@ -75,12 +75,6 @@ function Action({
 
       <span className="w-full h-1 bg-white/10" />
 
-      {currentState == "Sell" && (
-        <div className="py-2 px-3 flex justify-between ">
-          <p>Balance</p>
-          <p className="text-green-400">{parseInt(prepBalance).toFixed(2)}</p>
-        </div>
-      )}
       <div className="flex justify-between p-3 flex-col">
         <section className="flex gap-2 items-center">
           <p>OUTCOME</p>
@@ -103,6 +97,17 @@ function Action({
             text={` No ${price && price?.[1].cost.toFixed(2)}`}
           />
         </section>
+        {currentState == "Sell" && (
+          <div className="py-2 px-2 flex justify-between ">
+            <p
+              className={`${
+                selected === "no" ? "text-red-500" : "text-green-500"
+              }`}
+            >
+              {parseInt(prepBalance).toFixed(2)} shares
+            </p>
+          </div>
+        )}
 
         <section className="mt-5 relative">
           <h2 className="text-lg">AMOUNT</h2>
