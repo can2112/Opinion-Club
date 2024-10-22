@@ -1,6 +1,5 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
@@ -8,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { ApiResponse, CreateMarketBody } from "@/utils/Interfaces/market";
 import useTransaction from "@/utils/hooks/transaction";
 import Wait from "@/components/wait/Wait";
+import nextClient from "@/utils/clients/nextClient";
 
 function Page() {
   const [title, setTitle] = useState("");
@@ -38,8 +38,8 @@ function Page() {
 
   const mutation = useMutation({
     mutationFn: async (createMarketBody: CreateMarketBody) => {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/create-market`,
+      const response = await nextClient.post(
+        "/create-market",
         createMarketBody
       );
       return response.data;
@@ -51,16 +51,13 @@ function Page() {
         setProgress,
       });
       setStatusMessage("Almost there, we're validating your payment!");
-      // const approval = await sendTransaction({ data: data?.data });
 
       if (approval) {
         const { txnHash } = approval;
         const updateTxnHash = async () => {
           try {
-            const response = await axios.post(
-              `${process.env.NEXT_PUBLIC_API}/update-txn`,
-              { txnHash, questionId: data?.data?.questionId }
-            );
+            const body = { txnHash, questionId: data?.data?.questionId };
+            const response = await nextClient.post(`/update-txn`, body);
             return response.data;
           } catch (error) {
             console.error("Failed to locate transaction", error);

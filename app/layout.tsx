@@ -1,14 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { headers } from "next/headers";
-import { cookieToInitialState } from "wagmi";
 import Provider from "@/context";
 import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import BottomBar from "@/components/navbar/BottomBar";
-import { config } from "@/config/rainbow";
 
 export const metadata: Metadata = {
   title: "WalletConnect App",

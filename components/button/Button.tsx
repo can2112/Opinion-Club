@@ -11,7 +11,7 @@ interface ButtonProp {
 function Button({ style, text, click, isLoading }: ButtonProp) {
   return (
     <div
-      className={`${style} backdrop-blur-md cursor-pointer flex justify-center items-center  hover:text-white text-center py-2 w-full rounded-xl text-xl font-bold`}
+      className={` backdrop-blur-md cursor-pointer flex justify-center items-center   text-center py-2 w-full rounded-xl text-xl font-bold ${style}`}
       onClick={click}
     >
       {isLoading ? <Loading /> : <span> {text}</span>}

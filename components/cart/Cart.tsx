@@ -7,9 +7,10 @@ interface CartProp {
   title: string;
   eventId: string;
   image: string;
+  date?: Date;
 }
 
-function Cart({ title, eventId, image }: CartProp) {
+function Cart({ title, eventId, image, }: CartProp) {
   const dynamicRoute = `market/${encodeURIComponent(title)}?mId=${eventId}`;
   const defaultImage =
     "https://polymarket.com/_next/image?url=https%3A%2F%2Fpolymarket-upload.s3.us-east-2.amazonaws.com%2Fus-election-tipping-point-state-QaKzIk2CFwii.png&w=96&q=75";

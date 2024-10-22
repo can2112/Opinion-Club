@@ -1,8 +1,8 @@
 import { CiCircleInfo } from "react-icons/ci";
-import { MdCheckBox, MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import useLogic from "./useLogic";
 import { ActionProps } from "./types";
 import Button from "../button/Button";
+import Image from "next/image";
 
 function Action({
   setCurrentState,
@@ -13,47 +13,77 @@ function Action({
   const {
     selected,
     setSelected,
-    isChecked,
-    toggleCheckbox,
     amount,
     setAmount,
     quoteData,
     handleOrder,
     isLoader,
+    prepBalance,
   } = useLogic({ questionId, currentState });
 
   return (
     <div className="flex flex-col border-2 border-white/10 bg-box rounded-xl w-full font-mono ">
-      <div className="flex gap-10 p-3">
-        <p
-          className={`cursor-pointer relative`}
-          onClick={() => setCurrentState("Buy")}
-        >
-          Buy
+      <div className="flex justify-between">
+        <section className="flex gap-10 p-3">
+          <p
+            className={`cursor-pointer relative`}
+            onClick={() => setCurrentState("Buy")}
+          >
+            Buy
+            <span
+              className={`absolute top-9 left-0 rounded-md w-8 h-1 ${
+                currentState === "Buy" ? "opacity-100 bg-primary" : "opacity-0"
+              }`}
+            />
+          </p>
+          <p
+            onClick={() => setCurrentState("Sell")}
+            className={`cursor-pointer relative `}
+          >
+            Sell
+            <span
+              className={`absolute top-9 left-0 rounded-md w-8 h-1 ${
+                currentState === "Sell" ? "opacity-100 bg-primary" : "opacity-0"
+              }`}
+            />
+          </p>
+        </section>
+
+        <section className="p-3 flex items-center gap-2 cursor-pointer relative">
           <span
-            className={`absolute top-9 left-0 rounded-md w-8 h-1 ${
-              currentState === "Buy" ? "opacity-100 bg-primary" : "opacity-0"
+            className={`absolute top-12 left-1 rounded-md w-1/2 h-1 ${
+              currentState === "Add" || currentState === "Remove"
+                ? "opacity-100 bg-primary"
+                : "opacity-0"
             }`}
           />
-        </p>
-        <p
-          onClick={() => setCurrentState("Sell")}
-          className={`cursor-pointer relative `}
-        >
-          Sell
-          <span
-            className={`absolute top-9 left-0 rounded-md w-8 h-1 ${
-              currentState === "Sell" ? "opacity-100 bg-primary" : "opacity-0"
-            }`}
-          />
-        </p>
+          <select
+            className="text-white cursor-pointer bg-box outline-none"
+            value={""}
+            onChange={(e) => {
+              setCurrentState(e.target.value);
+            }}
+          >
+            <option disabled value={""}>
+              LP
+            </option>
+            <option value={"Add"}>Add</option>
+            <option value={"Remove"}>Remove</option>
+          </select>
+        </section>
       </div>
 
       <span className="w-full h-1 bg-white/10" />
 
+      {currentState == "Sell" && (
+        <div className="py-2 px-3 flex justify-between ">
+          <p>Balance</p>
+          <p className="text-green-400">{parseInt(prepBalance).toFixed(2)}</p>
+        </div>
+      )}
       <div className="flex justify-between p-3 flex-col">
         <section className="flex gap-2 items-center">
-          <p>Outcome</p>
+          <p>OUTCOME</p>
           <CiCircleInfo />
         </section>
 
@@ -74,41 +104,48 @@ function Action({
           />
         </section>
 
-        <section className="mt-5 ">
-          <h2 className="text-lg">Limit Price</h2>
+        <section className="mt-5 relative">
+          <h2 className="text-lg">AMOUNT</h2>
           <input
-            type="number"
+            type="string"
             placeholder="Amount"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d*\.?\d*$/.test(value)) {
+                setAmount(value);
+              } else {
+              }
+            }}
             className="bg-gray-400/30 relative py-4 px-4 border-none text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none"
           />
-
-          <div className="flex  justify-between mt-7 items-center">
-            <p>Set Expiration</p>
-            <div onClick={toggleCheckbox} className="cursor-pointer">
-              {isChecked ? (
-                <MdCheckBox size={20} />
-              ) : (
-                <MdOutlineCheckBoxOutlineBlank size={20} />
-              )}
-            </div>
-          </div>
+          <Image
+            src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=035"
+            height={20}
+            width={20}
+            alt="usdtLogo"
+            className="absolute right-2 bottom-4 "
+          />
         </section>
-        <div className="mt-2">
+        <div className="mt-10">
           <Button
-            style="bg-primary text-center  hover:bg-primary/80 text-black hover:text-black"
+            style="bg-primary  text-black  hover:bg-primary/80 "
             click={() => handleOrder()}
             text={currentState.toUpperCase()}
             isLoading={isLoader}
           />
           <section className="mt-3">
-            <div className="flex justify-between">
-              <p>Total</p>
-              <p className="text-green-400">
-                ${amount ? quoteData?.quote : "0"}
-              </p>
-            </div>
+            {currentState == "Buy" && (
+              <div className="flex justify-between">
+                <p>Total</p>
+                <p className="text-green-400">
+                  $
+                  {amount
+                    ? parseInt(quoteData?.formattedQuote || "").toFixed(2)
+                    : "0"}
+                </p>
+              </div>
+            )}
           </section>
         </div>
       </div>

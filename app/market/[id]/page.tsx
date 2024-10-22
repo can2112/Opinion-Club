@@ -1,11 +1,13 @@
 "use client";
+import Action from "@/components/trade/Action";
+import Image from "next/image";
+import nextClient from "@/utils/clients/nextClient";
+import { Chart, registerables } from "chart.js";
 import { useState } from "react";
 import { Line } from "react-chartjs-2";
-import { Chart, registerables } from "chart.js";
-import Action from "@/components/trade/Action";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
+import { toast } from "react-toastify";
 
 Chart.register(...registerables);
 
@@ -15,13 +17,11 @@ function Page() {
   const [buySellState, setBuySellState] = useState("Buy");
 
   const fetchData = async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/question/?questionId=${eventId}`
-    );
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    const response = await nextClient.get(`/question/?questionId=${eventId}`);
+    if (!response?.data) {
+      toast.error("Something went wrong");
     }
-    return response.json();
+    return response.data;
   };
 
   const { data, isLoading, error } = useQuery({

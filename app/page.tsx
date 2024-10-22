@@ -1,18 +1,19 @@
 "use client";
 import Cart from "@/components/cart/Cart";
 import CartSk from "@/components/skeleton/skeleton";
+import nextClient from "@/utils/clients/nextClient";
 import { Icart } from "@/utils/Interfaces/common";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const fetchData = async () => {
-    const url = `${process.env.NEXT_PUBLIC_API}/fetch-questions`;
-    const response = await fetch(url);
+    const response = await nextClient.get("/fetch-questions");
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    if (!response.data) {
+      toast.error("Something went wrong");
     }
-    return response.json();
+    return response.data;
   };
 
   const { data, error, isLoading } = useQuery({
@@ -42,6 +43,7 @@ export default function Home() {
                 title={ques?.title}
                 image={ques.image}
                 eventId={ques.questionId}
+                date={ques.expiryDate}
               />
             </div>
           );

@@ -1,10 +1,10 @@
-import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 import useTransaction from "@/utils/hooks/transaction";
 import { LogicProps, OrderBody, QuoteData } from "./types";
+import nextClient from "@/utils/clients/nextClient";
 
 const useLogic = ({ questionId, currentState }: LogicProps) => {
   const [selected, setSelected] = useState("yes");
@@ -13,6 +13,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [quoteErr, setQuoteErr] = useState("");
   const [isLoader, setLoader] = useState(false);
+
   const [prevVal, setPrevVal] = useState({
     amount: "",
     selected: "",
@@ -25,6 +26,26 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
     setIsChecked(!isChecked);
   };
 
+  const fetchBalance = async () => {
+    const response = await nextClient.post("/fetch-balance", {
+      questionId,
+      address,
+    });
+
+    if (!response?.data) {
+      toast.error("Something went wrong");
+    }
+    return response?.data?.data;
+  };
+
+  const { data: balance } = useQuery({
+    queryKey: ["fetchBalance"],
+    queryFn: fetchBalance,
+    enabled: !!address,
+  });
+  const prepBalance =
+    selected == "yes" ? balance?.[0] : selected == "no" ? balance?.[1] : "";
+
   const fetchQuotation = async () => {
     setQuoteErr("");
     const body = {
@@ -33,8 +54,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
       outcomeIndex: selected == "yes" ? 0 : 1,
       amount: amount,
     };
-    const url = `${process.env.NEXT_PUBLIC_API}/quote`;
-    const response = await axios.post(url, body);
+    const response = await nextClient.post("/quote", body);
 
     return response.data;
   };
@@ -70,10 +90,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
 
   const orderMutation = useMutation({
     mutationFn: async (body: OrderBody) => {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/create-order`,
-        { body }
-      );
+      const response = await nextClient.post("/create-order", { body });
       return response.data;
     },
 
@@ -114,9 +131,59 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
       amount: amount,
       fromAddress: address,
     };
+    const lpBody = {
+      questionId: questionId,
+      fundingAmount: amount,
+      fromAddress: address,
+    };
+    const lpUrl =
+      currentState === "Add"
+        ? "add-fund"
+        : questionId === "Remove"
+        ? "remove-fund"
+        : "";
 
-    orderMutation.mutate(orderBody);
+    if (!lpUrl) {
+      return orderMutation.mutate(orderBody);
+    } else if (lpUrl) {
+      return LPMutation.mutate({ url: lpUrl, body: lpBody });
+    }
   };
+
+  const LPMutation = useMutation({
+    mutationFn: async ({
+      url,
+      body,
+    }: {
+      url: string;
+      body: {
+        questionId: string | undefined | null;
+        fundingAmount: string;
+        fromAddress: string;
+      };
+    }) => {
+      const response = await nextClient.post(url, body);
+      return response.data;
+    },
+
+    onSuccess: async (data) => {
+      const txnStatus = await sendTransaction({
+        data: data.data,
+      });
+
+      if (txnStatus) {
+        setLoader(false);
+        toast.success("Transaction successful");
+      } else {
+        setLoader(false);
+        toast.error("Something went wrong");
+      }
+    },
+    onError: () => {
+      setLoader(false);
+      toast.error("Something went wrong");
+    },
+  });
 
   return {
     handleOrder,
@@ -129,6 +196,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
     quoteErr,
     quoteData,
     isLoader,
+    prepBalance,
   };
 };
 
