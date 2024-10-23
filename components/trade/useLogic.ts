@@ -120,6 +120,11 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
       return toast.warning("Please connect your wallet");
     }
 
+    if (currentState === "Sell" && amount < prepBalance) {
+      setLoader(false);
+      return toast.warning("Not enough balance ");
+    }
+
     if (!amount) {
       setLoader(false);
       return toast.warning("Please enter amount");
