@@ -122,7 +122,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
 
     if (currentState === "Sell" && amount < prepBalance) {
       setLoader(false);
-      return toast.warning("Amount is not valid");
+      return toast.warning("Not enough balance ");
     }
 
     if (!amount) {

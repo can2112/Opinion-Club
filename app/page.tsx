@@ -43,7 +43,8 @@ export default function Home() {
                 title={ques?.title}
                 image={ques.image}
                 eventId={ques.questionId}
-                date={ques.expiryDate}
+                endDate={ques.expiryDate}
+                vol={"$0"}
               />
             </div>
           );
