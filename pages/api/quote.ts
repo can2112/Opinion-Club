@@ -1,4 +1,4 @@
-import axios from "axios";
+import serverClient from "@/utils/clients/serverClient";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,8 +7,7 @@ export default async function handler(
 ) {
   try {
     if (req.method === "POST") {
-      const url = `${process.env.NEXT_PUBLIC_MARKET}/markets/quote`;
-      const response = await axios.post(url, req.body);
+      const response = await serverClient.post("/markets/quote", req.body);
       res.status(response.status).send(response.data);
     } else {
       res.status(405).send({ error: "Method not allowed" });

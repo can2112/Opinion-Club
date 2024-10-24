@@ -1,4 +1,4 @@
-import axios from "axios";
+import serverClient from "@/utils/clients/serverClient";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,10 +7,7 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_MARKET}/markets/addfunds`,
-        req.body
-      );
+      const response = await serverClient.post("/markets/addfunds", req.body);
       return res.status(response.status).send(response.data);
     } catch (error) {
       console.error(error);
