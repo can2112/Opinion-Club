@@ -104,7 +104,7 @@ function Action({
                 selected === "no" ? "text-red-500" : "text-green-500"
               }`}
             >
-              {parseFloat(prepBalance).toFixed(2)} shares
+              {prepBalance ? parseFloat(prepBalance).toFixed(2) : "0"} shares
             </p>
           </div>
         )}

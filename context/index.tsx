@@ -1,5 +1,4 @@
 "use client";
-
 import React, { ReactNode } from "react";
 import { wagmiAdapter, projectId } from "@/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,10 +11,10 @@ const queryClient = new QueryClient();
 if (!projectId) throw new Error("Project ID is not defined");
 
 const metadata = {
-  name: "opinion_club",
-  description: "opinion_club",
-  url: "https://scrollapp.com",
-  icons: ["https://avatars.githubusercontent.com/u/179229932"],
+  name: "opinion club",
+  description: "Appkit ",
+  url: "https://wallet-connet-gamma.vercel.app",
+  icons: ["/opinion-club/public/oc.png"],
 };
 
 createAppKit({
