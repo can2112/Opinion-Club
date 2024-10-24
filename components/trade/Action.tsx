@@ -104,7 +104,7 @@ function Action({
                 selected === "no" ? "text-red-500" : "text-green-500"
               }`}
             >
-              {parseInt(prepBalance).toFixed(2)} shares
+              {parseFloat(prepBalance).toFixed(2)} shares
             </p>
           </div>
         )}
@@ -142,11 +142,11 @@ function Action({
           <section className="mt-3">
             {currentState == "Buy" && (
               <div className="flex justify-between">
-                <p>Total</p>
+                <p>RETURN</p>
                 <p className="text-green-400">
                   $
                   {amount
-                    ? parseInt(quoteData?.formattedQuote || "").toFixed(2)
+                    ? parseFloat(quoteData?.formattedQuote || "").toFixed(2)
                     : "0"}
                 </p>
               </div>
