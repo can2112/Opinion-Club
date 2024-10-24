@@ -1,12 +1,13 @@
 import axios from "axios";
-const nextClient = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_API}`,
+
+const serverClient = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_SERVER}`,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
   },
 });
-nextClient.interceptors.response.use(
+serverClient.interceptors.response.use(
   function (response) {
     return response;
   },
@@ -16,4 +17,4 @@ nextClient.interceptors.response.use(
   }
 );
 
-export default nextClient;
+export default serverClient;

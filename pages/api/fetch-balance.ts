@@ -1,4 +1,4 @@
-import axios from "axios";
+import serverClient from "@/utils/clients/serverClient";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,8 +7,9 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const url = `${process.env.NEXT_PUBLIC_MARKET}/markets/balance/${req.body.questionId}/${req.body.address}`;
-      const response = await axios.get(url);
+      const response = await serverClient.get(
+        `/markets/balance/${req.body.questionId}/${req.body.address}`
+      );
       return res.status(response.status).send(response.data);
     } catch (error) {
       console.error(error);
