@@ -13,6 +13,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [quoteErr, setQuoteErr] = useState("");
   const [isLoader, setLoader] = useState(false);
+  const { waitForBlock } = useTransaction();
 
   const [prevVal, setPrevVal] = useState({
     amount: "",
@@ -38,7 +39,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
     return response?.data?.data;
   };
 
-  const { data: balance } = useQuery({
+  const { data: balance, refetch } = useQuery({
     queryKey: ["fetchBalance"],
     queryFn: fetchBalance,
     enabled: !!address,
@@ -98,13 +99,19 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
       const txnStatus = await sendTransaction({
         data: data.data,
       });
-
-      if (txnStatus) {
-        setLoader(false);
-        toast.success("Transaction successful");
-      } else {
-        setLoader(false);
-        toast.error("Something went wrong");
+      const txnReceipt = await waitForBlock({
+        txnHash: txnStatus?.txnHash,
+        number: 1,
+      });
+      if (txnReceipt) {
+        const balance = await refetch();
+        if (balance) {
+          setLoader(false);
+          toast.success("Transaction successful");
+        } else {
+          setLoader(false);
+          toast.error("Something went wrong");
+        }
       }
     },
     onError: () => {

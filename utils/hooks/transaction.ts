@@ -63,6 +63,23 @@ const useTransaction = () => {
     );
   }
 
+  const waitForBlock = async ({
+    txnHash,
+    number,
+  }: {
+    txnHash: string | undefined;
+    number: number;
+  }) => {
+    if (!txnHash) {
+      return;
+    }
+    let confirm = await signer?.provider.waitForTransaction(
+      txnHash || "",
+      number
+    );
+    return confirm;
+  };
+
   const sendTransaction = async ({
     data,
     setStatusMessage,
@@ -91,11 +108,7 @@ const useTransaction = () => {
             if (setStatusMessage)
               setStatusMessage("You’re halfway through, keep going!");
           }
-
-          confirm = await signer?.provider.waitForTransaction(
-            sentTx?.hash || "",
-            1
-          );
+          confirm = waitForBlock({ txnHash: sentTx?.hash, number: 1 });
         }
       }
 
@@ -121,6 +134,6 @@ const useTransaction = () => {
     }
   };
 
-  return { sendTransaction };
+  return { sendTransaction, waitForBlock };
 };
 export default useTransaction;
