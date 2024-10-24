@@ -6,12 +6,11 @@ import { IoIosArrowDown } from "react-icons/io";
 
 import Image from "next/image";
 import NavLink from "./NavLink";
-import { useAccountModal, useConnectModal } from "@rainbow-me/rainbowkit";
+import { useAppKit } from "@reown/appkit/react";
 
 function Navbar() {
-  const { openConnectModal } = useConnectModal();
-  const { openAccountModal } = useAccountModal();
   const { address, isConnected } = useAccount();
+  const { open } = useAppKit();
 
   return (
     <div className="bg-black/10  backdrop-filter bg-opacity-30 backdrop-blur-md p-3 shadow-md shadow-primary flex justify-between sticky top-0 z-40 ">
@@ -29,7 +28,7 @@ function Navbar() {
         {isConnected ? (
           <div
             className="p-3 gap-2 flex items-center cursor-pointer z-50 justify-between bg-white rounded-lg bg-opacity-10 backdrop-blur-md shadow-lg"
-            onClick={openAccountModal}
+            onClick={() => open()}
           >
             <p className="gradient-text">{`${address?.slice(
               0,
@@ -41,7 +40,7 @@ function Navbar() {
           <button
             className=" bg-primary rounded-lg text-black cursor-pointer p-2"
             type="button"
-            onClick={openConnectModal}
+            onClick={() => open()}
           >
             CONNECT WALLET
           </button>
