@@ -44,7 +44,8 @@ export default function Home() {
                 image={ques.image}
                 eventId={ques.questionId}
                 endDate={ques.expiryDate}
-                vol={"$0"}
+                vol={ques.tradeCount}
+                liqudity={ques?.liquidity}
               />
             </div>
           );
