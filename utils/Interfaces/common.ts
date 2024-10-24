@@ -9,6 +9,8 @@ export interface Icart {
   description: string;
   expiryDate: Date;
   status: string;
+  liquidity: string;
+  tradeCount: string;
 }
 
 interface Option {

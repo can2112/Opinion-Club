@@ -2,7 +2,8 @@ import React from "react";
 import Image from "next/image";
 import Button from "../button/Button";
 import Link from "next/link";
-import { FaEthereum } from "react-icons/fa";
+import { CiDollar } from "react-icons/ci";
+
 import { formatDate } from "@/utils/common/formatDate";
 
 interface CartProp {
@@ -11,9 +12,10 @@ interface CartProp {
   image: string;
   endDate?: Date;
   vol?: string;
+  liqudity: string;
 }
 
-function Cart({ title, eventId, image, endDate, vol }: CartProp) {
+function Cart({ title, eventId, image, endDate, vol, liqudity }: CartProp) {
   const dynamicRoute = `market/${encodeURIComponent(title)}?mId=${eventId}`;
   const defaultImage =
     "https://polymarket.com/_next/image?url=https%3A%2F%2Fpolymarket-upload.s3.us-east-2.amazonaws.com%2Fus-election-tipping-point-state-QaKzIk2CFwii.png&w=96&q=75";
@@ -43,7 +45,7 @@ function Cart({ title, eventId, image, endDate, vol }: CartProp) {
             <p className=" font-mono flex-1 w-full">{title}</p>
             <section className="flex justify-between mt-2">
               <p className="flex items-center gap-2 text-primary">
-                Liquidity: {vol} <FaEthereum color="#1ad5c7" />
+                Liquidity: {liqudity} <CiDollar color="#1ad5c7" />
               </p>
               <p className="flex gap-2">
                 TRADES:<span>{vol}</span>
