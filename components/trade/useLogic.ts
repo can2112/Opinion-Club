@@ -39,6 +39,19 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
     return response?.data?.data;
   };
 
+  const { data: price, refetch: reFetchPrice } = useQuery({
+    queryKey: ["fetchPrice"],
+    queryFn: async () => {
+      const response = await nextClient.post("price", questionId);
+
+      if (!response?.data) {
+        toast.error("Something went wrong");
+      }
+      return response.data.data;
+    },
+    enabled: !!questionId,
+  });
+
   const { data: balance, refetch } = useQuery({
     queryKey: ["fetchBalance"],
     queryFn: fetchBalance,
