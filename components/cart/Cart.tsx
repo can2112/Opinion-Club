@@ -56,12 +56,12 @@ function Cart({ title, eventId, image, endDate, vol, liqudity }: CartProp) {
         <div className="flex gap-3 absolute bottom-4  w-[95%] px-2 left-2  justify-between items-center  mt-7  font-mono">
           <section className="w-full flex gap-4">
             <Button
-              click={() => console.log("")}
+              // click={() => console.log("")}
               text={"Yes"}
               style="bg-green-500    hover:bg-green-400"
             />
             <Button
-              click={() => console.log("")}
+              // click={() => console.log("")}
               text={"No"}
               style="bg-red-500 w-full  hover:bg-red-400"
             />
