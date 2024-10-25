@@ -4,7 +4,13 @@ import serverClient from "@/utils/clients/serverClient";
 import { Icart } from "@/utils/Interfaces/common";
 
 export default async function Home() {
-  const data = await serverClient.get("/markets").then((res) => res.data);
+  const data = await serverClient
+    .get("/markets", {
+      headers: {
+        "Cache-Control": "no-store",
+      },
+    })
+    .then((res) => res.data);
 
   if (!data || data.length == 0)
     return (
