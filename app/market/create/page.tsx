@@ -46,7 +46,7 @@ function Page() {
     },
     onSuccess: async (data: ApiResponse) => {
       const approval = await sendTransaction({
-        data: data.data.txns,
+        data: data?.data?.txns,
         setStatusMessage,
         setProgress,
       });
