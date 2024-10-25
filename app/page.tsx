@@ -5,7 +5,7 @@ import { Icart } from "@/utils/Interfaces/common";
 
 export default async function Home() {
   const data = await serverClient
-    .get("/markets", {
+    .get(`/markets?_=${new Date().getTime()}`, {
       headers: {
         "Cache-Control": "no-store",
       },
