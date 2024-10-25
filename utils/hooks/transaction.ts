@@ -102,13 +102,15 @@ const useTransaction = () => {
         const transactionData = data[0];
         const approveBody = await prepareTxn(transactionData);
         if (approveBody) {
+          // *sending approve txn
           const sentTx = await signer?.sendTransaction(approveBody);
           if (sentTx) {
             if (setProgress) setProgress(50);
             if (setStatusMessage)
               setStatusMessage("You’re halfway through, keep going!");
           }
-          confirm = waitForBlock({ txnHash: sentTx?.hash, number: 1 });
+          // *waiting for one block to confirm
+          confirm = await waitForBlock({ txnHash: sentTx?.hash, number: 1 });
         }
       }
 

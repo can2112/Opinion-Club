@@ -222,6 +222,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
     quoteData,
     isLoader,
     prepBalance,
+    price,
   };
 };
 
