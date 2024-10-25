@@ -1,18 +1,22 @@
 import Cart from "@/components/cart/Cart";
 import CartSk from "@/components/skeleton/skeleton";
-import serverClient from "@/utils/clients/serverClient";
 import { Icart } from "@/utils/Interfaces/common";
+import { error } from "console";
+
+const fetchMarketData = async () => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/markets`, {
+    cache: "no-cache",
+  });
+  if (!response.ok) {
+    throw error("Something went wrong");
+  }
+  return response.json();
+};
 
 export default async function Home() {
-  const data = await serverClient
-    .get(`/markets?_=${new Date().getTime()}`, {
-      headers: {
-        "Cache-Control": "no-store",
-      },
-    })
-    .then((res) => res.data);
+  const data = await fetchMarketData();
 
-  if (!data || data.length == 0)
+  if (!data || data?.data?.length == 0)
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4   px-1  md:px-5">
         {Array(40)
