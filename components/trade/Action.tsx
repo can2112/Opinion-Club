@@ -32,7 +32,9 @@ function Action({
             Buy
             <span
               className={`absolute top-9 left-0 rounded-md w-8 h-1 ${
-                currentState === "Buy" ? "opacity-100 bg-primary" : "opacity-0"
+                currentState === "Buy"
+                  ? "opacity-100 bg-customPrimary"
+                  : "opacity-0"
               }`}
             />
           </p>
@@ -43,7 +45,9 @@ function Action({
             Sell
             <span
               className={`absolute top-9 left-0 rounded-md w-8 h-1 ${
-                currentState === "Sell" ? "opacity-100 bg-primary" : "opacity-0"
+                currentState === "Sell"
+                  ? "opacity-100 bg-customPrimary"
+                  : "opacity-0"
               }`}
             />
           </p>
@@ -53,7 +57,7 @@ function Action({
           <span
             className={`absolute top-12 left-1 rounded-md w-1/2 h-1 ${
               currentState === "Add" || currentState === "Remove"
-                ? "opacity-100 bg-primary"
+                ? "opacity-100 bg-customPrimary"
                 : "opacity-0"
             }`}
           />
@@ -134,7 +138,7 @@ function Action({
         </section>
         <div className="mt-10">
           <Button
-            style="bg-primary  text-black  hover:bg-primary/80 "
+            style="bg-customPrimary  text-black  hover:bg-customPrimary/80 "
             click={() => handleOrder()}
             text={currentState.toUpperCase()}
             isLoading={isLoader}

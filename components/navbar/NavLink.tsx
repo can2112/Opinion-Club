@@ -18,7 +18,7 @@ function NavLink({
     <Link
       href={route}
       className={`flex justify-center items-center flex-col ${
-        pathname === route ? "text-primary" : "text-white"
+        pathname === route ? "text-customPrimary" : "text-white"
       } `}
     >
       {Icon && <Icon size={34} color={color} />}

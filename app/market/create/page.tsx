@@ -191,7 +191,7 @@ function Page() {
               <div className="w-full" key={res.name}>
                 <p
                   className={`w-full h-1 ${
-                    res.state ? "bg-primary" : "bg-gray-800"
+                    res.state ? "bg-customPrimary" : "bg-gray-800"
                   }`}
                 />
                 <p className="mt-3 text-sm">{res.name}</p>
@@ -283,7 +283,7 @@ function Page() {
           <section className="w-full flex justify-center mt-10">
             <button
               onClick={() => handleNext()}
-              className="bg-primary hover:bg-primary/80 text-black w-full md:w-1/2 py-4 px-4 rounded-md font-semibold "
+              className="bg-customPrimary hover:bg-customPrimary/80 text-black w-full md:w-1/2 py-4 px-4 rounded-md font-semibold "
             >
               NEXT
             </button>
@@ -326,7 +326,7 @@ function Page() {
               Back
             </button>
             <button
-              className="bg-primary hover:bg-primary/80 text-black w-1/2 py-4 px-4 rounded-md font-semibold "
+              className="bg-customPrimary hover:bg-customPrimary/80 text-black w-1/2 py-4 px-4 rounded-md font-semibold "
               onClick={() => handleSubmit()}
             >
               Next

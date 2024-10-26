@@ -44,7 +44,7 @@ function Cart({ title, eventId, image, endDate, vol, liqudity }: CartProp) {
           <div className="text-sm ">
             <p className=" font-mono flex-1 w-full">{title}</p>
             <section className="flex justify-between mt-2">
-              <p className="flex items-center gap-2 text-primary">
+              <p className="flex items-center gap-2 text-customPrimary">
                 Liquidity: {liqudity} <CiDollar color="#1ad5c7" />
               </p>
               <p className="flex gap-2">
