@@ -1,10 +1,12 @@
 import React from "react";
 import Image from "next/image";
-import Button from "../button/Button";
 import Link from "next/link";
 import { CiDollar } from "react-icons/ci";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { formatDate } from "@/utils/common/formatDate";
+import { Button } from "../ui/button";
+import { CgChevronDown, CgChevronLeft, CgChevronRight } from "react-icons/cg";
 
 interface CartProp {
   title: string;
@@ -22,30 +24,46 @@ function Cart({ title, eventId, image, endDate, vol, liqudity }: CartProp) {
 
   return (
     <Link
-      className=" bg-gray-400/20 relative px-5   flex flex-col rounded-lg shadow-[0_1px_10px_rgb(26,213,199)] cursor-pointer h-60 font-sans hover:bg-gray-300/30"
+      className=" bg-white border-border relative px-5 py-2  flex flex-col rounded-lg  cursor-pointer  text-black "
       href={dynamicRoute}
     >
-      <div className="py-4 flex justify-end">
-        <section className="text-white gap-2 flex rounded items-center border-dashed border px-2">
-          <span className="w-2 h-2 animate-pulse bg-red-500 rounded-full" />
-          <p>ENDS ON {formatDate(endDate)}</p>
-        </section>
-      </div>
-
       <div className=" py-3">
         <section className="overflow-hidden items-center  gap-2 flex  ">
-          <Image
-            src={image || defaultImage}
-            width={80}
-            height={120}
-            alt="martket"
-            className="rounded-lg"
-          />
           <div className="text-sm ">
-            <p className=" font-mono flex-1 w-full">{title}</p>
-            <section className="flex justify-between mt-2">
+            <section className="flex w-full items-center gap-4 ">
+              <Avatar>
+                <AvatarImage src={image || defaultImage} />
+              </Avatar>
+              <p className=" font-mono flex-1 w-[80%]">{title}</p>
+              <CgChevronRight className="h-6 w-6 absolute top-5 right-1" />
+            </section>
+            <div className="flex gap-3 pb-5  px-2 left-2  justify-between items-center  mt-7  font-mono">
+              <section className="absolute top-15  w-[97%] flex gap-4">
+                <Button
+                  variant={"outline"}
+                  size={"lg"}
+                  className="bg-green-500/30"
+                >
+                  Yes
+                </Button>
+                <Button
+                  variant={"outline"}
+                  size={"lg"}
+                  className="bg-red-500/30"
+                >
+                  No
+                </Button>
+              </section>
+            </div>
+            <section className="flex w-full  h-full justify-between items-center mt-8">
               <p className="flex items-center gap-2 text-customPrimary">
-                Liquidity: {liqudity} <CiDollar color="#1ad5c7" />
+                <Image
+                  src={"./img.svg"}
+                  alt="trophy"
+                  width={"25"}
+                  height={"25"}
+                />
+                Liquidity: ${liqudity}
               </p>
               <p className="flex gap-2">
                 TRADES:<span>{vol}</span>
@@ -53,20 +71,6 @@ function Cart({ title, eventId, image, endDate, vol, liqudity }: CartProp) {
             </section>
           </div>
         </section>
-        <div className="flex gap-3 absolute bottom-4  w-[95%] px-2 left-2  justify-between items-center  mt-7  font-mono">
-          <section className="w-full flex gap-4">
-            <Button
-              // click={() => console.log("")}
-              text={"Yes"}
-              style="bg-green-500    hover:bg-green-400"
-            />
-            <Button
-              // click={() => console.log("")}
-              text={"No"}
-              style="bg-red-500 w-full  hover:bg-red-400"
-            />
-          </section>
-        </div>
       </div>
     </Link>
   );
