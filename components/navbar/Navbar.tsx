@@ -14,10 +14,9 @@ function Navbar() {
   const { open } = useAppKit();
 
   return (
-    <div className="backdrop-filter bg-opacity-30 backdrop-blur-md p-3  flex justify-between sticky top-0 z-40 ">
+    <div className=" bg-front p-3  flex justify-between sticky top-0 z-40 ">
       <div className="flex items-center gap-5">
         <Link className="flex items-center cursor-pointer" href={"/"}>
-          {/* <Image src={"/oc.png"} width={150} height={0} alt="logo" /> */}
           <strong>OPINION</strong>
         </Link>
       </div>

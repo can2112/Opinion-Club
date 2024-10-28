@@ -24,7 +24,7 @@ export function CarouselPlugin({ data }: { data: Icart[] }) {
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
-      <CarouselContent>
+      <CarouselContent className="">
         {data?.map((res: Icart, index: number) => {
           const url = `market/${encodeURIComponent(res.title)}?mId=${
             res.questionId
@@ -33,13 +33,13 @@ export function CarouselPlugin({ data }: { data: Icart[] }) {
             <CarouselItem key={index}>
               <Card>
                 <CardContent
-                  className={`flex aspect-square rounded-lg h-44 md:h-full  w-full items-center justify-center p-6 ${
-                    index % 2 ? "bg-black" : "bg-red-400"
+                  className={`flex aspect-square rounded-lg h-44 md:h-72  w-full items-center justify-center p-6 ${
+                    index % 2 ? "bg-black" : "bg-red-500"
                   } text-white`}
                 >
                   <div className="w-full">
                     <section className="flex justify-between w-full gap-2 items-center">
-                      <h1>{res.title}</h1>
+                      <h1>{res?.title}</h1>
                       <div className="overflow-hidden  rounded-lg max-w-[100px] sm:max-w-[150px] md:max-w-[200px] lg:max-w-[300px]">
                         <Image
                           src={res?.image}
