@@ -10,8 +10,9 @@ import {
 import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { Icart } from "@/utils/Interfaces/common";
 
-export function CarouselPlugin({ data }: any) {
+export function CarouselPlugin({ data }: { data: Icart[] }) {
   const plugin = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })
   );
@@ -24,7 +25,7 @@ export function CarouselPlugin({ data }: any) {
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
-        {data.map((res: any, index: number) => {
+        {data?.map((res: Icart, index: number) => {
           const url = `market/${encodeURIComponent(res.title)}?mId=${
             res.questionId
           }`;

@@ -1,12 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CiDollar } from "react-icons/ci";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
-import { formatDate } from "@/utils/common/formatDate";
+// import { formatDate } from "@/utils/common/formatDate";
 import { Button } from "../ui/button";
-import { CgChevronDown, CgChevronLeft, CgChevronRight } from "react-icons/cg";
+import { CgChevronRight } from "react-icons/cg";
 
 interface CartProp {
   title: string;
@@ -17,7 +16,7 @@ interface CartProp {
   liqudity: string;
 }
 
-function Cart({ title, eventId, image, endDate, vol, liqudity }: CartProp) {
+function Cart({ title, eventId, image, vol, liqudity }: CartProp) {
   const dynamicRoute = `market/${encodeURIComponent(title)}?mId=${eventId}`;
   const defaultImage =
     "https://polymarket.com/_next/image?url=https%3A%2F%2Fpolymarket-upload.s3.us-east-2.amazonaws.com%2Fus-election-tipping-point-state-QaKzIk2CFwii.png&w=96&q=75";
@@ -58,7 +57,7 @@ function Cart({ title, eventId, image, endDate, vol, liqudity }: CartProp) {
             <section className="flex w-full  h-full justify-between items-center mt-8">
               <p className="flex items-center gap-2 text-customPrimary">
                 <Image
-                  src={"./img.svg"}
+                  src={"/Img.svg"}
                   alt="trophy"
                   width={"25"}
                   height={"25"}
