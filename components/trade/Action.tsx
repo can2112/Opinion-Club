@@ -7,19 +7,19 @@ import Image from "next/image";
 function Action({
   setCurrentState,
   currentState,
-  price,
   questionId,
+  selected,
+  setSelected,
 }: ActionProps) {
   const {
-    selected,
-    setSelected,
     amount,
     setAmount,
     quoteData,
     handleOrder,
     isLoader,
     prepBalance,
-  } = useLogic({ questionId, currentState });
+    price,
+  } = useLogic({ questionId, currentState, selected, setSelected });
 
   return (
     <div className="flex flex-col border-2 border-white/10 bg-box rounded-xl w-full font-mono ">
@@ -91,14 +91,14 @@ function Action({
               selected == "yes" ? "bg-green-500" : "bg-gray-400/30"
             }`}
             click={() => setSelected("yes")}
-            text={`  Yes ${price && price?.[0].cost.toFixed(2)}`}
+            text={`  Yes ${price && price?.[0]?.price}`}
           />
           <Button
             style={` w-1/2 !text-md font-light  ${
               selected == "no" ? "bg-red-500" : "bg-gray-400/30"
             }`}
             click={() => setSelected("no")}
-            text={` No ${price && price?.[1].cost.toFixed(2)}`}
+            text={` No ${(price && price?.[1]?.price) || 0 || 0}`}
           />
         </section>
         {currentState == "Sell" && (
@@ -144,17 +144,17 @@ function Action({
             isLoading={isLoader}
           />
           <section className="mt-3">
-            {currentState == "Buy" && (
-              <div className="flex justify-between">
-                <p>RETURN</p>
-                <p className="text-green-400">
-                  $
-                  {amount
-                    ? parseFloat(quoteData?.formattedQuote || "").toFixed(2)
-                    : "0"}
-                </p>
-              </div>
-            )}
+            {/* {currentState == "Buy" && ( */}
+            <div className="flex justify-between">
+              <p>RETURN</p>
+              <p className="text-green-400">
+                $
+                {amount
+                  ? parseFloat(quoteData?.formattedQuote || "").toFixed(2)
+                  : "0"}
+              </p>
+            </div>
+            {/* )} */}
           </section>
         </div>
       </div>

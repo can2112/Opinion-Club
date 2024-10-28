@@ -6,13 +6,21 @@ import useTransaction from "@/utils/hooks/transaction";
 import { LogicProps, OrderBody, QuoteData } from "./types";
 import nextClient from "@/utils/clients/nextClient";
 
-const useLogic = ({ questionId, currentState }: LogicProps) => {
-  const [selected, setSelected] = useState("yes");
+const useLogic = ({
+  questionId,
+  currentState,
+  selected,
+  setSelected,
+}: LogicProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [amount, setAmount] = useState("");
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [quoteErr, setQuoteErr] = useState("");
   const [isLoader, setLoader] = useState(false);
+  const [currentPrice, setCurrentPrice] = useState([
+    { price: "" },
+    { price: "" },
+  ]);
   const { waitForBlock } = useTransaction();
 
   const [prevVal, setPrevVal] = useState({
@@ -210,6 +218,34 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
     },
   });
 
+  interface PriceData {
+    outcomeIndex: number;
+    buy: string;
+    sell: string;
+    timestamp: string;
+  }
+
+  const convertPrices = () => {
+    if (currentState == "Sell") {
+      const sell = price?.map((value: PriceData) => {
+        return {
+          price: parseFloat(value.sell).toFixed(2),
+        };
+      });
+      return sell;
+    } else {
+      const sell = price?.map((value: PriceData) => {
+        return { price: parseFloat(value.buy).toFixed(2) };
+      });
+      return sell;
+    }
+  };
+
+  useEffect(() => {
+    const value = convertPrices();
+    setCurrentPrice(value);
+  }, [currentState, price]);
+
   return {
     handleOrder,
     selected,
@@ -222,7 +258,7 @@ const useLogic = ({ questionId, currentState }: LogicProps) => {
     quoteData,
     isLoader,
     prepBalance,
-    price,
+    price: currentPrice,
     reFetchPrice,
   };
 };
