@@ -45,7 +45,7 @@ export function CarouselPlugin({ data }: { data: Icart[] }) {
                         </h1>
                         <Button
                           variant="outline"
-                          className="text-black font-mono font-bold rounded-2xl mt-6"
+                          className="text-black  font-bold rounded-2xl mt-6"
                         >
                           <Link href={url}> Trade Now</Link>
                         </Button>

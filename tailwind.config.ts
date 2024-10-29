@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+
 const config: Config = {
   darkMode: ["class"],
   content: [
@@ -10,6 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        textPrimary: "#3D3D3D",
+        textSecondary:"#5D5D61",
         front: "#f5f4ef",
         background: "#ffffff",
         foreground: "#1a1a1a",
@@ -56,6 +59,10 @@ const config: Config = {
         lg: "0.5rem",
         md: "calc(0.5rem - 2px)",
         sm: "calc(0.5rem - 4px)",
+      },
+      fontSize: {
+        "md-custom": "1rem",
+        "xs-custom": "0.875rem",
       },
     },
   },

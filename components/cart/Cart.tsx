@@ -33,29 +33,31 @@ function Cart({ title, eventId, image, vol, liqudity }: CartProp) {
               <Avatar>
                 <AvatarImage src={image || defaultImage} />
               </Avatar>
-              <p className=" font-mono flex-1 w-[80%]">{title}</p>
+              <p className="text-textPrimary  flex-1 w-[80%] font-bold text-md-custom">
+                {title}
+              </p>
               <CgChevronRight className="h-6 w-6 absolute top-5 right-1" />
             </section>
-            <div className="flex gap-3 pb-5  px-2 left-2  justify-between items-center  mt-7  font-mono">
+            <div className="flex gap-3 pb-5  px-2 left-2  justify-between items-center  mt-7  ">
               <section className="absolute top-[4.8rem] left-5  w-[97%] flex gap-4">
                 <Button
                   variant={"outline"}
                   size={"lg"}
-                  className="bg-green-500/30 hover:bg-green-500/50"
+                  className="bg-green-500/20 text-green-400 font-bold hover:bg-green-500/50"
                 >
                   Yes
                 </Button>
                 <Button
                   variant={"outline"}
                   size={"lg"}
-                  className="bg-red-500/30 hover:bg-red-500/50"
+                  className="bg-red-500/20 text-red-400 font-bold hover:bg-red-500/50"
                 >
                   No
                 </Button>
               </section>
             </div>
-            <section className="flex w-full  h-full justify-between items-center mt-8">
-              <p className="flex items-center gap-2 text-customPrimary">
+            <section className="flex w-full text-textSecondary  h-full justify-between text-sm font-medium items-center mt-10">
+              <p className="flex items-center gap-2  text-customPrimary">
                 <Image
                   src={"/Img.svg"}
                   alt="trophy"
@@ -64,7 +66,7 @@ function Cart({ title, eventId, image, vol, liqudity }: CartProp) {
                 />
                 Liquidity: ${liqudity}
               </p>
-              <p className="flex gap-2">
+              <p className="flex gap-2 ">
                 TRADES:<span>{vol}</span>
               </p>
             </section>

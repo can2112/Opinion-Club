@@ -22,7 +22,7 @@ function Action({
   } = useLogic({ questionId, currentState, selected, setSelected });
 
   return (
-    <div className="flex flex-col border-2 border-white/10 bg-box rounded-xl w-full font-mono ">
+    <div className="flex flex-col border-2 border-white/10 bg-box rounded-xl w-full  ">
       <div className="flex justify-between">
         <section className="flex gap-10 p-3">
           <p

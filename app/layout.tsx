@@ -4,7 +4,7 @@ import Provider from "@/context";
 import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import "@rainbow-me/rainbowkit/styles.css";
+import { Inter } from "next/font/google";
 import BottomBar from "@/components/navbar/BottomBar";
 
 export const metadata: Metadata = {
@@ -13,6 +13,12 @@ export const metadata: Metadata = {
     "Opinion Club empowers you to create and customize your own marketplace, offering users the ability to share and explore unique opinions, products, or services tailored to their preferences.",
 };
 
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  style: "normal",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="">
+      <body className={inter.className}>
         <Provider>
           <Navbar />
           <div className="pb-44 pt-4 md:py-20 md:px-5  px-3  ">{children}</div>
