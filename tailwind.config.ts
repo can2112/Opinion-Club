@@ -59,7 +59,22 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }: any) {
+      addUtilities({
+        ".no-horizontal-scrollbar": {
+          overflowX: "auto",
+          /* Hide scrollbar for Firefox */
+          scrollbarWidth: "none",
+          /* Hide scrollbar for Chrome, Safari, Edge */
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+      });
+    },
+  ],
 };
 
 export default config;
