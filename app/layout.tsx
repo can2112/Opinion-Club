@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["500", "700"],
+  weight: ["500", "700", "400"],
   style: "normal",
 });
 
@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Provider>
           <Navbar />
-          <div className="pb-44 pt-4 md:py-20 md:px-5  px-3  ">{children}</div>
+          <div className="pb-44 pt-4 md:py-20  ">{children}</div>
           <ToastContainer
             position="top-right"
             autoClose={3000}

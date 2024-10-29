@@ -6,35 +6,27 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 import { ApiResponse, CreateMarketBody } from "@/utils/Interfaces/market";
 import useTransaction from "@/utils/hooks/transaction";
-import Wait from "@/components/wait/Wait";
 import nextClient from "@/utils/clients/nextClient";
+import DatePicker from "@/components/date/Date";
+import { Button } from "@/components/ui/button";
+import { Info, Loader2 } from "lucide-react";
 
 function Page() {
+  const [loading, setLoading] = useState<boolean>(false);
   const [title, setTitle] = useState("");
   const [fundingAmount, setFundingAmount] = useState<string>("");
-  const [expiryDate, setExpiryDate] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
-  const [sourceOfTruth, setSourceOfTruth] = useState("");
-  const [stepper, setStepper] = useState([
-    { name: "MARKET DETAIL", state: true },
-    { name: "UPLOAD IMAGE", state: false },
-    { name: "CREATING MARKET", state: false },
-  ]);
-
-  const [titleErr, setTitleErr] = useState("");
-  const [descErr, setDescErr] = useState("");
-  const [dateErr, setDateErr] = useState("");
-  const [imgErr, setImgErr] = useState("");
-  const [srcErr, setSrcErr] = useState("");
-  const [amountErr, setAmountErr] = useState("");
-  const { address } = useAccount();
   const router = useRouter();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [progress, setProgress] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [statusMessage, setStatusMessage] = useState(
     "Hold tight, magic in progress!"
   );
   const { sendTransaction } = useTransaction();
+  const [date, setDate] = React.useState<Date>();
+  const { address } = useAccount();
 
   const mutation = useMutation({
     mutationFn: async (createMarketBody: CreateMarketBody) => {
@@ -60,59 +52,61 @@ function Page() {
             const response = await nextClient.post(`/update-txn`, body);
             return response.data;
           } catch (error) {
+            setLoading(false);
+            toast.error("Failed to locate transaction");
             console.error("Failed to locate transaction", error);
-            setStepper([
-              { name: "MARKET DETAIL", state: true },
-              { name: "UPLOAD IMAGE", state: false },
-              { name: "CREATING MARKET", state: false },
-            ]);
           }
         };
         const status = await updateTxnHash();
 
         if (status.success) {
           setStatusMessage("Success! Funding approved!");
-
           setTimeout(() => {
             toast.success("Market created successfully!");
             router.push("/");
+            setLoading(false);
           }, 3000);
         }
       } else {
-        setStepper([
-          { name: "MARKET DETAIL", state: true },
-          { name: "UPLOAD IMAGE", state: false },
-          { name: "CREATING MARKET", state: false },
-        ]);
+        setLoading(false);
         toast.error("Transaction failed. Please try again.");
       }
     },
     onError: () => {
-      setStepper([
-        { name: "MARKET DETAIL", state: true },
-        { name: "UPLOAD IMAGE", state: false },
-        { name: "CREATING MARKET", state: false },
-      ]);
+      setLoading(false);
       toast.error("Error creating market. Please try again.");
     },
   });
 
   const handleSubmit = () => {
-    if (stepper[0].state && stepper[1].state) {
-      if (!image) {
-        return setImgErr("Required");
-      }
-    }
+    setLoading(true);
     if (!address) {
-      return toast.info("Please connect your wallet!😳");
+      setLoading(false);
+      return toast.warning("Please connect your wallet!😳");
     }
 
-    setStepper([
-      { ...stepper[0] },
-      { ...stepper[1] },
-      { ...stepper[2], state: true },
-    ]);
-    const formattedDate = new Date(expiryDate).toISOString();
+    if (!title) {
+      setLoading(false);
+      return toast.warning("Title is required");
+    }
+    if (!description) {
+      setLoading(false);
+      return toast.warning("Rules are required");
+    }
+    if (!date) {
+      setLoading(false);
+      return toast.warning("Date are required");
+    }
+    if (!fundingAmount) {
+      setLoading(false);
+      return toast.warning("Commitment is required");
+    }
+    if (!image) {
+      setLoading(false);
+      return toast.warning("Image is required");
+    }
+
+    const formattedDate = new Date(date).toISOString();
 
     const createMarketBody = {
       fromAddress: address,
@@ -131,7 +125,7 @@ function Page() {
         ],
         description,
         expiryDate: formattedDate,
-        sourceOfTruth,
+        sourceOfTruth: "CNN,BBC",
       },
       fundingAmount,
     };
@@ -142,161 +136,35 @@ function Page() {
     mutation.mutate(createMarketBody);
   };
 
-  const handleNext = () => {
-    if (title.length < 5) {
-      return setTitleErr("Market question must be at least 5 characters");
-    }
-    if (description.length < 5) {
-      setTitleErr("");
-      return setDescErr("Market question must be at least 5 characters");
-    }
-
-    if (!sourceOfTruth) {
-      setTitleErr("");
-      setDescErr("");
-      return setSrcErr("Required");
-    }
-
-    if (!fundingAmount) {
-      setTitleErr("");
-      setDescErr("");
-      setSrcErr("");
-      return setAmountErr("Funding amount is Required");
-    }
-    if (!expiryDate) {
-      setSrcErr("");
-      setAmountErr("");
-      setDescErr("");
-      setTitleErr("");
-      return setDateErr("Required");
-    }
-
-    setStepper([
-      { ...stepper[0] },
-      { ...stepper[1], state: true },
-      { ...stepper[2] },
-    ]);
-  };
-
-  const inputClasses =
-    "bg-box relative py-4 px-4 text-white mt-3 focus:outline-primary text-sm rounded-md w-full outline-none";
+  const inputClasses = `bg-white broder-border  border outline-black text-textPrimary placeholder:text-textPrimary font-normal w-full py-2 px-3 rounded-lg`;
 
   return (
-    <main className=" px-1 md:px-52">
-      <section className="">
-        <center className="text-2xl font-bold">CREATE MARKET</center>
-        <div className="flex mt-5  gap-4 w-full">
-          {stepper.map((res) => {
-            return (
-              <div className="w-full" key={res.name}>
-                <p
-                  className={`w-full h-1 ${
-                    res.state ? "bg-customPrimary" : "bg-gray-800"
-                  }`}
-                />
-                <p className="mt-3 text-sm">{res.name}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-      {stepper[0].state && !stepper[1].state && (
-        <div className="mt-10">
-          <section className="mt-5 ">
-            <div className=" mt-3 text-gray-600  font-semibold">
-              <p className=" text-white font-semibold"> MARKET QUESTION</p>
-              <p className="text-gray-400 font-sans mt-3">
-                Ask a question about a future outcome
-              </p>
-              <input
-                type="text"
-                placeholder="Which of the following candidate will win the 2024 election?"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className={inputClasses}
-              />
-              <p className="absolute text-red-500 bottom mt-2">{titleErr}</p>
-            </div>
-            <div>
-              <p className="mt-10 text-white font-semibold">
-                RESOLUTION CRITERIA
-              </p>
-              <p className="text-gray-400 font-sans mt-3">
-                Write down description and the conditions the market will
-                resolve. This can&apos;t be changed once the market is created.
-              </p>
-              <textarea
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className={inputClasses}
-              />
-              <p className="absolute text-red-500 ">{descErr}</p>
-            </div>
-
-            <div>
-              <p className="mt-10 text-white font-semibold">SOURCE OF TRUTH</p>
-              <p className="text-gray-400 font-sans mt-3">
-                Enter a source of truth
-              </p>
-              <input
-                type="text"
-                placeholder="Source of truth"
-                value={sourceOfTruth}
-                onChange={(e) => setSourceOfTruth(e.target.value)}
-                required
-                className={inputClasses}
-              />
-              <p className="absolute text-red-500 mt-1">{srcErr}</p>
-            </div>
-            <div>
-              <p className="mt-10 text-white font-semibold">STAKE AMOUNT</p>
-              <p className="text-gray-400 font-sans mt-3">
-                Enter a funding amount for your market
-              </p>
-              <input
-                type="text"
-                placeholder="Stake Amount"
-                value={fundingAmount}
-                onChange={(e) => setFundingAmount(e.target.value)}
-                required
-                className={inputClasses}
-              />
-              <p className="absolute text-red-500 mt-1">{amountErr}</p>
-            </div>
-            <div>
-              <p className="mt-10 text-white font-semibold">EXPIRATION TIME</p>
-              <p className="text-gray-400 font-sans mt-3">
-                Listed in your local timezone. Market must resolve within 48
-                hours post deadline.
-              </p>
-              <input
-                type="date"
-                placeholder="End Date"
-                value={expiryDate}
-                onChange={(e) => setExpiryDate(e.target.value)}
-                className={inputClasses}
-              />
-              <p className="absolute text-red-500 mt-1">{dateErr}</p>
-            </div>
-          </section>
-          <section className="w-full flex justify-center mt-10">
-            <button
-              onClick={() => handleNext()}
-              className="bg-customPrimary hover:bg-customPrimary/80 text-black w-full md:w-1/2 py-4 px-4 rounded-md font-semibold "
-            >
-              NEXT
-            </button>
-          </section>
-        </div>
-      )}
-
-      {stepper[0].state && stepper[1].state && !stepper[2].state && (
-        <div className="mt-10">
-          <p className="mt-10 text-white font-semibold">UPLOAD IMAGE</p>
-          <p className="text-gray-400 font-sans mt-3">
-            Please enter the url the of image for your market.
-          </p>
+    <main className=" md:px-52 px-3 text-black bg-[#f7f7f7]">
+      <center className="text-2xl font-bold py-4">Add Market/Question</center>
+      <div className="mt-10">
+        <section className="mt-5 flex flex-col gap-3 ">
+          <input
+            type="text"
+            placeholder="Enter Question/Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className={inputClasses}
+          />
+          <textarea
+            placeholder="Enter Market Rules here"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className={inputClasses}
+          />
+          <input
+            type="number"
+            placeholder="LP commitment"
+            value={fundingAmount}
+            onChange={(e) => setFundingAmount(e.target.value)}
+            required
+            className={inputClasses}
+          />
+          <DatePicker date={date} setDate={setDate} />
           <input
             type="text"
             placeholder="Image URL"
@@ -304,40 +172,21 @@ function Page() {
             onChange={(e) => setImage(e.target.value)}
             className={inputClasses}
           />
-          <p className="absolute text-red-500 mt-1">{imgErr}</p>
-          <div>
-            <p className="mt-10 text-white font-semibold">UPLOAD IMAGE</p>
-            <p className="text-gray-400 font-sans mt-1">
-              You will receive a 1.5% fee from markets you create. A small gas
-              fee $0.2 will be charged upon market creation.
-            </p>
-          </div>
-          <section className="flex gap-6 mt-10">
-            <button
-              className="bg-gray-300 hover:bg-gray-300/80 text-black w-1/2 py-4 px-4 rounded-md font-semibold "
-              onClick={() => {
-                setStepper([
-                  { ...stepper[0] },
-                  { ...stepper[1], state: false },
-                  { ...stepper[2] },
-                ]);
-              }}
-            >
-              Back
-            </button>
-            <button
-              className="bg-customPrimary hover:bg-customPrimary/80 text-black w-1/2 py-4 px-4 rounded-md font-semibold "
-              onClick={() => handleSubmit()}
-            >
-              Next
-            </button>
-          </section>
-        </div>
-      )}
-
-      {stepper[0].state && stepper[1].state && stepper[2].state && (
-        <Wait progress={progress} statusMessage={statusMessage} />
-      )}
+          <center className="flex items-center  text-md-custom gap-5  justify-center text-textSecondary mt-7">
+            <section className="flex items-center gap-2 ">
+              Cost to Post <Info />
+            </section>
+            :<span className="text-textPrimary font-bold">100 USDC</span>
+          </center>
+          <Button
+            className="bg-green-600 py-7 text-lg font-bold hover:bg-green-800 rounded-full"
+            disabled={loading}
+            onClick={handleSubmit}
+          >
+            {loading ? <Loader2 className="animate-spin h-4 w-4" /> : "Post"}
+          </Button>
+        </section>
+      </div>
     </main>
   );
 }

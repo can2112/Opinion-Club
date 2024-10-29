@@ -29,7 +29,7 @@ export default async function Home() {
     );
 
   return (
-    <main className="h-screen md:px-[5%]">
+    <main className="h-screen md:px-[5%]  px-3 ">
       <div className="">
         <CarouselPlugin data={data.data.slice(0, 4)} />
         <Filter />

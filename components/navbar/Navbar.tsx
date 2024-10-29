@@ -45,7 +45,7 @@ function Navbar() {
         <Button
           variant="outline"
           onClick={() => open()}
-          className={"rounded-full"}
+          className={"rounded-full px-1"}
         >
           {isConnected && (
             <Avatar>
