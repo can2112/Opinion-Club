@@ -16,7 +16,10 @@ function Navbar() {
   return (
     <div className=" bg-front p-3  flex justify-between sticky top-0 z-40 ">
       <div className="flex items-center gap-5">
-        <Link className="flex items-center cursor-pointer" href={"/"}>
+        <Link
+          className="flex text-black items-center cursor-pointer"
+          href={"/"}
+        >
           <strong>OPINION</strong>
         </Link>
       </div>
@@ -25,6 +28,7 @@ function Navbar() {
         <div className="md:flex gap-12 hidden">
           <NavLink label="MARKETS" route="/" />
           <NavLink label="CREATE" route="/market/create" />
+          <NavLink label="PORTFOLIO" route="/user/portfolio" />
         </div>
 
         <Button
@@ -41,7 +45,7 @@ function Navbar() {
 
           {isConnected
             ? `${address?.slice(0, 4)}....${address?.slice(-4)}`
-            : " Connect Wallet"}
+            : " CONNECT WALLET"}
           <CgChevronDown className="h-4 w-4" />
         </Button>
       </section>
