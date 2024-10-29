@@ -8,18 +8,29 @@ import { useAppKit } from "@reown/appkit/react";
 import { Button } from "../ui/button";
 import { CgChevronDown } from "react-icons/cg";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { usePathname, useRouter } from "next/navigation";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 function Navbar() {
   const { address, isConnected } = useAccount();
   const { open } = useAppKit();
+  const router = useRouter();
+  const path = usePathname();
 
   return (
     <div className=" bg-front p-3  flex justify-between sticky top-0 z-40 ">
       <div className="flex items-center gap-5">
         <Link
-          className="flex text-black items-center cursor-pointer"
+          className="flex text-black gap-2 items-center cursor-pointer"
           href={"/"}
         >
+          {path != "/" && (
+            <IoArrowBackCircleOutline
+              size={32}
+              className="cursor-pointer hover:bg-slate-300"
+              onClick={() => router.back()}
+            />
+          )}
           <strong>OPINION</strong>
         </Link>
       </div>
