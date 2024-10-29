@@ -30,14 +30,14 @@ export function CarouselPlugin({ data }: { data: Icart[] }) {
             res.questionId
           }`;
           return (
-            <CarouselItem key={index}>
+            <CarouselItem key={index} className="basis-[88%] md:basis-[95%]">
               <Card>
                 <CardContent
-                  className={`flex aspect-square rounded-lg h-44 md:h-72  w-full items-center justify-center p-6 ${
+                  className={`flex overflow-hidden  aspect-square relative rounded-lg h-44 md:h-72  w-full items-center justify-center p-6 ${
                     index % 2 ? "bg-black" : "bg-red-500"
                   } text-white`}
                 >
-                  <div className="w-full relative">
+                  <div className="w-full ">
                     <section className="flex justify-between w-full gap-2 items-center">
                       <div>
                         <h1 className="font-bold text-xl w-[65%]">
@@ -50,7 +50,7 @@ export function CarouselPlugin({ data }: { data: Icart[] }) {
                           <Link href={url}> Trade Now</Link>
                         </Button>
                       </div>
-                      <div className=" absolute -right-7 bottom-2 md:bottom-10 h-full">
+                      <div className=" absolute -right-7 top-6 md:top-11 h-full">
                         <Image
                           src={res?.image}
                           alt={"market_image"}

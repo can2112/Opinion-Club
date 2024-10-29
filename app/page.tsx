@@ -28,8 +28,10 @@ export default async function Home() {
     );
 
   return (
-    <main className="h-screen">
-      <CarouselPlugin data={data.data.slice(0, 4)} />
+    <main className="h-screen px-[5%]">
+      <div className="">
+        <CarouselPlugin data={data.data.slice(0, 4)} />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3   mt-5">
         {data?.data?.map((ques: Icart) => {
           return (
