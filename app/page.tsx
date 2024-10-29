@@ -28,9 +28,9 @@ export default async function Home() {
     );
 
   return (
-    <main className="bg-[#F7F7F7]    h-screen">
-      <CarouselPlugin data={data.data.slice(2)} />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4   mt-5">
+    <main className="h-screen">
+      <CarouselPlugin data={data.data.slice(0, 4)} />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3   mt-5">
         {data?.data?.map((ques: Icart) => {
           return (
             <div key={ques.questionId} className="">

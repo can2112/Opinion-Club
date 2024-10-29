@@ -37,26 +37,29 @@ export function CarouselPlugin({ data }: { data: Icart[] }) {
                     index % 2 ? "bg-black" : "bg-red-500"
                   } text-white`}
                 >
-                  <div className="w-full">
+                  <div className="w-full relative">
                     <section className="flex justify-between w-full gap-2 items-center">
-                      <h1>{res?.title}</h1>
-                      <div className="overflow-hidden  rounded-lg max-w-[100px] sm:max-w-[150px] md:max-w-[200px] lg:max-w-[300px]">
+                      <div>
+                        <h1 className="font-bold text-xl w-[65%]">
+                          {res?.title}
+                        </h1>
+                        <Button
+                          variant="outline"
+                          className="text-black font-mono font-bold rounded-2xl mt-6"
+                        >
+                          <Link href={url}> Trade Now</Link>
+                        </Button>
+                      </div>
+                      <div className=" absolute -right-7 bottom-2 md:bottom-10 h-full">
                         <Image
                           src={res?.image}
                           alt={"market_image"}
-                          width={80}
-                          height={80}
-                          className="w-full h-auto max-w-[100px] sm:max-w-[150px] md:max-w-[200px] lg:max-w-[300px] rounded-lg object-cover"
-                          layout="responsive"
+                          width={200}
+                          height={200}
+                          className="w-full h-[130px] md:h-[200px] max-w-[150px] sm:max-w-[200px] md:max-w-[300px] lg:max-w-[400px] rounded-l-full border-4 border-[#473C3C]/60 object-cover "
                         />
                       </div>
                     </section>
-                    <Button
-                      variant="outline"
-                      className="text-black rounded-2xl mt-6"
-                    >
-                      <Link href={url}> Trade Now</Link>
-                    </Button>
                   </div>
                 </CardContent>
               </Card>

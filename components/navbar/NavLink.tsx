@@ -10,19 +10,19 @@ function NavLink({
 }: {
   route: string;
   label: string;
-  Icon?: React.FC<{ size: number; color: string }>;
+  Icon?: React.FC<{ size?: number; color: string }>;
 }) {
   const pathname = usePathname();
-  const color = pathname === route ? "#1ad5c7" : "white";
+  const color = pathname === route ? "#1E9C6C" : "#000000";
   return (
     <Link
       href={route}
       className={`flex justify-center items-center flex-col ${
-        pathname === route ? "text-customPrimary" : "text-white"
+        pathname === route ? "text-[#1E9C6C]" : "text-black"
       } `}
     >
       {Icon && <Icon size={34} color={color} />}
-      <p className="tracking-widest">{label}</p>
+      <p className={`tracking-widest text-sm`}>{label}</p>
     </Link>
   );
 }

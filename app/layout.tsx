@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className="">
         <Provider>
           <Navbar />
-          <div className="pb-28 pt-4 md:py-20 md:px-5  px-3  ">{children}</div>
+          <div className="pb-44 pt-4 md:py-20 md:px-5  px-3  ">{children}</div>
           <ToastContainer
             position="top-right"
             autoClose={3000}

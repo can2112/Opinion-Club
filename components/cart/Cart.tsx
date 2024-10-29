@@ -23,7 +23,7 @@ function Cart({ title, eventId, image, vol, liqudity }: CartProp) {
 
   return (
     <Link
-      className=" bg-white border-border relative px-5 py-2  flex flex-col rounded-lg  cursor-pointer  text-black "
+      className=" bg-white border-border border relative px-5 py-2  flex flex-col rounded-xl  cursor-pointer  text-black "
       href={dynamicRoute}
     >
       <div className=" py-3">
@@ -37,18 +37,18 @@ function Cart({ title, eventId, image, vol, liqudity }: CartProp) {
               <CgChevronRight className="h-6 w-6 absolute top-5 right-1" />
             </section>
             <div className="flex gap-3 pb-5  px-2 left-2  justify-between items-center  mt-7  font-mono">
-              <section className="absolute top-15  w-[97%] flex gap-4">
+              <section className="absolute top-[4.8rem] left-5  w-[97%] flex gap-4">
                 <Button
                   variant={"outline"}
                   size={"lg"}
-                  className="bg-green-500/30"
+                  className="bg-green-500/30 hover:bg-green-500/50"
                 >
                   Yes
                 </Button>
                 <Button
                   variant={"outline"}
                   size={"lg"}
-                  className="bg-red-500/30"
+                  className="bg-red-500/30 hover:bg-red-500/50"
                 >
                   No
                 </Button>
