@@ -73,7 +73,6 @@ async function Page({ params }: MarketProps) {
             No
           </Button>
         </CardContent>
-        <div>modal</div>
       </Card>
 
       <Card className="mt-5">
