@@ -17,13 +17,13 @@ interface CartProp {
 }
 
 function Cart({ title, eventId, image, vol, liqudity }: CartProp) {
-  const dynamicRoute = `market/${encodeURIComponent(title)}?mId=${eventId}`;
+  const dynamicRoute = `market/${eventId}`;
   const defaultImage =
     "https://polymarket.com/_next/image?url=https%3A%2F%2Fpolymarket-upload.s3.us-east-2.amazonaws.com%2Fus-election-tipping-point-state-QaKzIk2CFwii.png&w=96&q=75";
 
   return (
     <Link
-      className=" bg-white border-border border relative px-5 py-2  flex flex-col rounded-xl  cursor-pointer  text-black "
+      className=" bg-white border-border border h-52 relative px-5 py-2  flex flex-col rounded-xl  cursor-pointer  text-black "
       href={dynamicRoute}
     >
       <div className=" py-3">
