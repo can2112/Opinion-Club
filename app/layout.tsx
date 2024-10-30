@@ -1,11 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import Provider from "@/context";
-import Navbar from "@/components/navbar/Navbar";
+import Navbar from "./components/nav/top/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Inter } from "next/font/google";
-import BottomBar from "@/components/navbar/BottomBar";
+import BottomBar from "./components/nav/BottomBar";
 
 export const metadata: Metadata = {
   title: "Opinion Club",

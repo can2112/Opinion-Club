@@ -1,17 +1,9 @@
-// "use client";
-import Action from "@/components/trade/Action";
 import Image from "next/image";
-import nextClient from "@/utils/clients/nextClient";
-import { FC, useState } from "react";
-// import { useSearchParams } from "next/navigation";
-// import { useQuery } from "@tanstack/react-query";
-// import { toast } from "react-toastify";
-// import { LineChart } from "@/components/charts/LineChart";
+
 import { IoLinkSharp } from "react-icons/io5";
-import { error } from "console";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "../../components/ui/card";
 import { Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import { FiClock } from "react-icons/fi";
 import { formatDate } from "@/utils/common/formatDate";
 

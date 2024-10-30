@@ -1,7 +1,7 @@
-import { CarouselPlugin } from "@/components/cart/Carousel";
-import Cart from "@/components/cart/Cart";
-import Filter from "@/components/filter/Filter";
-import CartSk from "@/components/skeleton/skeleton";
+import { CarouselPlugin } from "./components/cart/Carousel";
+import Cart from "./components/cart/Cart";
+import Filter from "./components/filter/Filter";
+import CartSk from "./components/skeleton/skeleton";
 import { Icart } from "@/utils/Interfaces/common";
 import { error } from "console";
 

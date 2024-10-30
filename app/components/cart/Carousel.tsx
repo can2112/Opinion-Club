@@ -1,17 +1,16 @@
 "use client";
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "../../components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "@/components/ui/carousel";
+} from "../../components/ui/carousel";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { Icart } from "@/utils/Interfaces/common";
-
 export function CarouselPlugin({ data }: { data: Icart[] }) {
   const plugin = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })

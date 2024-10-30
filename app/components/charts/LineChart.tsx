@@ -8,7 +8,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "../../components/ui/chart";
 import nextClient from "@/utils/clients/nextClient";
 import { formatDate } from "@/utils/common/formatDate";
 import { useEffect } from "react";

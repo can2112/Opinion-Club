@@ -1,9 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-
-// import { formatDate } from "@/utils/common/formatDate";
+import { Avatar, AvatarImage } from "../../components/ui/avatar";
 import { Button } from "../ui/button";
 import { CgChevronRight } from "react-icons/cg";
 

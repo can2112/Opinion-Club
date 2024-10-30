@@ -12,10 +12,6 @@ function Filter() {
     "News",
     "Entertainment",
   ];
-
-
-
-
   return (
     <div className="w-full mt-7 overflow-hidden text-xs-custom font-bold">
       <div className="overflow-y-auto flex justify-between gap-2 no-horizontal-scrollbar ">
