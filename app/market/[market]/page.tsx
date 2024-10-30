@@ -1,7 +1,6 @@
 import Image from "next/image";
-
 import { IoLinkSharp } from "react-icons/io5";
-import { Card, CardContent, CardTitle } from "../../components/ui/card";
+import { Card, CardContent } from "../../components/ui/card";
 import { Star } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { FiClock } from "react-icons/fi";
@@ -12,7 +11,6 @@ interface MarketProps {
 }
 const fetchMarketData = async (market: string) => {
   const url = `${process.env.NEXT_PUBLIC_SERVER}/markets/fetch/${market}`;
-  console.log(url, "url-=->");
   const response = await fetch(url, {
     cache: "no-cache",
   });
