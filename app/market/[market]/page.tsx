@@ -27,7 +27,7 @@ async function Page({ params }: MarketProps) {
   const { title, image, expiryDate } = data?.data || {};
 
   return (
-    <main className="px-4 ">
+    <main className="px-3  md:px-52  ">
       <section className="flex justify-between">
         <Image
           src={image}
@@ -66,10 +66,10 @@ async function Page({ params }: MarketProps) {
 
       <Card className="mt-5 py-2  text-heading">
         <CardContent className="flex justify-between gap-4 py-4 w-full">
-          <Button className="w-full font-bold text-lg bg-green-600/20 text-green-600">
+          <Button className="w-full font-bold text-lg bg-green-600/20 text-green-600 hover:bg-green-700/20">
             Yes
           </Button>
-          <Button className="w-full font-bold text-lg bg-red-600/20 text-red-500">
+          <Button className="w-full font-bold text-lg bg-red-600/20 text-red-500 hover:bg-red-700/20">
             No
           </Button>
         </CardContent>
