@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { IoLinkSharp } from "react-icons/io5";
 import { Card, CardContent } from "../../components/ui/card";
-import { Star } from "lucide-react";
+import { FaRegStar } from "react-icons/fa";
 import { Button } from "../../components/ui/button";
 import { FiClock } from "react-icons/fi";
 import { formatDate } from "@/utils/common/formatDate";
+import Action from "./Action";
 
 interface MarketProps {
   params: { market: string };
@@ -34,12 +35,12 @@ async function Page({ params }: MarketProps) {
           width={100}
           height={100}
           alt="logo"
-          className="h-20 w-20 rounded-full"
+          className="h-20 w-20 rounded-full "
           layout="cover"
         />
         <div className="flex gap-3 items-center">
-          <Star />
-          <IoLinkSharp size={32} className="-rotate-45" />
+          <FaRegStar size={27} className="cursor-pointer" />
+          <IoLinkSharp size={32} className="-rotate-45 cursor-pointer" />
         </div>
       </section>
       <h1 className="mt-6 text-lg font-bold text-heading">{title}</h1>
@@ -48,7 +49,13 @@ async function Page({ params }: MarketProps) {
         <CardContent>
           <div className="flex items-center mt-4  justify-between ">
             <div className="flex gap-2 items-center font-bold ">
-              <Image src={"/SVG.svg"} width={30} height={30} alt="sound-bar" />
+              <Image
+                src={"/SVG.svg"}
+                width={30}
+                height={30}
+                alt="sound-bar"
+                className="cursor-pointer"
+              />
               Amount Bet
             </div>
 
@@ -56,7 +63,7 @@ async function Page({ params }: MarketProps) {
           </div>
           <div className="flex items-center mt-4 justify-between ">
             <div className="flex gap-2 items-center font-bold ">
-              <FiClock size={28} />
+              <FiClock size={28} className="cursor-pointer" />
               End Date
             </div>
             <p>{formatDate(expiryDate)}</p>
@@ -75,15 +82,10 @@ async function Page({ params }: MarketProps) {
         </CardContent>
       </Card>
 
-      <Card className="mt-5">
-        {/* <Action
-          price={Costs}
-          setCurrentState={setBuySellState}
-          currentState={buySellState}
-          questionId={eventId}
-          selected={selected}
-          setSelected={setSelected}
-        /> */}
+      <Card className="mt-5 ">
+        <CardContent className="py-4 px-2">
+          <Action questionId={market} />
+        </CardContent>
       </Card>
     </main>
   );

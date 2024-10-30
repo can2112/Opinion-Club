@@ -16,7 +16,7 @@ const useLogic = ({
   const [amount, setAmount] = useState("");
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [quoteErr, setQuoteErr] = useState("");
-  const [isLoader, setLoader] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [currentPrice, setCurrentPrice] = useState([
     { price: "" },
     { price: "" },
@@ -127,34 +127,34 @@ const useLogic = ({
       if (txnReceipt) {
         const balance = await refetch();
         if (balance) {
-          setLoader(false);
+          setLoading(false);
           toast.success("Transaction successful");
         } else {
-          setLoader(false);
+          setLoading(false);
           toast.error("Something went wrong");
         }
       }
     },
     onError: () => {
-      setLoader(false);
+      setLoading(false);
       toast.error("Something went wrong");
     },
   });
 
   const handleOrder = async () => {
-    setLoader(true);
+    setLoading(true);
     if (!address || !isConnected) {
-      setLoader(false);
+      setLoading(false);
       return toast.warning("Please connect your wallet");
     }
 
     if (currentState === "Sell" && amount < prepBalance) {
-      setLoader(false);
+      setLoading(false);
       return toast.warning("Not enough balance ");
     }
 
     if (!amount) {
-      setLoader(false);
+      setLoading(false);
       return toast.warning("Please enter amount");
     }
     const orderBody = {
@@ -205,15 +205,15 @@ const useLogic = ({
       });
 
       if (txnStatus) {
-        setLoader(false);
+        setLoading(false);
         toast.success("Transaction successful");
       } else {
-        setLoader(false);
+        setLoading(false);
         toast.error("Something went wrong");
       }
     },
     onError: () => {
-      setLoader(false);
+      setLoading(false);
       toast.error("Something went wrong");
     },
   });
@@ -256,7 +256,7 @@ const useLogic = ({
     setAmount,
     quoteErr,
     quoteData,
-    isLoader,
+    loading,
     prepBalance,
     price: currentPrice,
     reFetchPrice,

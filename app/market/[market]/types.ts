@@ -1,14 +1,9 @@
-interface Price {
+export interface Price {
   optionId: number;
   cost: number;
 }
 export interface ActionProps {
-  setCurrentState: (arg: string) => void;
-  currentState: string;
-  price?: Price[];
   questionId: string | undefined | null;
-  selected: string;
-  setSelected: (arg: string) => void;
 }
 
 export interface LogicProps {
