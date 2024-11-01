@@ -8,7 +8,7 @@ import { formatDate } from "@/utils/common/formatDate";
 import Action from "./Action";
 
 interface MarketProps {
-  params: { market: string };
+  params: Promise<{ market: string }>;
 }
 const fetchMarketData = async (market: string) => {
   const url = `${process.env.NEXT_PUBLIC_SERVER}/markets/fetch/${market}`;
@@ -20,7 +20,8 @@ const fetchMarketData = async (market: string) => {
   }
   return response.json();
 };
-async function Page({ params }: MarketProps) {
+async function Page(props: MarketProps) {
+  const params = await props.params;
   const { market } = params;
 
   const data = await fetchMarketData(market);
