@@ -3,6 +3,7 @@ import Link from "next/link";
 import NavLink from "../NavLink";
 import { WalletConnection } from "./Wallet";
 import { BackIcon } from "./Back";
+import Image from "next/image";
 
 function Navbar() {
   return (
@@ -13,7 +14,7 @@ function Navbar() {
           className="flex text-black gap-2 items-center cursor-pointer"
           href={"/"}
         >
-          <strong>OPINION</strong>
+          <Image src={"/dark_logo.svg"} alt="logo" width={80} height={80} />
         </Link>
       </div>
 

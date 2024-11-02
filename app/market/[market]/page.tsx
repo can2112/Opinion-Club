@@ -2,10 +2,9 @@ import Image from "next/image";
 import { IoLinkSharp } from "react-icons/io5";
 import { Card, CardContent } from "../../components/ui/card";
 import { FaRegStar } from "react-icons/fa";
-import { Button } from "../../components/ui/button";
 import { FiClock } from "react-icons/fi";
 import { formatDate } from "@/utils/common/formatDate";
-import Action from "./Action";
+import Client from "./Client";
 
 interface MarketProps {
   params: Promise<{ market: string }>;
@@ -72,22 +71,7 @@ async function Page(props: MarketProps) {
         </CardContent>
       </Card>
 
-      <Card className="mt-5 py-2  text-heading">
-        <CardContent className="flex justify-between gap-4 py-4 w-full">
-          <Button className="w-full font-bold text-lg bg-green-600/20 text-green-600 hover:bg-green-700/20">
-            Yes
-          </Button>
-          <Button className="w-full font-bold text-lg bg-red-600/20 text-red-500 hover:bg-red-700/20">
-            No
-          </Button>
-        </CardContent>
-      </Card>
-
-      <Card className="mt-5 ">
-        <CardContent className="py-4 px-2">
-          <Action questionId={market} />
-        </CardContent>
-      </Card>
+      <Client questionId={market} />
     </main>
   );
 }

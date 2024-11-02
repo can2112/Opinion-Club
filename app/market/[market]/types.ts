@@ -1,26 +1,35 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface Price {
   optionId: number;
   cost: number;
 }
-export interface ActionProps {
-  questionId: string | undefined | null;
-}
-
 export interface LogicProps {
-  questionId: string | null | undefined;
+  questionId: string | undefined | null;
   currentState: string;
   selected: string;
-  setSelected: (arg: string) => void;
+  setSelected: Dispatch<SetStateAction<string>>;
+}
+export interface ActionProps extends LogicProps {
+  setCurrentState: Dispatch<SetStateAction<string>>;
 }
 
 export interface QuoteData {
   formattedQuote: string;
   quote: string;
 }
+
 export interface OrderBody {
   questionId: string | undefined | null;
   side: number;
   outcomeIndex: number;
   amount: string;
   fromAddress: string;
+}
+
+export interface Ticker {
+  outcomeIndex: number;
+  buy: string;
+  sell: string;
+  timestamp: Date;
 }

@@ -1,15 +1,16 @@
-"use client";
 import useLogic from "./useLogic";
 import { ActionProps } from "./types";
 import { Button } from "@/app/components/ui/button";
 import Image from "next/image";
-import { useState } from "react";
 import SwipeButton from "./Swipe";
 
-function Action({ questionId }: ActionProps) {
-  const [currentState, setCurrentState] = useState("Buy");
-  const [selected, setSelected] = useState("yes");
-
+function Action({
+  questionId,
+  selected,
+  setSelected,
+  currentState,
+  setCurrentState,
+}: ActionProps) {
   const {
     amount,
     setAmount,
@@ -142,11 +143,21 @@ function Action({ questionId }: ActionProps) {
           </p>
         </div>
         <div className="mt-5">
-          <SwipeButton
-            currentState={currentState}
-            onSwipe={handleOrder}
-          ></SwipeButton>
-          <section className="mt-3"></section>
+          <section className="md:hidden">
+            <SwipeButton currentState={currentState} onSwipe={handleOrder} />
+          </section>
+
+          <section className="hidden md:flex">
+            <Button
+              className={`w-full ${
+                currentState === "Buy"
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-red-600 hover:bg-red-700"
+              }`}
+            >
+              {currentState?.toUpperCase()}
+            </Button>
+          </section>
         </div>
       </div>
     </div>
