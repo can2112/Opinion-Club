@@ -84,12 +84,12 @@ const useTransaction = () => {
     data,
     setStatusMessage,
     setProgress,
+    setLoading,
   }: SentTxn): Promise<{ txnHash: string | undefined } | null | undefined> => {
     try {
       let signedTxn = false;
-      if (setStatusMessage)
-        setStatusMessage("Hang on, we’re sending the wallet request!");
-      if (setProgress) setProgress(20);
+      setStatusMessage?.("Hang on, we’re sending the wallet request!");
+      setProgress?.(20);
       if (!isConnected) {
         const connector = connectors[0];
         connect({ connector });
@@ -105,19 +105,17 @@ const useTransaction = () => {
           // *sending approve txn
           const sentTx = await signer?.sendTransaction(approveBody);
           if (sentTx) {
-            if (setProgress) setProgress(50);
-            if (setStatusMessage)
-              setStatusMessage("You’re halfway through, keep going!");
-          }
-          // *waiting for one block to confirm
-          confirm = await waitForBlock({ txnHash: sentTx?.hash, number: 1 });
-        }
-      }
+            setProgress?.(50);
+            setStatusMessage?.("You’re halfway through, keep going!");
 
-      if (confirm || signedTxn) {
-        if (setProgress) setProgress(50);
-        if (setStatusMessage) {
-          setStatusMessage("So close! Almost complete!");
+            // *waiting for one block to confirm
+            confirm = await waitForBlock({ txnHash: sentTx?.hash, number: 1 });
+          }
+        }
+
+        if (confirm || signedTxn) {
+          setProgress?.(50);
+          setStatusMessage?.("So close! Almost complete!");
         }
 
         const fundData = signedTxn ? data[0] : data[1];
@@ -131,6 +129,8 @@ const useTransaction = () => {
         }
       }
     } catch (error) {
+      setLoading?.(false);
+      toast.error("Something went wrong");
       console.log(error);
       return null;
     }

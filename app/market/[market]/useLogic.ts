@@ -119,6 +119,7 @@ const useLogic = ({
     onSuccess: async (data) => {
       const txnStatus = await sendTransaction({
         data: data.data,
+        setLoading,
       });
       const txnReceipt = await waitForBlock({
         txnHash: txnStatus?.txnHash,
@@ -141,20 +142,25 @@ const useLogic = ({
     },
   });
 
-  const handleOrder = async () => {
+  const handleOrder = async ({
+    resetSwipe,
+  }: { resetSwipe?: () => void } = {}) => {
     setLoading(true);
     if (!address || !isConnected) {
       setLoading(false);
+      resetSwipe?.();
       return toast.warning("Please connect your wallet");
     }
 
     if (currentState === "Sell" && amount < prepBalance) {
+      resetSwipe?.();
       setLoading(false);
       return toast.warning("Not enough balance ");
     }
 
     if (!amount) {
       setLoading(false);
+      resetSwipe?.();
       return toast.warning("Please enter amount");
     }
     const orderBody = {

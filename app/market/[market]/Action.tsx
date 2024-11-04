@@ -3,6 +3,7 @@ import { ActionProps } from "./types";
 import { Button } from "@/app/components/ui/button";
 import Image from "next/image";
 import SwipeButton from "./Swipe";
+import { Loader2 } from "lucide-react";
 
 function Action({
   questionId,
@@ -16,7 +17,7 @@ function Action({
     setAmount,
     quoteData,
     handleOrder,
-    // loading,
+    loading,
     prepBalance,
     price,
   } = useLogic({ questionId, currentState, selected, setSelected });
@@ -144,7 +145,11 @@ function Action({
         </div>
         <div className="mt-5">
           <section className="md:hidden">
-            <SwipeButton currentState={currentState} onSwipe={handleOrder} />
+            <SwipeButton
+              currentState={currentState}
+              onSwipe={handleOrder}
+              loading={loading}
+            />
           </section>
 
           <section className="hidden md:flex">
@@ -154,8 +159,14 @@ function Action({
                   ? "bg-green-600 hover:bg-green-700"
                   : "bg-red-600 hover:bg-red-700"
               }`}
+              disabled={loading}
+              onClick={() => handleOrder()}
             >
-              {currentState?.toUpperCase()}
+              {loading ? (
+                <Loader2 className="animate-spin h-4 w-4" />
+              ) : (
+                <p> {currentState?.toUpperCase()}</p>
+              )}
             </Button>
           </section>
         </div>

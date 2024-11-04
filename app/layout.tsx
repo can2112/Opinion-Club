@@ -28,8 +28,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Provider>
+          {/* <GlobalError> */}
           <Navbar />
           <div className="pb-44 pt-4 md:py-20  ">{children}</div>
+          {/* </GlobalError> */}
           <ToastContainer
             position="top-right"
             autoClose={3000}

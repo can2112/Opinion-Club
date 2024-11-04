@@ -22,4 +22,5 @@ export interface SentTxn {
   data: Transaction[];
   setStatusMessage?: (arg: string) => void;
   setProgress?: (arg: number) => void;
+  setLoading?: (arg: boolean) => void;
 }
