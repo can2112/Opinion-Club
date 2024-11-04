@@ -156,15 +156,17 @@ function Page() {
             onChange={(e) => setDescription(e.target.value)}
             className={inputClasses}
           />
-          <input
-            type="number"
-            placeholder="LP commitment"
-            value={fundingAmount}
-            onChange={(e) => setFundingAmount(e.target.value)}
-            required
-            className={inputClasses}
-          />
-          <DatePicker date={date} setDate={setDate} />
+          <div className="flex gap-2">
+            <input
+              type="number"
+              placeholder="LP commitment"
+              value={fundingAmount}
+              onChange={(e) => setFundingAmount(e.target.value)}
+              required
+              className={inputClasses}
+            />
+            <DatePicker date={date} setDate={setDate} />
+          </div>
           <input
             type="text"
             placeholder="Image URL"
