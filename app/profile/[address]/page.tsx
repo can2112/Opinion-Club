@@ -37,7 +37,7 @@ async function page(props: Profileprops) {
   }
 
   return (
-    <div className="flex flex-col w-screen h-screen  py-4">
+    <div className="flex flex-col py-4">
       <Avatar className="w-20 h-20">
         <AvatarImage src="https://github.com/shadcn.png" />
         <AvatarFallback>CN</AvatarFallback>
