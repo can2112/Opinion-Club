@@ -45,7 +45,7 @@ async function Page(props: MarketProps) {
       </section>
       <h1 className="mt-6 text-lg font-bold text-heading">{title}</h1>
 
-      <Card className="py-2 mt-7 text-heading">
+      <Card className="py-2 mt-7 shadow-none  text-heading">
         <CardContent>
           <div className="flex items-center mt-4  justify-between ">
             <div className="flex gap-2 items-center font-bold ">

@@ -13,7 +13,7 @@ export function WalletConnection() {
     <Button
       variant="outline"
       onClick={() => open()}
-      className={"rounded-full px-1"}
+      className={"rounded-full px-2"}
     >
       {isConnected && (
         <Avatar>

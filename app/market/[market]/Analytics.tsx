@@ -74,7 +74,7 @@ export function Analaytics({
     return () => clearInterval(intervalId);
   }, []);
   return (
-    <Card className=" ">
+    <Card className="shadow-none  ">
       <CardHeader>
         <CardTitle className="flex gap-2">
           <section className="flex gap-3">

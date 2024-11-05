@@ -13,7 +13,7 @@ const useLogic = ({
   setSelected,
 }: LogicProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState<number | null>(null);
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [quoteErr, setQuoteErr] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ const useLogic = ({
   const { waitForBlock } = useTransaction();
 
   const [prevVal, setPrevVal] = useState({
-    amount: "",
+    amount: 0,
     selected: "",
     currentState: "",
   });
@@ -74,7 +74,7 @@ const useLogic = ({
       questionId: questionId,
       side: currentState == "Buy" ? 0 : 1,
       outcomeIndex: selected == "yes" ? 0 : 1,
-      amount: amount,
+      amount: `${amount}`,
     };
     const response = await nextClient.post("/quote", body);
 
@@ -145,7 +145,13 @@ const useLogic = ({
   const handleOrder = async ({
     resetSwipe,
   }: { resetSwipe?: () => void } = {}) => {
+    if (loading) return;
     setLoading(true);
+    if (!amount) {
+      resetSwipe?.();
+      toast.warning("Please enter amount");
+      return setLoading(false);
+    }
     if (!address || !isConnected) {
       setLoading(false);
       resetSwipe?.();
@@ -167,12 +173,12 @@ const useLogic = ({
       questionId: questionId,
       side: currentState == "Buy" ? 0 : 1,
       outcomeIndex: selected == "yes" ? 0 : 1,
-      amount: amount,
+      amount: `${amount}`,
       fromAddress: address,
     };
     const lpBody = {
       questionId: questionId,
-      fundingAmount: amount,
+      fundingAmount: `${amount}`,
       fromAddress: address,
     };
     const lpUrl =

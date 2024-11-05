@@ -27,7 +27,7 @@ function Client({ questionId }: { questionId: string }) {
           />
         </div>
 
-        <Card className="w-full col-span-1  hidden md:flex">
+        <Card className="w-full col-span-1 shadow-none  hidden md:flex">
           <Action
             questionId={questionId}
             selected={selected}

@@ -141,7 +141,7 @@ function Page() {
   return (
     <main className=" text-black ">
       <center className="text-2xl font-bold py-4">Add Market/Question</center>
-      <div className="mt-10">
+      <div className="mt-8">
         <section className="mt-5 flex flex-col gap-3 ">
           <input
             type="text"

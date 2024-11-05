@@ -1,9 +1,8 @@
 import useLogic from "./useLogic";
 import { ActionProps } from "./types";
 import { Button } from "@/app/components/ui/button";
-import Image from "next/image";
 import SwipeButton from "./Swipe";
-import { Loader2 } from "lucide-react";
+import { Loader2, Minus, Plus } from "lucide-react";
 
 function Action({
   questionId,
@@ -22,6 +21,15 @@ function Action({
     price,
   } = useLogic({ questionId, currentState, selected, setSelected });
 
+  const potentialRound =
+    (amount &&
+      (parseFloat(quoteData?.formattedQuote || "0") - amount) / amount) ||
+    0;
+
+  const roundPer = parseFloat(`${potentialRound * 100}`).toFixed(2);
+  const avgPrice =
+    parseFloat(`${amount}`) / parseFloat(quoteData?.formattedQuote || "0");
+
   return (
     <div className="flex flex-col  border-2 border-white/10 bg-box rounded-xl w-full  ">
       <div className="flex justify-between">
@@ -29,7 +37,7 @@ function Action({
           <Button
             variant={`${currentState == "Buy" ? "outline" : "ghost"}`}
             className={`${
-              currentState == "Buy" && " font-bold  bg-gray-300"
+              currentState == "Buy" && " font-bold  bg-gray-100"
             } rounded-full text-lg hover:rounded-full`}
             onClick={() => setCurrentState("Buy")}
           >
@@ -38,7 +46,7 @@ function Action({
           <Button
             variant={`${currentState == "Sell" ? "outline" : "ghost"}`}
             className={`${
-              currentState == "Sell" && " font-bold  bg-gray-300"
+              currentState == "Sell" && " font-bold  bg-gray-100"
             } rounded-full text-lg hover:rounded-full`}
             onClick={() => setCurrentState("Sell")}
           >
@@ -75,13 +83,13 @@ function Action({
       <div className="flex justify-between p-3 flex-col">
         <p className="text-normal">Outcome</p>
 
-        <section className="flex  mt-2 gap-2">
+        <section className="flex relative  mt-2 gap-3">
           <Button
             className={` ${
               selected == "yes"
                 ? "bg-green-600 hover:bg-green-700"
                 : "bg-gray-400/30 hover:bg-gray-400/50 text-black"
-            } w-full`}
+            } w-full py-6`}
             onClick={() => setSelected("yes")}
           >
             {`Yes ${price && price?.[0]?.price}`}
@@ -91,56 +99,72 @@ function Action({
               selected == "no"
                 ? "bg-red-600 hover:bg-red-700"
                 : "bg-gray-400/30 hover:bg-gray-400/50 text-black"
-            } w-full`}
+            } w-full py-6`}
             onClick={() => setSelected("no")}
           >
             {`No ${price && price?.[0]?.price}`}
           </Button>
         </section>
-        {currentState == "Sell" && (
-          <div className="py-2  flex justify-between ">
-            <p
-              className={`${
-                selected === "no" ? "text-red-500" : "text-green-500"
-              }`}
-            >
-              {prepBalance ? parseFloat(prepBalance).toFixed(2) : "0"} shares
-            </p>
-          </div>
-        )}
 
-        <section className="mt-5 relative">
+        <section className="mt-9 relative">
           <h2 className="mb-1">
-            {currentState === "Buy" ? "You are Buying" : "You are Selling"}
+            {currentState === "Buy" ? "You're Buying" : "You're Selling"}
           </h2>
+
+          <div
+            className="absolute left-4 bottom-2 text-2xl cursor-pointer z-50"
+            onClick={() => {
+              setAmount((prev) => (prev != null && prev > 0 ? prev - 1 : 0));
+            }}
+          >
+            <Minus color="#9199B1" />
+            <span className="h-[2px] w-7 rotate-90 left-4 bottom-3 rounded bg-[#DBDDE5] absolute" />
+          </div>
+          <div
+            className="absolute right-4 bottom-2 text-2xl cursor-pointer z-50"
+            onClick={() => setAmount((prev) => (prev != null ? ++prev : 1))}
+          >
+            <Plus color="black" />
+            <span className="h-[2px] w-7 rotate-90 right-4 bottom-3 rounded bg-[#DBDDE5] absolute" />
+          </div>
+
           <input
-            type="string"
+            type="number"
             placeholder="$10.00"
-            value={amount}
+            value={amount || ""}
             onChange={(e) => {
               const value = e.target.value;
               if (/^\d*\.?\d*$/.test(value)) {
-                setAmount(value);
+                setAmount(parseInt(value));
               } else {
               }
             }}
-            className="bg-white broder-border  border outline-black text-textPrimary placeholder:text-textPrimary font-normal w-full py-2 px-3 rounded-lg"
-          />
-          <Image
-            src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=035"
-            height={20}
-            width={20}
-            alt="usdtLogo"
-            className="absolute right-2 bottom-[0.7rem] "
+            className="bg-white  text-center broder-border  border outline-black text-textPrimary placeholder:text-textPrimary font-normal w-full py-2 px-3 rounded-lg"
           />
         </section>
         <div className="flex mt-10 px-1 justify-between text-md-custom">
+          <p className="text-textSecondary">Avg Price</p>
+          <p className="text-black ">
+            {" "}
+            {quoteData?.formattedQuote && amount
+              ? parseFloat(`${avgPrice}` || "0").toFixed(2)
+              : "0"}
+          </p>
+        </div>
+        <div className="flex mt-1 px-1 justify-between text-md-custom">
+          <p className="text-textSecondary">Shares</p>
+          <p className="text-black ">
+            {prepBalance ? parseFloat(prepBalance).toFixed(2) : "0"}
+          </p>
+        </div>
+        <div className="flex mt-1 px-1 justify-between text-md-custom">
           <p className="text-textSecondary">Potential returns</p>
           <p className="text-green-400">
             $
-            {amount
+            {quoteData?.formattedQuote
               ? parseFloat(quoteData?.formattedQuote || "").toFixed(2)
-              : "0"}
+              : "0"}{" "}
+            ({roundPer})
           </p>
         </div>
         <div className="mt-5">
@@ -154,7 +178,7 @@ function Action({
 
           <section className="hidden md:flex">
             <Button
-              className={`w-full ${
+              className={`w-full  ${
                 currentState === "Buy"
                   ? "bg-green-600 hover:bg-green-700"
                   : "bg-red-600 hover:bg-red-700"

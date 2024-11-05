@@ -14,7 +14,7 @@ function Filter() {
   ];
   return (
     <div className="w-full mt-7 overflow-hidden text-xs-custom font-bold">
-      <div className="overflow-y-auto flex justify-between gap-2 no-horizontal-scrollbar ">
+      <div className="overflow-y-auto flex justify-between gap-4 no-horizontal-scrollbar ">
         {filters.map((res: string, index: number) => {
           return (
             <Button
