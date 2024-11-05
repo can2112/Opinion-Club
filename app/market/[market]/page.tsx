@@ -28,7 +28,7 @@ async function Page(props: MarketProps) {
   const { title, image, expiryDate } = data?.data || {};
 
   return (
-    <main className="px-3  md:px-52  ">
+    <main className=" ">
       <section className="flex justify-between">
         <Image
           src={image}
