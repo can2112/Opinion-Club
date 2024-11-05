@@ -7,9 +7,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { CgChevronDown } from "react-icons/cg";
 
 export function WalletConnection() {
-  const { open } = useAppKit();
   const { address, isConnected } = useAccount();
-
+  const { open } = useAppKit();
   return (
     <Button
       variant="outline"
