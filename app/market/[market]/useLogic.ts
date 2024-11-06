@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 import useTransaction from "@/utils/hooks/transaction";
 import { LogicProps, OrderBody, QuoteData } from "./types";
 import nextClient from "@/utils/clients/nextClient";
+import debounce from "@/utils/common/debounce";
 
 const useLogic = ({
   questionId,
@@ -92,6 +93,8 @@ const useLogic = ({
       toast.error("Unable to fetch quotation");
     },
   });
+  const debouncedMutate = useCallback(debounce(mutation.mutate, 600), []);
+
   useEffect(() => {
     if (amount) {
       if (
@@ -99,11 +102,11 @@ const useLogic = ({
         prevVal.currentState != currentState ||
         prevVal.selected != selected
       ) {
-        mutation.mutate();
+        debouncedMutate();
         setPrevVal({ amount, currentState, selected });
       }
       const interval = setInterval(() => {
-        mutation.mutate();
+        debouncedMutate();
       }, 15000);
 
       return () => clearInterval(interval);

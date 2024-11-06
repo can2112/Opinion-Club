@@ -25,7 +25,7 @@ async function Page(props: MarketProps) {
 
   const data = await fetchMarketData(market);
 
-  const { title, image, expiryDate } = data?.data || {};
+  const { title, image, expiryDate, tradeVolume } = data?.data || {};
 
   return (
     <main className=" ">
@@ -59,7 +59,7 @@ async function Page(props: MarketProps) {
               Amount Bet
             </div>
 
-            <p>$616,807,518</p>
+            <p>${tradeVolume}</p>
           </div>
           <div className="flex items-center mt-4 justify-between ">
             <div className="flex gap-2 items-center font-bold ">
