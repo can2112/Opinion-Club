@@ -71,7 +71,7 @@ export function Analaytics({
 
   useEffect(() => {
     convertChartData(data?.data);
-  }, [data.data]);
+  }, [data?.data]);
 
   useEffect(() => {
     const intervalId = setInterval(refetch, 10000);
