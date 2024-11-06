@@ -121,9 +121,10 @@ const useLogic = ({
 
     onSuccess: async (data) => {
       const txnStatus = await sendTransaction({
-        data: data.data,
+        data: data?.data,
         setLoading,
       });
+
       const txnReceipt = await waitForBlock({
         txnHash: txnStatus?.txnHash,
         number: 1,
@@ -167,11 +168,6 @@ const useLogic = ({
       return toast.warning("Not enough balance ");
     }
 
-    if (!amount) {
-      setLoading(false);
-      resetSwipe?.();
-      return toast.warning("Please enter amount");
-    }
     const orderBody = {
       questionId: questionId,
       side: currentState == "Buy" ? 0 : 1,
@@ -244,13 +240,13 @@ const useLogic = ({
     if (currentState == "Sell") {
       const sell = price?.map((value: PriceData) => {
         return {
-          price: parseFloat(value.sell).toFixed(2),
+          price: value.sell,
         };
       });
       return sell;
     } else {
       const sell = price?.map((value: PriceData) => {
-        return { price: parseFloat(value.buy).toFixed(2) };
+        return { price: value.buy };
       });
       return sell;
     }

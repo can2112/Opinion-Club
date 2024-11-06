@@ -52,7 +52,7 @@ function Action({
           </Button>
         </section>
 
-        <section className="p-3 flex items-center gap-2 cursor-pointer relative">
+        {/* <section className="p-3 flex items-center gap-2 cursor-pointer relative">
           <span
             className={`absolute top-12 left-1 rounded-md w-1/2 h-1 ${
               currentState === "Add" || currentState === "Remove"
@@ -73,7 +73,7 @@ function Action({
             <option value={"Add"}>Add</option>
             <option value={"Remove"}>Remove</option>
           </select>
-        </section>
+        </section> */}
       </div>
 
       <span className="w-full h-1 bg-white/10" />
@@ -90,7 +90,7 @@ function Action({
             } w-full py-6`}
             onClick={() => setSelected("yes")}
           >
-            {`Yes ${price && price?.[0]?.price}`}
+            {`Yes ${(price && price?.[0]?.price) || ""}`}
           </Button>
           <Button
             className={` ${
@@ -100,7 +100,7 @@ function Action({
             } w-full py-6`}
             onClick={() => setSelected("no")}
           >
-            {`No ${price && price?.[1]?.price}`}
+            {`No ${(price && price?.[1]?.price) || ""}`}
           </Button>
         </section>
 
@@ -159,7 +159,7 @@ function Action({
           <p className="text-textSecondary">Potential returns</p>
           <p className="text-green-400">
             $
-            {quoteData?.value
+            {quoteData?.value && amount
               ? parseFloat(quoteData?.value || "").toFixed(2)
               : "0"}{" "}
             ({roundPer})

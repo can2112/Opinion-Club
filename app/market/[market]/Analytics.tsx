@@ -56,7 +56,6 @@ export function Analaytics({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function convertChartData(data: any) {
     if (!data) return;
-    console.log("re calling the function->");
     const TokensData = data[0]?.map((res: Ticker, index: number) => {
       const date = formatDate(res.timestamp, true);
       const sellData = data[1];

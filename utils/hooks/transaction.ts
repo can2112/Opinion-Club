@@ -112,11 +112,10 @@ const useTransaction = () => {
             confirm = await waitForBlock({ txnHash: sentTx?.hash, number: 1 });
           }
         }
-
-        if (confirm || signedTxn) {
-          setProgress?.(50);
-          setStatusMessage?.("So close! Almost complete!");
-        }
+      }
+      if (confirm || signedTxn) {
+        setProgress?.(50);
+        setStatusMessage?.("So close! Almost complete!");
 
         const fundData = signedTxn ? data[0] : data[1];
         const fundTxBody = await prepareTxn(fundData);
