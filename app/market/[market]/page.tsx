@@ -10,7 +10,7 @@ interface MarketProps {
   params: Promise<{ market: string }>;
 }
 const fetchMarketData = async (market: string) => {
-  const url = `${process.env.NEXT_PUBLIC_SERVER}/markets/fetch/${market}`;
+  const url = `${process.env.SERVER_URL}/markets/fetch/${market}`;
   const response = await fetch(url, {
     cache: "no-cache",
   });

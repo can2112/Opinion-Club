@@ -6,7 +6,7 @@ import { Icart } from "@/utils/Interfaces/common";
 import { error } from "console";
 
 const fetchMarketData = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/markets`, {
+  const response = await fetch(`${process.env.SERVER_URL}/markets`, {
     cache: "no-cache",
   });
   if (!response.ok) {
