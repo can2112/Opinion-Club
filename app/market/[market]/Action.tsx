@@ -21,8 +21,6 @@ function Action({
     price,
   } = useLogic({ questionId, currentState, selected, setSelected });
 
-  console.log(quoteData, "quotedData");
-
   const potentialRound =
     (amount && (parseFloat(quoteData?.value || "0") - amount) / amount) || 0;
 
@@ -102,7 +100,7 @@ function Action({
             } w-full py-6`}
             onClick={() => setSelected("no")}
           >
-            {`No ${price && price?.[0]?.price}`}
+            {`No ${price && price?.[1]?.price}`}
           </Button>
         </section>
 

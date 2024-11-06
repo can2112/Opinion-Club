@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/chart";
 import { useQuery } from "@tanstack/react-query";
 import nextClient from "@/utils/clients/nextClient";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { formatDate } from "@/utils/common/formatDate";
 import { Ticker } from "./types";
@@ -24,12 +24,12 @@ import { Ticker } from "./types";
 export const description = "A multiple line chart";
 
 const chartConfig = {
-  buy: {
-    label: "buy",
+  yes: {
+    label: "yes",
     color: "hsl(var(--chart-2))",
   },
-  sell: {
-    label: "sell",
+  no: {
+    label: "no",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
@@ -41,6 +41,7 @@ export function Analaytics({
   questionId: string;
   outcomeIndex: number;
 }) {
+  const [chartData, setChartData] = useState();
   const { data, refetch } = useQuery({
     queryKey: ["fetchTicker"],
     queryFn: async () => {
@@ -52,21 +53,25 @@ export function Analaytics({
     },
   });
 
-  function convertChartData(data: Ticker[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function convertChartData(data: any) {
     if (!data) return;
-    const newData = data?.map((res: Ticker) => {
-      const formatedDate = formatDate(res.timestamp, true);
+    console.log("re calling the function->");
+    const TokensData = data[0]?.map((res: Ticker, index: number) => {
+      const date = formatDate(res.timestamp, true);
+      const sellData = data[1];
       return {
-        timeStamp: formatedDate,
-        buy: parseFloat(res.buy).toFixed(2),
-        sell: parseFloat(res.sell).toFixed(2),
+        timeStamp: date,
+        yes: parseFloat(res?.buy)?.toFixed(2),
+        no: parseFloat(sellData[index]?.buy).toFixed(2),
       };
     });
-
-    return newData;
+    setChartData(TokensData);
   }
 
-  const chartDataV1 = convertChartData(data?.data);
+  useEffect(() => {
+    convertChartData(data?.data);
+  }, [data.data]);
 
   useEffect(() => {
     const intervalId = setInterval(refetch, 10000);
@@ -78,11 +83,10 @@ export function Analaytics({
       <CardHeader>
         <CardTitle className="flex gap-2">
           <section className="flex gap-3">
-            Buy <div className="bg-[hsl(var(--chart-2))] h-4 rounded-sm w-4 " />
+            Yes <div className="bg-[hsl(var(--chart-2))] h-4 rounded-sm w-4 " />
           </section>
           <section className="flex gap-3">
-            Sell{" "}
-            <div className="bg-[hsl(var(--chart-1))] h-4 rounded-sm w-4 " />
+            No <div className="bg-[hsl(var(--chart-1))] h-4 rounded-sm w-4 " />
           </section>
         </CardTitle>
       </CardHeader>
@@ -90,7 +94,7 @@ export function Analaytics({
         <ChartContainer config={chartConfig}>
           <LineChart
             accessibilityLayer
-            data={chartDataV1}
+            data={chartData}
             margin={{
               left: 12,
               right: 12,
@@ -106,16 +110,16 @@ export function Analaytics({
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Line
-              dataKey="buy"
+              dataKey="yes"
               type="monotone"
-              stroke="var(--color-buy)"
+              stroke="var(--color-yes)"
               strokeWidth={2}
               dot={false}
             />
             <Line
-              dataKey="sell"
+              dataKey="no"
               type="monotone"
-              stroke="var(--color-sell)"
+              stroke="var(--color-no)"
               strokeWidth={2}
               dot={false}
             />
@@ -126,7 +130,7 @@ export function Analaytics({
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              {outcomeIndex == 0 ? "Yes" : "No"} token buy sell data{" "}
+              Tokens data
               <TrendingUp className="h-4 w-4" />
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground"></div>
