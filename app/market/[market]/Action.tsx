@@ -21,14 +21,14 @@ function Action({
     price,
   } = useLogic({ questionId, currentState, selected, setSelected });
 
+  console.log(quoteData, "quotedData");
+
   const potentialRound =
-    (amount &&
-      (parseFloat(quoteData?.formattedQuote || "0") - amount) / amount) ||
-    0;
+    (amount && (parseFloat(quoteData?.value || "0") - amount) / amount) || 0;
 
   const roundPer = parseFloat(`${potentialRound * 100}`).toFixed(2);
   const avgPrice =
-    parseFloat(`${amount}`) / parseFloat(quoteData?.formattedQuote || "0");
+    parseFloat(`${amount}`) / parseFloat(quoteData?.value || "0");
 
   return (
     <div className="flex flex-col  border-2 border-white/10 bg-box rounded-xl w-full  ">
@@ -146,7 +146,7 @@ function Action({
           <p className="text-textSecondary">Avg Price</p>
           <p className="text-black ">
             {" "}
-            {quoteData?.formattedQuote && amount
+            {quoteData?.value && amount
               ? parseFloat(`${avgPrice}` || "0").toFixed(2)
               : "0"}
           </p>
@@ -161,8 +161,8 @@ function Action({
           <p className="text-textSecondary">Potential returns</p>
           <p className="text-green-400">
             $
-            {quoteData?.formattedQuote
-              ? parseFloat(quoteData?.formattedQuote || "").toFixed(2)
+            {quoteData?.value
+              ? parseFloat(quoteData?.value || "").toFixed(2)
               : "0"}{" "}
             ({roundPer})
           </p>

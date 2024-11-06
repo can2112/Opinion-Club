@@ -17,6 +17,7 @@ export interface ActionProps extends LogicProps {
 export interface QuoteData {
   formattedQuote: string;
   quote: string;
+  value:string
 }
 
 export interface OrderBody {

@@ -54,7 +54,7 @@ export function Analaytics({
 
   function convertChartData(data: Ticker[]) {
     if (!data) return;
-    const newData = data.map((res: Ticker) => {
+    const newData = data?.map((res: Ticker) => {
       const formatedDate = formatDate(res.timestamp, true);
       return {
         timeStamp: formatedDate,
@@ -70,9 +70,9 @@ export function Analaytics({
 
   useEffect(() => {
     const intervalId = setInterval(refetch, 10000);
-
     return () => clearInterval(intervalId);
   }, []);
+
   return (
     <Card className="shadow-none  ">
       <CardHeader>

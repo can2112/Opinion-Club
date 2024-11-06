@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import MobileAction from "./MobileAction";
-import { Analaytics } from "./Analytics";
+// import { Analaytics } from "./Analytics";
 import Action from "./Action";
 import { Card } from "@/components/ui/card";
 
@@ -21,10 +21,10 @@ function Client({ questionId }: { questionId: string }) {
 
       <section className="flex gap-5 mt-5">
         <div className="w-full">
-          <Analaytics
+          {/* <Analaytics
             questionId={questionId}
             outcomeIndex={selected == "yes" ? 0 : 1}
-          />
+          /> */}
         </div>
 
         <Card className="w-full col-span-1 shadow-none  hidden md:flex">

@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   try {
     const response = await serverClient.get(
-      `/markets/tickers/${req.body.questionId}/${req.body.outcomeIndex}`
+      `/markets/tickers/${req.body.questionId}`
     );
     return res.status(response.status).send(response.data);
   } catch (error) {
