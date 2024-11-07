@@ -54,10 +54,10 @@ function Cart({ title, eventId, image, vol, liqudity }: CartProp) {
           <section className="flex w-full px-3 text-textSecondary  h-full justify-between text-sm font-medium items-center mt-2">
             <p className="flex items-center gap-2  text-customPrimary">
               <Image src={"/Img.svg"} alt="trophy" width={"25"} height={"25"} />
-              Liquidity: ${liqudity}
+              ${liqudity} Bet
             </p>
             <p className="flex gap-2 ">
-              TRADES:<span>{vol}</span>
+              <span>{vol} + Placed Bet</span>
             </p>
           </section>
         </div>

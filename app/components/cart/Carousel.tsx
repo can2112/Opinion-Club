@@ -12,7 +12,6 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { Icart } from "@/utils/Interfaces/common";
 export function CarouselPlugin({ data }: { data: Icart[] }) {
-
   const plugin = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })
   );
@@ -31,7 +30,7 @@ export function CarouselPlugin({ data }: { data: Icart[] }) {
             <CarouselItem key={index} className="basis-[88%] md:basis-[95%]">
               <Card>
                 <CardContent
-                  className={`flex overflow-hidden  aspect-square relative rounded-lg h-44 md:h-72  w-full items-center justify-center p-6 ${
+                  className={`flex overflow-hidden  aspect-square relative rounded-lg h-56  w-full items-center justify-center p-6 ${
                     index % 2 ? "bg-black" : "bg-red-500"
                   } text-white`}
                 >
