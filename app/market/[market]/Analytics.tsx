@@ -97,6 +97,8 @@ export function Analaytics({
             margin={{
               left: 12,
               right: 12,
+              top: 2,
+              bottom: 2,
             }}
           >
             <CartesianGrid vertical={false} />

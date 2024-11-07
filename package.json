@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prod": "next build && next start",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.1",
