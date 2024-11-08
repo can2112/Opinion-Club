@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Avatar, AvatarImage } from "../../components/ui/avatar";
-import { Button } from "../ui/button";
+import { Avatar, AvatarImage } from "./components/ui/avatar";
+import { Button } from "./components/ui/button";
 import { CgChevronRight } from "react-icons/cg";
 
 interface CartProp {

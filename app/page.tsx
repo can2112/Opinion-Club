@@ -1,6 +1,6 @@
-import { CarouselPlugin } from "./components/cart/Carousel";
-import Cart from "./components/cart/Cart";
-import Filter from "./components/filter/Filter";
+import { CarouselPlugin } from "./Carousel";
+import Cart from "./Cart";
+import Filter from "./Filter";
 import CartSk from "./components/skeleton/skeleton";
 import { Icart } from "@/utils/Interfaces/common";
 import { error } from "console";
@@ -17,6 +17,8 @@ const fetchMarketData = async () => {
 
 export default async function Home() {
   const data = await fetchMarketData();
+  setTimeout(() => {}, 10000);
+
   if (!data || data?.data?.length == 0)
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4   px-1  md:px-5">

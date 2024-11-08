@@ -1,14 +1,14 @@
 "use client";
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { Card, CardContent } from "../../components/ui/card";
+import { Card, CardContent } from "./components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "../../../components/ui/carousel";
+} from "../components/ui/carousel";
 import Image from "next/image";
-import { Button } from "../ui/button";
+import { Button } from "./components/ui/button";
 import Link from "next/link";
 import { Icart } from "@/utils/Interfaces/common";
 export function CarouselPlugin({ data }: { data: Icart[] }) {
@@ -47,7 +47,7 @@ export function CarouselPlugin({ data }: { data: Icart[] }) {
                           <Link href={url}> Trade Now</Link>
                         </Button>
                       </div>
-                      <div className=" absolute -right-7 top-6 md:top-11 h-full">
+                      <div className=" absolute -right-7 top-11 md:top-3 h-full">
                         <Image
                           src={res?.image}
                           alt={"market_image"}
