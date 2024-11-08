@@ -6,7 +6,6 @@ import useTransaction from "@/utils/hooks/transaction";
 import { LogicProps, OrderBody, QuoteData } from "./types";
 import nextClient from "@/utils/clients/nextClient";
 import debounce from "@/utils/common/debounce";
-import { checkDomainOfScale } from "recharts/types/util/ChartUtils";
 
 const useLogic = ({
   questionId,
