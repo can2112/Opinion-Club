@@ -136,6 +136,7 @@ const useLogic = ({
         if (balance) {
           setLoading(false);
           router.refresh();
+          reFetchPrice();
           toast.success("Transaction successful");
         } else {
           setLoading(false);
@@ -222,6 +223,7 @@ const useLogic = ({
         setLoading(false);
         toast.success("Transaction successful");
         router.refresh();
+        reFetchPrice();
       } else {
         setLoading(false);
         toast.error("Something went wrong");
