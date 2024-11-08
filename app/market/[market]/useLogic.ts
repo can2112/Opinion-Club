@@ -6,7 +6,7 @@ import useTransaction from "@/utils/hooks/transaction";
 import { LogicProps, OrderBody, QuoteData } from "./types";
 import nextClient from "@/utils/clients/nextClient";
 import debounce from "@/utils/common/debounce";
-
+import { checkDomainOfScale } from "recharts/types/util/ChartUtils";
 
 const useLogic = ({
   questionId,
@@ -163,7 +163,7 @@ const useLogic = ({
       return toast.warning("Please connect your wallet");
     }
 
-    if (currentState === "Sell" && amount < prepBalance) {
+    if (currentState === "Sell" && amount > prepBalance) {
       resetSwipe?.();
       setLoading(false);
       return toast.warning("Not enough balance ");
