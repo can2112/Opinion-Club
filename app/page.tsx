@@ -17,7 +17,6 @@ const fetchMarketData = async () => {
 
 export default async function Home() {
   const data = await fetchMarketData();
-  setTimeout(() => {}, 10000);
 
   if (!data || data?.data?.length == 0)
     return (
