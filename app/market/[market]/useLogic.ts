@@ -6,6 +6,7 @@ import useTransaction from "@/utils/hooks/transaction";
 import { LogicProps, OrderBody, QuoteData } from "./types";
 import nextClient from "@/utils/clients/nextClient";
 import debounce from "@/utils/common/debounce";
+import { useRouter } from "next/navigation";
 
 const useLogic = ({
   questionId,
@@ -13,6 +14,7 @@ const useLogic = ({
   selected,
   setSelected,
 }: LogicProps) => {
+  const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
   const [amount, setAmount] = useState<number | null>(null);
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
@@ -133,6 +135,7 @@ const useLogic = ({
         const balance = await refetch();
         if (balance) {
           setLoading(false);
+          router.refresh();
           toast.success("Transaction successful");
         } else {
           setLoading(false);
@@ -218,6 +221,7 @@ const useLogic = ({
       if (txnStatus) {
         setLoading(false);
         toast.success("Transaction successful");
+        router.refresh();
       } else {
         setLoading(false);
         toast.error("Something went wrong");
