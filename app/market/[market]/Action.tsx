@@ -133,8 +133,7 @@ function Action({
             onChange={(e) => {
               const value = e.target.value;
               if (/^\d*\.?\d*$/.test(value)) {
-                setAmount(parseInt(value));
-              } else {
+                setAmount(parseFloat(value));
               }
             }}
             className="bg-white  text-center broder-border  border outline-black text-textPrimary placeholder:text-textPrimary font-normal w-full py-2 px-3 rounded-lg"
