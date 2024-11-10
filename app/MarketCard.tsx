@@ -5,7 +5,7 @@ import { Avatar, AvatarImage } from "./components/ui/avatar";
 import { Button } from "./components/ui/button";
 import { CgChevronRight } from "react-icons/cg";
 
-interface CartProp {
+interface MarketProp {
   title: string;
   eventId: string;
   image: string;
@@ -14,10 +14,8 @@ interface CartProp {
   liqudity: string;
 }
 
-function Cart({ title, eventId, image, vol, liqudity }: CartProp) {
+function MarketCard({ title, eventId, image, vol, liqudity }: MarketProp) {
   const dynamicRoute = `market/${eventId}`;
-  const defaultImage =
-    "https://polymarket.com/_next/image?url=https%3A%2F%2Fpolymarket-upload.s3.us-east-2.amazonaws.com%2Fus-election-tipping-point-state-QaKzIk2CFwii.png&w=96&q=75";
 
   return (
     <Link
@@ -27,7 +25,7 @@ function Cart({ title, eventId, image, vol, liqudity }: CartProp) {
       <div className="text-sm ">
         <section className="flex w-full  items-center gap-3 ">
           <Avatar>
-            <AvatarImage src={image || defaultImage} />
+            <AvatarImage src={image} />
           </Avatar>
           <p className="text-textPrimary   w-[85%] font-bold text-md-custom">
             {title}
@@ -66,4 +64,4 @@ function Cart({ title, eventId, image, vol, liqudity }: CartProp) {
   );
 }
 
-export default Cart;
+export default MarketCard;

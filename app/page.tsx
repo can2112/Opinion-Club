@@ -1,7 +1,6 @@
 import { CarouselPlugin } from "./Carousel";
-import Cart from "./Cart";
+import MarketCard from "./MarketCard";
 import Filter from "./Filter";
-import CartSk from "./components/skeleton/skeleton";
 import { Icart } from "@/utils/Interfaces/common";
 import { error } from "console";
 
@@ -19,15 +18,7 @@ export default async function Home() {
   const data = await fetchMarketData();
 
   if (!data || data?.data?.length == 0)
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4   px-1  md:px-5">
-        {Array(40)
-          .fill(null)
-          .map((_, index) => {
-            return <CartSk key={index} />;
-          })}
-      </div>
-    );
+    return <div className=" text-center  ">No Market found</div>;
 
   return (
     <main className="h-screen ">
@@ -39,7 +30,7 @@ export default async function Home() {
         {data?.data?.map((ques: Icart) => {
           return (
             <div key={ques.questionId} className="">
-              <Cart
+              <MarketCard
                 title={ques?.title}
                 image={ques.image}
                 eventId={ques.questionId}
