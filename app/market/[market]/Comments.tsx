@@ -132,9 +132,9 @@ const CommentSection: React.FC<CommentSectionProps> = ({ marketId }) => {
   };
 
   return (
-    <div>
+    <div className="mt-4">
       <h3>Comments</h3>
-      <section className="relative">
+      <section className="relative mt-2">
         <input
           type="text"
           value={newComment}
