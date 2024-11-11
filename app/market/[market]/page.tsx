@@ -5,6 +5,7 @@ import { FaRegStar } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { formatDate } from "@/utils/common/formatDate";
 import Client from "./Client";
+import CommentSection from "./Comments";
 
 interface MarketProps {
   params: Promise<{ market: string }>;
@@ -72,6 +73,7 @@ async function Page(props: MarketProps) {
       </Card>
 
       <Client questionId={market} />
+      <CommentSection marketId={market} />
     </main>
   );
 }

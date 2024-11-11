@@ -4,6 +4,9 @@ import Link from "next/link";
 import { Avatar, AvatarImage } from "./components/ui/avatar";
 import { Button } from "./components/ui/button";
 import { CgChevronRight } from "react-icons/cg";
+import { FaRegStar } from "react-icons/fa";
+
+import { FaRegComment } from "react-icons/fa";
 
 interface MarketProp {
   title: string;
@@ -30,7 +33,7 @@ function MarketCard({ title, eventId, image, vol, liqudity }: MarketProp) {
           <p className="text-textPrimary   w-[85%] font-bold text-md-custom">
             {title}
           </p>
-          <CgChevronRight className="h-6 w-6 absolute top-3 right-1" />
+          <CgChevronRight className="h-6 w-6 absolute top-4 right-1" />
         </section>
         <div className="flex flex-col gap-3 pb-5  w-full absolute top-[4.8rem] left-0 justify-between items-center  mt-7  ">
           <section className="  w-full flex px-3 gap-4">
@@ -54,10 +57,19 @@ function MarketCard({ title, eventId, image, vol, liqudity }: MarketProp) {
               <Image src={"/Img.svg"} alt="trophy" width={"25"} height={"25"} />
               ${liqudity} Vol.
             </p>
-            <p className="flex gap-2 ">
+            {/* <p className="flex gap-2 ">
               <span>{vol} + Placed Bet</span>
-            </p>
-          </section>
+            </p> */}
+            <div className="flex gap-3 items-center">
+              <section className="hover:bg-gray-300 p-4">
+                <FaRegStar className="" />
+              </section>
+
+              <section className="flex items-center gap-1">
+                <FaRegComment /> 100
+              </section>
+            </div>
+          </section>  
         </div>
       </div>
     </Link>
