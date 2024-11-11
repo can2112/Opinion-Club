@@ -5,8 +5,9 @@ import { Avatar, AvatarImage } from "./components/ui/avatar";
 import { Button } from "./components/ui/button";
 import { CgChevronRight } from "react-icons/cg";
 import { FaRegStar } from "react-icons/fa";
-
 import { FaRegComment } from "react-icons/fa";
+import { firestore } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 interface MarketProp {
   title: string;
@@ -17,8 +18,21 @@ interface MarketProp {
   liqudity: string;
 }
 
-function MarketCard({ title, eventId, image, vol, liqudity }: MarketProp) {
+export const getCommentCount = async (marketId: string): Promise<number> => {
+  const commentsRef = collection(firestore, "markets", marketId, "comments");
+
+  try {
+    const snapshot = await getDocs(commentsRef);
+    return snapshot.size;
+  } catch (error) {
+    console.error("Error fetching comment count:", error);
+    return 0;
+  }
+};
+
+async function MarketCard({ title, eventId, image, liqudity }: MarketProp) {
   const dynamicRoute = `market/${eventId}`;
+  const commentCount = await getCommentCount(eventId);
 
   return (
     <Link
@@ -66,10 +80,10 @@ function MarketCard({ title, eventId, image, vol, liqudity }: MarketProp) {
               </section>
 
               <section className="flex items-center gap-1">
-                <FaRegComment /> 100
+                <FaRegComment /> {commentCount}
               </section>
             </div>
-          </section>  
+          </section>
         </div>
       </div>
     </Link>
