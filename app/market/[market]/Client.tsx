@@ -4,7 +4,7 @@ import MobileAction from "./MobileAction";
 import { Analaytics } from "./Analytics";
 import Action from "./Action";
 import { Card } from "@/components/ui/card";
-import CommentSection from "./Comments";
+import Activity from "./Activity";
 
 function Client({
   questionId,
@@ -38,7 +38,7 @@ function Client({
             />
           </div>
         </section>
-        <CommentSection marketId={questionId} />
+        <Activity questiondId={questionId} />
 
         <Card className="fixed right-36 top-[18.7rem] col-span-1 shadow-none w-1/4  hidden lg:flex">
           <Action
