@@ -1,33 +1,46 @@
 "use client";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import MobileAction from "./MobileAction";
 import { Analaytics } from "./Analytics";
 import Action from "./Action";
 import { Card } from "@/components/ui/card";
+import CommentSection from "./Comments";
 
-function Client({ questionId }: { questionId: string }) {
+function Client({
+  questionId,
+  children,
+}: {
+  questionId: string;
+  children: ReactNode;
+}) {
   const [selected, setSelected] = useState("yes");
   const [currentState, setCurrentState] = useState("Buy");
 
   return (
-    <div>
-      <MobileAction
-        questionId={questionId}
-        selected={selected}
-        setSelected={setSelected}
-        currentState={currentState}
-        setCurrentState={setCurrentState}
-      />
+    <div className="">
+      <div className=" fixed bottom-[3.7rem] md:bottom-0 w-screen right-0 z-50">
+        <MobileAction
+          questionId={questionId}
+          selected={selected}
+          setSelected={setSelected}
+          currentState={currentState}
+          setCurrentState={setCurrentState}
+        />
+      </div>
 
-      <section className="flex gap-5 mt-5">
-        <div className="w-full">
-          <Analaytics
-            questionId={questionId}
-            outcomeIndex={selected == "yes" ? 0 : 1}
-          />
-        </div>
+      <div className="flex flex-col w-full lg:w-3/5">
+        {children}
+        <section className="flex gap-5 mt-5">
+          <div className="w-full">
+            <Analaytics
+              questionId={questionId}
+              outcomeIndex={selected == "yes" ? 0 : 1}
+            />
+          </div>
+        </section>
+        <CommentSection marketId={questionId} />
 
-        <Card className="w-full col-span-1 shadow-none  hidden md:flex">
+        <Card className="fixed right-28 top-[18.5rem] col-span-1 shadow-none w-1/4  hidden lg:flex">
           <Action
             questionId={questionId}
             selected={selected}
@@ -36,7 +49,7 @@ function Client({ questionId }: { questionId: string }) {
             setCurrentState={setCurrentState}
           />
         </Card>
-      </section>
+      </div>
     </div>
   );
 }

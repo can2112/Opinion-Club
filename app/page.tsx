@@ -21,7 +21,7 @@ export default async function Home() {
     return <div className=" text-center  ">No Market found</div>;
 
   return (
-    <main className="h-screen ">
+    <main className="h-screen md:px-[8%]">
       <div className="">
         <CarouselPlugin data={data.data.slice(0, 4)} />
         <Filter />
@@ -29,11 +29,11 @@ export default async function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-3 pb-20   mt-5">
         {data?.data?.map((ques: Icart) => {
           return (
-            <div key={ques.questionId} className="">
+            <div key={ques.questionId}>
               <MarketCard
                 title={ques?.title}
                 image={ques.image}
-                eventId={ques.questionId}
+              eventId={ques.questionId}
                 endDate={ques.expiryDate}
                 vol={ques.tradeCount}
                 liqudity={ques?.liquidity}

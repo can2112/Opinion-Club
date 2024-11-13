@@ -134,13 +134,13 @@ const CommentSection: React.FC<CommentSectionProps> = ({ marketId }) => {
   return (
     <div className="mt-4">
       <h3>Comments</h3>
-      <section className="relative mt-2">
+      <section className="relative mt-2 z-30">
         <input
           type="text"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Add a comment"
-          className="bg-white  broder-border  border outline-black text-textPrimary placeholder:text-textPrimary font-normal w-full py-2 px-3 rounded-lg"
+          className="bg-white z-30  broder-border  border outline-black text-textPrimary placeholder:text-textPrimary font-normal w-full py-2 px-3 rounded-lg"
         />
         <Button
           className="text-blue-500 hover:text-blue-600 absolute right-0 top-1 text-lg"
@@ -214,7 +214,7 @@ const Comment: React.FC<CommentProps> = ({
   }, [comment?.id, marketId]);
 
   return (
-    <div className="mb-2 mt-5">
+    <div className="mb-2 mt-5 z-30">
       <section className="flex items-center gap-3">
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
@@ -284,7 +284,7 @@ const Comment: React.FC<CommentProps> = ({
         )}
 
         {openReplies && (
-          <div className="px-8 flex flex-col gap-2 mt-2">
+          <div className="px-8 flex flex-col gap-2 mt-2 z-30">
             {replies?.map((reply) => {
               return (
                 <div key={reply?.id}>

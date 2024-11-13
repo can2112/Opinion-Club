@@ -15,7 +15,7 @@ function MobileAction({
   const [open, setOpen] = useState(false);
   return (
     <div className="flex w-full flex-col">
-      <Card className="mt-5 py-2 shadow-none  text-heading md:hidden gap">
+      <Card className="mt-5 py-2 shadow-none rounded-b-none px-0  text-heading lg:hidden gap">
         <CardContent className="flex justify-between gap-4 py-4 w-full">
           <Button
             className="w-full font-bold text-lg bg-green-600/20 text-green-600 hover:bg-green-700/20"

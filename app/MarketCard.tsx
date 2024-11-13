@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Avatar, AvatarImage } from "./components/ui/avatar";
 import { Button } from "./components/ui/button";
 import { CgChevronRight } from "react-icons/cg";
-import { FaRegStar } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 import { firestore } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
@@ -30,7 +29,13 @@ export const getCommentCount = async (marketId: string): Promise<number> => {
   }
 };
 
-async function MarketCard({ title, eventId, image, liqudity }: MarketProp) {
+async function MarketCard({
+  title,
+  vol,
+  eventId,
+  image,
+  liqudity,
+}: MarketProp) {
   const dynamicRoute = `market/${eventId}`;
   const commentCount = await getCommentCount(eventId);
 
@@ -71,12 +76,13 @@ async function MarketCard({ title, eventId, image, liqudity }: MarketProp) {
               <Image src={"/Img.svg"} alt="trophy" width={"25"} height={"25"} />
               ${liqudity} Vol.
             </p>
-            {/* <p className="flex gap-2 ">
-              <span>{vol} + Placed Bet</span>
-            </p> */}
+
             <div className="flex gap-3 items-center">
-              <section className="hover:bg-gray-300 p-4">
-                <FaRegStar className="" />
+              <section className="hover:bg-gray-200 p-1 rounded-md">
+                <p className="flex gap-2 ">
+                  <span>{vol} + Placed Bet</span>
+                </p>
+                {/* <FaRegStar className="" /> */}
               </section>
 
               <section className="flex items-center gap-1">

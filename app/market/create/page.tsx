@@ -139,7 +139,7 @@ function Page() {
   const inputClasses = `bg-white broder-border  border outline-black text-textPrimary placeholder:text-textPrimary font-normal w-full py-2 px-3 rounded-lg`;
 
   return (
-    <main className=" text-black ">
+    <main className=" text-black md:px-[8%]">
       <center className="text-2xl font-bold py-4">Add Market/Question</center>
       <div className="mt-8">
         <section className="mt-5 flex flex-col gap-3 ">
