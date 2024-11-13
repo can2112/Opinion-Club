@@ -40,7 +40,7 @@ function Client({
         </section>
         <CommentSection marketId={questionId} />
 
-        <Card className="fixed right-28 top-[18.5rem] col-span-1 shadow-none w-1/4  hidden lg:flex">
+        <Card className="fixed right-36 top-[18.7rem] col-span-1 shadow-none w-1/4  hidden lg:flex">
           <Action
             questionId={questionId}
             selected={selected}
