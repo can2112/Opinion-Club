@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import CommentSection from "./Comments";
 
 function Activity({ questiondId }: { questiondId: string }) {
