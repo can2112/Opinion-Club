@@ -18,7 +18,7 @@ function MobileAction({
       <Card className="mt-5 py-2 shadow-none rounded-b-none px-0  text-heading lg:hidden gap">
         <CardContent className="flex justify-between gap-4 py-4 w-full">
           <Button
-            className="w-full font-bold text-lg bg-green-600/20 text-green-600 hover:bg-green-700/20"
+            className="w-full font-bold text-lg bg-green-600 text-white hover:bg-green-700"
             onClick={() => {
               setSelected("yes");
               return setOpen(true);
@@ -27,7 +27,7 @@ function MobileAction({
             Yes
           </Button>
           <Button
-            className="w-full font-bold text-lg bg-red-600/20 text-red-500 hover:bg-red-700/20"
+            className="w-full font-bold text-lg bg-red-600 text-white hover:bg-red-700"
             onClick={() => {
               setSelected("no");
               return setOpen(true);

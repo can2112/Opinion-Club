@@ -129,7 +129,7 @@ const useLogic = ({
 
       const txnReceipt = await waitForBlock({
         txnHash: txnStatus?.txnHash,
-        number: 1,
+        // number: 0,
       });
       if (txnReceipt) {
         const balance = await refetch();
