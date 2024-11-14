@@ -27,7 +27,7 @@ const Activity = ({ questionId }: { questionId: string }) => {
     return response.data;
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: ["market-activities", questionId],
       queryFn: ({ pageParam = null }) => fetchActivities({ pageParam }),
