@@ -27,17 +27,19 @@ const Activity = ({ questionId }: { questionId: string }) => {
     return response.data;
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteQuery({
       queryKey: ["market-activities", questionId],
-      queryFn: ({ pageParam = null }) => fetchActivities({ pageParam }),
-      getNextPageParam: (lastPage) => lastPage.next_id ?? undefined,
-      initialPageParam: null,
+      queryFn: ({ pageParam = "" }) => fetchActivities({ pageParam }),
+      getNextPageParam: (lastPage) =>
+        lastPage.data.next_id ? lastPage.data.next_id : null,
+      initialPageParam: "",
     });
 
   const activities = data?.pages?.flatMap((page) => page?.data?.trades) || [];
 
   const loadMoreActivities = useCallback(() => {
+    if (isLoading) return;
     if (hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
@@ -66,30 +68,34 @@ const Activity = ({ questionId }: { questionId: string }) => {
   return (
     <div className="">
       {activities?.map((act, index) => {
+        const price = act?.collateralAmount / act?.outcomeTokenTraded;
         return (
           <div key={index}>
             <section className="flex border gap-3 justify-between items-center border-border border-x-0 border-t-0 py-2">
               <div className="flex items-center gap-3">
-                <Avatar className=" h-10 w-10">
-                  <AvatarImage src={"https://github.com/shadcn.png"} />
+                <Avatar className="h-10 w-10">
+                  <AvatarImage
+                    src={act.avatarUrl || "https://github.com/shadcn.png"}
+                  />
                   <AvatarFallback>
                     <AvatarFallback color="#e0e0e0" />
                   </AvatarFallback>
                 </Avatar>
                 <div>
                   <p>
-                    {act.user?.slice(0, 4)}....{act.user?.slice(-4)}
+                    {act?.user?.slice(0, 4)}....{act.user?.slice(-4)}
                   </p>
                   <p>
-                    {act.side === "buy" ? "Bought" : "Sold"}{" "}
+                    {act?.side === "buy" ? "Bought" : "Sold"}{" "}
                     <span
                       className={`${
-                        act.side === "buy" ? "text-green-500" : "text-red-500"
+                        act?.side === "buy" ? "text-green-500" : "text-red-500"
                       }`}
                     >
                       {parseFloat(act.outcomeTokenTraded).toFixed(2)}{" "}
-                      {act.outcomeIndex === 0 ? "Yes" : "No"}
-                    </span>
+                      {act?.outcomeIndex === 0 ? "Yes" : "No"}
+                    </span>{" "}
+                    at {parseFloat(`${price}`).toFixed(2)}$
                   </p>
                 </div>
               </div>
@@ -104,4 +110,5 @@ const Activity = ({ questionId }: { questionId: string }) => {
     </div>
   );
 };
+
 export default Activity;

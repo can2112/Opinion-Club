@@ -6,9 +6,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    console.log(req.body, "body");
     const response = await serverClient.get(
-      `/markets/activity/${req.body.questionId}`
+      `/markets/activity/${req.body.questionId}?next_id=${req.body.next_id}`
     );
 
     return res.status(response.status).send(response.data);
