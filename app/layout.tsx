@@ -8,9 +8,33 @@ import { Inter } from "next/font/google";
 import BottomBar from "./components/nav/BottomBar";
 
 export const metadata: Metadata = {
-  title: "Opinion Club",
+  title: "Opinion Club | Biggest Opinion Market ",
   description:
-    "Opinion Club empowers you to create and customize your own marketplace, offering users the ability to share and explore unique opinions, products, or services tailored to their preferences.",
+    "Empower your community with Opinion Club by creating a personalized marketplace. Customize a platform where users can share, explore, and connect over unique opinions, products, or services that resonate with their interests.",
+  applicationName: "Opinion Club",
+  keywords: [
+    "prediction market",
+    "crypto-based prediction market",
+    "sport-based prediction market",
+    "decentralized marketplace",
+    "community-driven platform",
+    "create your own market",
+    "opinion trading",
+    "blockchain predictions",
+    "social trading",
+    "crypto-enabled marketplace",
+    "financial prediction market",
+    "user-generated markets",
+    "crypto predictions",
+    "customizable market platform",
+    "opinion betting",
+    "tokenized marketplace",
+    "web3 prediction platform",
+    "crowdsourced predictions",
+    "future event trading",
+    "event outcome prediction",
+    "peer-to-peer predictions",
+  ],
 };
 
 const inter = Inter({

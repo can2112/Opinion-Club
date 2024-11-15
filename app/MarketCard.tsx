@@ -36,7 +36,7 @@ async function MarketCard({
   image,
   liqudity,
 }: MarketProp) {
-  const dynamicRoute = `market/${eventId}`;
+  const dynamicRoute = `market/${encodeURI(title)}mId=${eventId}`;
   const commentCount = await getCommentCount(eventId);
 
   return (

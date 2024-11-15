@@ -5,31 +5,47 @@ import { FaRegStar } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { formatDate } from "@/utils/common/formatDate";
 import Client from "./Client";
+import { Metadata } from "next";
 
 interface MarketProps {
   params: Promise<{ market: string }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }
-const fetchMarketData = async (market: string) => {
+
+const fetchMarketData = async (market: string | undefined) => {
+  if (!market) return;
   const url = `${process.env.SERVER_URL}/markets/fetch/${market}`;
-  const response = await fetch(url, {
-    cache: "no-cache",
-  });
+  const response = await fetch(url);
   if (!response.ok) {
     console.log("something went wrong");
+    return;
   }
   return response.json();
 };
-async function Page(props: MarketProps) {
-  const params = await props.params;
-  const { market } = params;
 
-  const data = await fetchMarketData(market);
+export async function generateMetadata(params: MarketProps): Promise<Metadata> {
+  const title = await params.params;
+
+  console.log(decodeURI(title.market), "decoded url");
+  console.log(title, "Title");
+  return {
+    title: {
+      absolute: `Opinion Club | ${decodeURI(title.market)}`,
+    },
+  };
+}
+
+async function Page(props: MarketProps) {
+  const searchParams = await props.searchParams;
+  const mId = searchParams?.mId;
+
+  const data = await fetchMarketData(mId);
 
   const { title, image, expiryDate, tradeVolume } = data?.data || {};
 
   return (
     <main className="lg:px-[8%] ">
-      <Client questionId={market}>
+      <Client questionId={mId || ""}>
         <>
           <section className="flex justify-between">
             <Image
