@@ -1,8 +1,6 @@
-import { CarouselPlugin } from "./Carousel";
-import MarketCard from "./MarketCard";
 import Filter from "./Filter";
-import { Icart } from "@/utils/Interfaces/common";
 import { error } from "console";
+import Markets from "./Markets";
 
 const fetchMarketData = async () => {
   const response = await fetch(`${process.env.SERVER_URL}/markets`, {
@@ -23,25 +21,10 @@ export default async function Home() {
   return (
     <main className="h-screen md:px-[8%]">
       <div className="">
-        <CarouselPlugin data={data.data.slice(0, 4)} />
         <Filter />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-3 pb-20   mt-5">
-        {data?.data?.map((ques: Icart) => {
-          return (
-            <div key={ques.questionId}>
-              <MarketCard
-                title={ques?.title}
-                image={ques.image}
-              eventId={ques.questionId}
-                endDate={ques.expiryDate}
-                vol={ques.tradeCount}
-                liqudity={ques?.liquidity}
-              />
-            </div>
-          );
-        })}
-      </div>
+
+      <Markets />
     </main>
   );
 }

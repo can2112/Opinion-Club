@@ -25,7 +25,7 @@ export function CarouselPlugin({ data }: { data: Icart[] }) {
     >
       <CarouselContent className="">
         {data?.map((res: Icart, index: number) => {
-          const url = `market/${res.questionId}`;
+          const url = `market/${res?.questionId}`;
           return (
             <CarouselItem key={index} className="basis-[88%] md:basis-[95%]">
               <Card>

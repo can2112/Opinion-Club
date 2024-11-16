@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Avatar, AvatarImage } from "./components/ui/avatar";
@@ -17,7 +17,7 @@ interface MarketProp {
   liqudity: string;
 }
 
-export const getCommentCount = async (marketId: string): Promise<number> => {
+const getCommentCount = async (marketId: string): Promise<number> => {
   const commentsRef = collection(firestore, "markets", marketId, "comments");
 
   try {
@@ -29,15 +29,25 @@ export const getCommentCount = async (marketId: string): Promise<number> => {
   }
 };
 
-async function MarketCard({
+const MarketCard: React.FC<MarketProp> = ({
   title,
   vol,
   eventId,
   image,
   liqudity,
-}: MarketProp) {
+}) => {
+  const [commentCount, setCommentCount] = useState<number>(0);
+
   const dynamicRoute = `market/${encodeURI(title)}mId=${eventId}`;
-  const commentCount = await getCommentCount(eventId);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      const count = await getCommentCount(eventId);
+      setCommentCount(count);
+    };
+
+    fetchComments();
+  }, [eventId]);
 
   return (
     <Link
@@ -82,7 +92,6 @@ async function MarketCard({
                 <p className="flex gap-2 ">
                   <span>{vol} + Placed Bet</span>
                 </p>
-                {/* <FaRegStar className="" /> */}
               </section>
 
               <section className="flex items-center gap-1">
@@ -94,6 +103,6 @@ async function MarketCard({
       </div>
     </Link>
   );
-}
+};
 
 export default MarketCard;
