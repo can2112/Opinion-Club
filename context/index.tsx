@@ -12,8 +12,10 @@ if (!projectId) throw new Error("Project ID is not defined");
 
 const metadata = {
   name: "opinion club",
-  description: "Appkit ",
-  url: "https://wallet-connet-gamma.vercel.app",
+  description:
+    "Empower your community with Opinion Club by creating a personalized marketplace. Customize a platform where users can share, explore, and connect over unique opinions, products, or services that resonate with their interests.",
+  applicationName: "Opinion Club",
+  url: "https://opinionclub.xyz",
   icons: ["/opinion-club/public/oc.png"],
 };
 
