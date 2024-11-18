@@ -38,21 +38,21 @@ const MarketCard: React.FC<MarketProp> = ({
 }) => {
   const [commentCount, setCommentCount] = useState<number>(0);
 
-  const dynamicRoute = `market/${encodeURI(title)}mId=${eventId}`;
-
   useEffect(() => {
     const fetchComments = async () => {
       const count = await getCommentCount(eventId);
       setCommentCount(count);
     };
-
     fetchComments();
   }, [eventId]);
 
   return (
     <Link
       className=" bg-white border-border border h-52 relative px-3 py-4  flex flex-col rounded-2xl  cursor-pointer  text-black "
-      href={dynamicRoute}
+      href={{
+        pathname: `/market/${encodeURI(title)}`,
+        query: { mId: eventId },
+      }}
     >
       <div className="text-sm ">
         <section className="flex w-full  items-center gap-3 ">

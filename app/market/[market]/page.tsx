@@ -35,7 +35,6 @@ export async function generateMetadata(params: MarketProps): Promise<Metadata> {
 async function Page(props: MarketProps) {
   const searchParams = await props.searchParams;
   const mId = searchParams?.mId;
-
   const data = await fetchMarketData(mId);
 
   const { title, image, expiryDate, tradeVolume } = data?.data || {};
@@ -45,14 +44,17 @@ async function Page(props: MarketProps) {
       <Client questionId={mId || ""}>
         <>
           <section className="flex justify-between">
-            <Image
-              src={image}
-              width={100}
-              height={100}
-              alt="logo"
-              className="h-20 w-20 rounded-full "
-              layout="cover"
-            />
+            {image && (
+              <Image
+                src={image}
+                width={100}
+                height={100}
+                alt="logo"
+                className="h-20 w-20 rounded-full "
+                layout="cover"
+              />
+            )}
+
             <div className="flex gap-3 items-center">
               <FaRegStar size={27} className="cursor-pointer" />
               <IoLinkSharp size={32} className="-rotate-45 cursor-pointer" />
