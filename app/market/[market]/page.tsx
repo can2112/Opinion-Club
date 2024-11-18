@@ -25,9 +25,6 @@ const fetchMarketData = async (market: string | undefined) => {
 
 export async function generateMetadata(params: MarketProps): Promise<Metadata> {
   const title = await params.params;
-
-  console.log(decodeURI(title.market), "decoded url");
-  console.log(title, "Title");
   return {
     title: {
       absolute: `Opinion Club | ${decodeURI(title.market)}`,

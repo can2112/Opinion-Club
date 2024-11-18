@@ -31,7 +31,6 @@ function Markets() {
 
   const loadMoreActivities = useCallback(() => {
     if (isLoading) return;
-    console.log(isLoading, "isLoading");
     if (hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
