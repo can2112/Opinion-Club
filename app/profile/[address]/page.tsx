@@ -51,8 +51,8 @@ async function page(props: Profileprops) {
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
-        {cartDetails?.map((Res: cardDetails, index: number) => {
-          const Icon = Res.icon;
+        {cartDetails?.map((res: cardDetails, index: number) => {
+          const Icon = res.icon;
           return (
             <Card className="" key={index}>
               <CardContent className="p-2">
@@ -60,7 +60,7 @@ async function page(props: Profileprops) {
                   <Icon size={25} color={"white"} />
                 </section>
                 <CardTitle className="font-normal mt-3 text-sm">
-                  {Res.title}
+                  {res.title}
                 </CardTitle>
                 <p className="font-bold">$0.00</p>
               </CardContent>
