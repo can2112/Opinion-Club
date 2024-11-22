@@ -39,7 +39,7 @@ const useLogic = ({
   };
 
   const fetchBalance = async () => {
-    const response = await nextClient.post("/fetch-balance", {
+    const response = await nextClient.post("/api/fetch-balance", {
       questionId,
       address,
     });
@@ -53,7 +53,7 @@ const useLogic = ({
   const { data: price, refetch: reFetchPrice } = useQuery({
     queryKey: ["fetchPrice"],
     queryFn: async () => {
-      const response = await nextClient.post("price", questionId);
+      const response = await nextClient.post("/api/price", questionId);
 
       if (!response?.data) {
         toast.error("Something went wrong");
@@ -79,7 +79,7 @@ const useLogic = ({
       outcomeIndex: selected == "yes" ? 0 : 1,
       amount: `${amount}`,
     };
-    const response = await nextClient.post("/quote", body);
+    const response = await nextClient.post("/api/quote", body);
 
     return response.data;
   };
@@ -117,7 +117,7 @@ const useLogic = ({
 
   const orderMutation = useMutation({
     mutationFn: async (body: OrderBody) => {
-      const response = await nextClient.post("/create-order", { body });
+      const response = await nextClient.post("/api/create-order", { body });
       return response.data;
     },
 
@@ -186,9 +186,9 @@ const useLogic = ({
     };
     const lpUrl =
       currentState === "Add"
-        ? "add-fund"
+        ? "/api/add-fund"
         : questionId === "Remove"
-        ? "remove-fund"
+        ? "/api/remove-fund"
         : "";
 
     if (!lpUrl) {

@@ -20,7 +20,7 @@ const Activity = ({ questionId }: { questionId: string }) => {
   }: {
     pageParam: null | string;
   }) => {
-    const response = await nextClient.post("/market-activity", {
+    const response = await nextClient.post("/api/market-activity", {
       questionId,
       next_id: pageParam,
     });

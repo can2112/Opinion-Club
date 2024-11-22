@@ -10,7 +10,7 @@ const fetchActivities = async ({
 }: {
   pageParam: null | string;
 }) => {
-  const response = await nextClient.post("/fetch-markets", {
+  const response = await nextClient.post("/api/fetch-markets", {
     next_id: pageParam,
   });
   return response.data;

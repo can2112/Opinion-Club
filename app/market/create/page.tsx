@@ -31,7 +31,7 @@ function Page() {
   const mutation = useMutation({
     mutationFn: async (createMarketBody: CreateMarketBody) => {
       const response = await nextClient.post(
-        "/create-market",
+        "/api/create-market",
         createMarketBody
       );
       return response.data;
@@ -49,7 +49,7 @@ function Page() {
         const updateTxnHash = async () => {
           try {
             const body = { txnHash, questionId: data?.data?.questionId };
-            const response = await nextClient.post(`/update-txn`, body);
+            const response = await nextClient.post(`/api/update-txn`, body);
             return response.data;
           } catch (error) {
             setLoading(false);

@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import { formatDate } from "@/utils/common/formatDate";
 import { Ticker } from "./types";
 
+
 export const description = "A multiple line chart";
 
 const chartConfig = {
@@ -45,7 +46,7 @@ export function Analaytics({
   const { data, refetch } = useQuery({
     queryKey: ["fetchTicker"],
     queryFn: async () => {
-      const response = await nextClient.post("fetch-ticker", {
+      const response = await nextClient.post("/api/fetch-ticker", {
         questionId,
         outcomeIndex,
       });
