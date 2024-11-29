@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { WalletConnection } from "./Wallet";
 import Image from "next/image";
-import Routes from "./Route";
+// import Routes from "./Route";
 import NavLink from "../NavLink";
 
 function Navbar() {
@@ -21,7 +21,7 @@ function Navbar() {
         <div className="md:flex gap-12 hidden">
           <NavLink label="MARKETS" route="/" />
           <NavLink label="CREATE" route="/market/create" />
-          <Routes />
+          {/* <Routes /> */}
         </div>
         <WalletConnection />
       </section>

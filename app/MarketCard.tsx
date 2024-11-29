@@ -64,7 +64,7 @@ const MarketCard: React.FC<MarketProp> = ({
           </p>
           <CgChevronRight className="h-6 w-6 absolute top-4 right-1" />
         </section>
-        <div className="flex flex-col gap-3 pb-5  w-full absolute top-[4.8rem] left-0 justify-between items-center  mt-9  ">
+        <div className="flex flex-col gap-3 pb-5  w-full absolute top-[6.8rem] left-0 justify-between items-center  mt-9  ">
           <section className="  w-full flex px-3 gap-4">
             <Button
               variant={"outline"}
