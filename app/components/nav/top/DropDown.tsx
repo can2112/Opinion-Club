@@ -78,7 +78,8 @@ function DropDown({
               e.stopPropagation();
             }}
           >
-            <section onClick={() => setLangDropDown(true)} className="relative">
+            {/* language section */}
+            {/* <section onClick={() => setLangDropDown(true)} className="relative">
               <p className="cursor-pointer">{language}</p>
               {langDropDown && (
                 <div className="fixed bg-white text-black w-44 cursor-pointer">
@@ -102,7 +103,7 @@ function DropDown({
                   </p>
                 </div>
               )}
-            </section>
+            </section> */}
           </div>
         </div>
         <p className="border-border w-full mt-4 bg-border h-[2px]" />
