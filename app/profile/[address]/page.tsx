@@ -68,7 +68,7 @@ async function page(props: Profileprops) {
           );
         })}
       </div>
-      <Portfolio />
+      <Portfolio address={address} />
     </div>
   );
 }

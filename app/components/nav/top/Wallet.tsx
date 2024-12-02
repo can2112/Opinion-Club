@@ -28,7 +28,8 @@ export function WalletConnection() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => {
-        !isConnected && open();
+        // eslint-disable-next-line  @typescript-eslint/no-unused-expressions
+        !address && open();
       }}
     >
       <Button variant="outline" className={"rounded-full px-2"}>

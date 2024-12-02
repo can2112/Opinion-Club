@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Copy } from "lucide-react";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Button } from "../../ui/button";
@@ -7,8 +7,6 @@ import { useDisconnect } from "@reown/appkit/react";
 // import { CgChevronDown } from "react-icons/cg";
 
 import Link from "next/link";
-
-const { disconnect } = useDisconnect();
 
 const Items = ({ title, path }: { title: string; path: string }) => {
   return (
@@ -30,9 +28,10 @@ function DropDown({
   address: string | undefined;
   onClose: () => void;
 }) {
+  const { disconnect } = useDisconnect();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const [language, setLangage] = useState("English");
-  const [langDropDown, setLangDropDown] = useState(false);
+  // const [language, setLangage] = useState("English");
+  // const [langDropDown, setLangDropDown] = useState(false);
 
   const handleMouseEnter = () => {
     clearTimeout(onClose as unknown as number);
