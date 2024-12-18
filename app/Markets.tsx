@@ -3,7 +3,6 @@ import nextClient from "@/utils/clients/nextClient";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef } from "react";
 import MarketCard from "./MarketCard";
-import { CarouselPlugin } from "./Carousel";
 
 const fetchActivities = async ({
   pageParam = null,
@@ -60,7 +59,6 @@ function Markets() {
 
   return (
     <div className="mt-4">
-      {markets && <CarouselPlugin data={markets?.slice(0, 4)} />}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-3 pb-20   mt-5">
         {markets?.map((mar) => {
           return (
@@ -68,10 +66,10 @@ function Markets() {
               <MarketCard
                 title={mar?.title}
                 image={mar.image}
-                eventId={mar.questionId}
-                endDate={mar.expiryDate}
+                eventId={mar?.questionId}
+                endDate={mar?.expiryDate}
                 vol={mar?.tradeCount}
-                liqudity={mar.liquidity}
+                liqudity={mar?.liquidity}
               />
             </div>
           );

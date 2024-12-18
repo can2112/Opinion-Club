@@ -1,6 +1,7 @@
 import Filter from "./Filter";
 import { error } from "console";
 import Markets from "./Markets";
+import { CarouselPlugin } from "./Carousel";
 
 const fetchMarketData = async () => {
   const response = await fetch(`${process.env.SERVER_URL}/markets`, {
@@ -14,6 +15,7 @@ const fetchMarketData = async () => {
 
 export default async function Home() {
   const data = await fetchMarketData();
+  const markets = data?.data?.markets;
 
   if (!data || data?.data?.length == 0)
     return <div className=" text-center  ">No Market found</div>;
@@ -23,6 +25,9 @@ export default async function Home() {
       <div className="">
         <Filter />
       </div>
+      <section className="mt-4">
+        {markets && <CarouselPlugin data={markets?.slice(0, 4)} />}
+      </section>
 
       <Markets />
     </main>
