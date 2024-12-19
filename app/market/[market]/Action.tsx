@@ -114,8 +114,8 @@ function Action({
                 variant={"outline"}
                 className="px-2 bg-gray-300 py-0 rounded-xl h-6"
                 onClick={() => {
-                  const maxVal = parseFloat(prepBalance).toFixed(2);
-                  setAmount(parseFloat(maxVal));
+                  const maxVal = parseFloat(prepBalance);
+                  setAmount(maxVal);
                 }}
               >
                 Max
