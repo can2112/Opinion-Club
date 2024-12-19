@@ -104,11 +104,26 @@ function Action({
           </Button>
         </section>
 
-        <section className="mt-9 relative">
-          <h2 className="mb-1">
+        <div className="flex mt-8 mb-2 justify-between">
+          <h2 className="">
             {currentState === "Buy" ? "You're Buying" : "You're Selling"}
           </h2>
-
+          <div>
+            {currentState === "Sell" && (
+              <Button
+                variant={"outline"}
+                className="px-2 bg-gray-300 py-0 rounded-xl h-6"
+                onClick={() => {
+                  const maxVal = parseFloat(prepBalance).toFixed(2);
+                  setAmount(parseFloat(maxVal));
+                }}
+              >
+                Max
+              </Button>
+            )}
+          </div>
+        </div>
+        <section className="mt- relative">
           <div
             className="absolute left-4 bottom-2 text-2xl cursor-pointer z-50"
             onClick={() => {
@@ -128,7 +143,7 @@ function Action({
 
           <input
             type="number"
-            placeholder="$10.00"
+            placeholder={"$10.00"}
             value={amount || ""}
             onChange={(e) => {
               const value = e.target.value;

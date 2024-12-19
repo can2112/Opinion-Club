@@ -17,7 +17,7 @@ export default async function Home() {
   const data = await fetchMarketData();
   const markets = data?.data?.markets;
 
-  if (!data || data?.data?.length == 0)
+  if (!markets || markets?.length == 0)
     return <div className=" text-center  ">No Market found</div>;
 
   return (
