@@ -10,7 +10,7 @@ function Interaction() {
   return (
     <div className="flex justify-between  items-center mt-5 px-1">
       <section className="flex gap-8   items-center">
-        <Button variant={"ghost"} size={"icon"} className="gap-1">
+        <Button variant={"ghost"} className="gap-1">
           <Image
             src={VoteImage}
             alt=""
@@ -21,12 +21,12 @@ function Interaction() {
           <p>202</p>
         </Button>
 
-        <Button variant={"ghost"} size={"icon"} className="gap-1">
+        <Button variant={"ghost"} className="gap-1">
           <Image src={VoteImage} alt="" width={25} height={25} />
           <p>332</p>
         </Button>
 
-        <Button variant={"ghost"} size={"icon"} className="gap-1">
+        <Button variant={"ghost"} className="gap-1">
           <Image src={CommentImage} width={25} height={25} alt="comment" />
           <p>90</p>
         </Button>
