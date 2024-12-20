@@ -4,6 +4,7 @@ import { Button } from "@/app/components/ui/button";
 import SwipeButton from "./Swipe";
 import { Loader2, Minus, Plus } from "lucide-react";
 
+
 function Action({
   questionId,
   selected,
@@ -21,12 +22,14 @@ function Action({
     price,
   } = useLogic({ questionId, currentState, selected, setSelected });
 
-  const potentialRound =
+  const roundPotential =
     (amount && (parseFloat(quoteData?.value || "0") - amount) / amount) || 0;
 
-  const roundPer = parseFloat(`${potentialRound * 100}`).toFixed(2);
+  const trimPot = parseFloat(`${roundPotential * 100}`).toFixed(2);
   const avgPrice =
     parseFloat(`${amount}`) / parseFloat(quoteData?.value || "0");
+
+  const trimAmount = amount && Math.floor(amount * 100) / 100;
 
   return (
     <div className="flex flex-col  border-2 border-white/10 bg-box rounded-xl w-full  ">
@@ -114,8 +117,7 @@ function Action({
                 variant={"outline"}
                 className="px-2 bg-gray-300 py-0 rounded-xl h-6"
                 onClick={() => {
-                  const maxVal = parseFloat(prepBalance);
-                  setAmount(maxVal);
+                  setAmount(prepBalance);
                 }}
               >
                 Max
@@ -144,7 +146,7 @@ function Action({
           <input
             type="number"
             placeholder={"$10.00"}
-            value={amount || ""}
+            value={trimAmount || ""}
             onChange={(e) => {
               const value = e.target.value;
               if (/^\d*\.?\d*$/.test(value)) {
@@ -166,7 +168,7 @@ function Action({
         <div className="flex mt-1 px-1 justify-between text-md-custom">
           <p className="text-textSecondary">Shares</p>
           <p className="text-black ">
-            {prepBalance ? parseFloat(prepBalance).toFixed(2) : "0"}
+            {prepBalance ? Math.floor(prepBalance * 100) / 100 : "0"}
           </p>
         </div>
         <div className="flex mt-1 px-1 justify-between text-md-custom">
@@ -176,7 +178,7 @@ function Action({
             {quoteData?.value && amount
               ? parseFloat(quoteData?.value || "").toFixed(2)
               : "0"}{" "}
-            ({roundPer})
+            ({trimPot})
           </p>
         </div>
         <div className="mt-5">
