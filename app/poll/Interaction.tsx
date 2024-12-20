@@ -8,9 +8,9 @@ import VerticalDots from "../components/icons/VDots.svg";
 
 function Interaction() {
   return (
-    <div className="flex justify-between  items-center mt-5 px-1">
-      <section className="flex gap-8   items-center">
-        <Button variant={"ghost"} className="gap-1">
+    <div className="flex justify-between  items-center mt-5 ">
+      <section className="flex gap-8 justify-start   items-center">
+        <div className="flex justify-start justify-items-start cursor-pointer hover:bg-gray-100 p-1 rounded-lg gap-2">
           <Image
             src={VoteImage}
             alt=""
@@ -19,17 +19,17 @@ function Interaction() {
             className="rotate-180"
           />
           <p>202</p>
-        </Button>
+        </div>
 
-        <Button variant={"ghost"} className="gap-1">
+        <div className="flex justify-start justify-items-start cursor-pointer hover:bg-gray-100 p-1 rounded-lg gap-2">
           <Image src={VoteImage} alt="" width={25} height={25} />
           <p>332</p>
-        </Button>
+        </div>
 
-        <Button variant={"ghost"} className="gap-1">
+        <div className="flex justify-start justify-items-start cursor-pointer hover:bg-gray-100 p-1 rounded-lg gap-2">
           <Image src={CommentImage} width={25} height={25} alt="comment" />
           <p>90</p>
-        </Button>
+        </div>
       </section>
       <section className="flex items-center gap-5">
         <Button variant={"ghost"} size={"icon"}>
