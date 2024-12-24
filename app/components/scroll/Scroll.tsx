@@ -13,6 +13,7 @@ interface ScrollProps {
   // initialData: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   bodyVal?: any;
+  layoutStyle?: string;
 }
 
 function Scroll({
@@ -21,6 +22,7 @@ function Scroll({
   renderFun,
   objName,
   bodyVal,
+  layoutStyle,
 }: // initialData,
 ScrollProps) {
   const fetchData = async ({
@@ -84,14 +86,17 @@ ScrollProps) {
   return (
     <div>
       {response?.length ? (
-        <div>
+        <div className={`${layoutStyle}`}>
           {response?.map((res) => {
             return <div key={res?.id}>{renderFun(res)}</div>;
           })}
         </div>
+      ) : isLoading ? (
+        // TODO: CHANGE THIS WITH A LOADING ANIMATION
+        <div>Loading....</div>
       ) : (
         `No ${objName} found`
-      )}{" "}
+      )}
       <div ref={observerRef} style={{ height: "1px" }} />
     </div>
   );

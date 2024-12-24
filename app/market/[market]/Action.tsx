@@ -4,7 +4,6 @@ import { Button } from "@/app/components/ui/button";
 import SwipeButton from "./Swipe";
 import { Loader2, Minus, Plus } from "lucide-react";
 
-
 function Action({
   questionId,
   selected,
@@ -78,7 +77,6 @@ function Action({
           </select>
         </section> */}
       </div>
-
       <span className="w-full h-1 bg-white/10" />
 
       <div className="flex justify-between p-3 flex-col">
