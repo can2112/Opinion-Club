@@ -24,9 +24,20 @@ interface cardDetails {
   icon: ForwardRefExoticComponent<LucideProps>;
 }
 
+const fetchUserActivity = async ({ address }: { address: string }) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/users/${address}/activity/?next_id=${""}`
+  );
+  if (!response.ok) {
+    return "";
+  }
+  return response.json();
+};
+
 async function page(props: Profileprops) {
   const params = await props?.params;
   const { address } = params;
+  const userData = await fetchUserActivity({ address });
 
   if (address == "undefined") {
     return (
@@ -68,7 +79,7 @@ async function page(props: Profileprops) {
           );
         })}
       </div>
-      <Portfolio address={address} />
+      <Portfolio address={address} initialData={userData.data} />
     </div>
   );
 }

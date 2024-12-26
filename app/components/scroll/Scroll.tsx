@@ -1,30 +1,31 @@
 "use client";
 
-import { Activity } from "@/app/profile/[address]/types";
+// import { Activity } from "@/app/profile/[address]/types";
 import nextClient from "@/utils/clients/nextClient";
+// import { IMarkets } from "@/utils/Interfaces/common";
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { ReactNode, useCallback, useEffect, useRef } from "react";
 
-interface ScrollProps {
+interface ScrollProps<T> {
   apiRoute: string;
-  nextId?: string;
-  renderFun: (req: Activity) => ReactNode;
+  renderFun: (req: T) => ReactNode;
   objName: string;
-  // initialData: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  initialData?: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   bodyVal?: any;
   layoutStyle?: string;
 }
 
-function Scroll({
+const Scroll = <T extends { id: number }>({
   apiRoute,
-  // nextId,
   renderFun,
   objName,
   bodyVal,
   layoutStyle,
-}: // initialData,
-ScrollProps) {
+  initialData,
+}: ScrollProps<T>) => {
   const fetchData = async ({
     pageParam = null,
   }: {
@@ -34,7 +35,6 @@ ScrollProps) {
       next_id: pageParam,
       ...bodyVal,
     });
-    // return null
     return response.data;
   };
 
@@ -47,12 +47,22 @@ ScrollProps) {
       getNextPageParam: (lastPage) => {
         return lastPage?.data?.next_id ? lastPage?.data?.next_id : null;
       },
-      initialPageParam: "",
-      // initialData: initialData,
-      // initialData: {
-      //   pages: [{ data: { [objName]: initialData, next_id: null } }],
-      // },
-      // pageParams: [null],
+      initialPageParam: initialData ? initialData.next_id : "",
+      initialData: {
+        pages: [
+          {
+            data: {
+              [objName]: initialData?.[objName] || [],
+              next_id: initialData?.next_id,
+            },
+          },
+        ],
+        pageParams: [null],
+      },
+      enabled: !!initialData?.[objName],
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
     });
 
   const loadMoreData = useCallback(() => {
@@ -87,7 +97,7 @@ ScrollProps) {
     <div>
       {response?.length ? (
         <div className={`${layoutStyle}`}>
-          {response?.map((res) => {
+          {response?.map((res: T) => {
             return <div key={res?.id}>{renderFun(res)}</div>;
           })}
         </div>
@@ -100,5 +110,5 @@ ScrollProps) {
       <div ref={observerRef} style={{ height: "1px" }} />
     </div>
   );
-}
+};
 export default Scroll;

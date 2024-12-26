@@ -4,10 +4,15 @@ import { getTimeAgo } from "@/utils/common/formatDate";
 import { useState } from "react";
 import { Activity } from "./types";
 
-function Portfolio({ address }: { address: string }) {
+function Portfolio({
+  address,
+  initialData,
+}: {
+  address: string;
+  initialData: Activity[];
+}) {
   const [currentVal, setCurrentVal] = useState("Activity");
-
-  const dynamicComp = (data: Activity) => {
+  const renderActivity = (data: Activity) => {
     const price = data?.collateralAmount / data?.outcomeTokenTraded;
 
     return (
@@ -29,7 +34,6 @@ function Portfolio({ address }: { address: string }) {
               </p>
             </div>
           </div>
-
           <p>{getTimeAgo(`${data.created_at}`)}</p>
         </section>
       </div>
@@ -62,10 +66,10 @@ function Portfolio({ address }: { address: string }) {
 
       <Scroll
         apiRoute="/api/user-activity"
-        // nextId=""
-        renderFun={dynamicComp}
+        renderFun={renderActivity}
         objName="activities"
         bodyVal={{ address }}
+        initialData={initialData}
       />
     </div>
   );

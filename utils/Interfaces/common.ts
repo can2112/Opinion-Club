@@ -24,3 +24,18 @@ export interface SentTxn {
   setProgress?: (arg: number) => void;
   setLoading?: (arg: boolean) => void;
 }
+
+export interface IMarkets {
+  type: "markets";
+  title: string;
+  image: string;
+  questionId: string;
+  description?: string;
+  expiryDate: Date;
+  status?: string;
+  createdAt?: Date;
+  id: number;
+  liquidity: string;
+  tradeVolume: string;
+  tradeCount: string;
+}
