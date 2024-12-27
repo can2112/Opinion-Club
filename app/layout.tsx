@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Inter } from "next/font/google";
 import BottomBar from "./components/nav/BottomBar";
+import Footer from "./components/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Opinion Club | Biggest Opinion Market ",
@@ -68,6 +69,7 @@ export default function RootLayout({
           />
           <BottomBar />
         </Provider>
+        <Footer />
       </body>
     </html>
   );
