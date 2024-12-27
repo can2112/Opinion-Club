@@ -23,9 +23,12 @@ function Footer() {
     <main className=" my-2 px-4  py-4">
       <div className="border flex justify-between items-  border-x-0 py-4  rounded border-slate-300">
         <section>
-          <Image src={"/dark_logo.svg"} alt="logo" width={100} height={100} />
+          <Link href={"/"}>
+            <Image src={"/dark_logo.svg"} alt="logo" width={100} height={100} />
+          </Link>
+
           <p className="mt-5 font-sm font-light text-textPrimary">
-            The India`&apos;s Biggest opinion market
+            The India&apos;s Biggest opinion market
           </p>
         </section>
         <section>
