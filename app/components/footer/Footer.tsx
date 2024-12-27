@@ -14,7 +14,7 @@ function Footer() {
   ];
 
   const resourceList = [
-    { title: "Create", link: "" },
+    { title: "Create", link: "/market/create" },
     { title: "Contact", link: "" },
     { title: "About", link: "" },
   ];
