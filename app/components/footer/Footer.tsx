@@ -25,7 +25,7 @@ function Footer() {
         <section>
           <Image src={"/dark_logo.svg"} alt="logo" width={100} height={100} />
           <p className="mt-5 font-sm font-light text-textPrimary">
-            The India's Biggest opinion market
+            The India`&apos;s Biggest opinion market
           </p>
         </section>
         <section>
@@ -33,7 +33,11 @@ function Footer() {
           <div className="flex flex-col mt-2">
             {marketList?.map((res) => {
               return (
-                <Link href={res.link} className="font-light text-textPrimary">
+                <Link
+                  href={res.link}
+                  className="font-light text-textPrimary"
+                  key={res.title}
+                >
                   {res.title}
                 </Link>
               );
@@ -45,7 +49,11 @@ function Footer() {
           <div className="flex flex-col mt-2">
             {resourceList.map((res) => {
               return (
-                <Link href={res.link} className="font-light text-textPrimary">
+                <Link
+                  href={res.link}
+                  className="font-light text-textPrimary"
+                  key={res.title}
+                >
                   {res.title}
                 </Link>
               );
