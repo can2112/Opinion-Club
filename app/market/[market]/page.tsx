@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { IoLinkSharp } from "react-icons/io5";
-import { Card, CardContent } from "../../components/ui/card";
 import { FaRegStar } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { formatDate } from "@/utils/common/formatDate";
@@ -43,7 +42,7 @@ async function Page(props: MarketProps) {
     <main className="lg:px-[8%] ">
       <Client questionId={mId || ""}>
         <>
-          <section className="flex justify-between">
+          <section className="flex  gap-12 items-center">
             {image && (
               <Image
                 src={image}
@@ -54,39 +53,34 @@ async function Page(props: MarketProps) {
                 layout="cover"
               />
             )}
+            <h1 className=" text-lg font-bold text-heading">{title}</h1>
+          </section>
 
-            <div className="flex gap-3 items-center">
-              <FaRegStar size={27} className="cursor-pointer" />
-              <IoLinkSharp size={32} className="-rotate-45 cursor-pointer" />
+          <section className="flex mt-12 justify-between">
+            <div className="flex items-center gap-5">
+              <div className="flex flex-col gap-1">
+                {/* <p>Volume </p> */}
+                <p className="text-textSecondary">${tradeVolume} Vol.</p>
+              </div>
+
+              <div className="flex   items-center gap-2">
+                {/* <p>End date</p> */}
+                {/* <section className="flex"> */}
+                <FiClock size={15} className="cursor-pointer" />
+                {/* <p>{formatDate(expiryDate)}</p> */}
+                {/* </section> */}
+                <p className="text-textSecondary">{formatDate(expiryDate)}</p>
+              </div>
+              {/* <div className="flex flex-col gap-1"> */}
+              {/* <p>End Date</p> */}
+              {/* </div> */}
+            </div>
+
+            <div className="flex justify-between gap-3">
+              <FaRegStar size={20} className="cursor-pointer" />
+              <IoLinkSharp size={24} className="-rotate-45 cursor-pointer" />
             </div>
           </section>
-          <h1 className="mt-6 text-lg font-bold text-heading">{title}</h1>
-
-          <Card className="py-2 mt-7 shadow-none  text-heading">
-            <CardContent>
-              <div className="flex items-center mt-4  justify-between ">
-                <div className="flex gap-2 items-center font-bold ">
-                  <Image
-                    src={"/SVG.svg"}
-                    width={30}
-                    height={30}
-                    alt="sound-bar"
-                    className="cursor-pointer"
-                  />
-                  Amount Bet
-                </div>
-
-                <p>${tradeVolume}</p>
-              </div>
-              <div className="flex items-center mt-4 justify-between ">
-                <div className="flex gap-2 items-center font-bold ">
-                  <FiClock size={28} className="cursor-pointer" />
-                  End Date
-                </div>
-                <p>{formatDate(expiryDate)}</p>
-              </div>
-            </CardContent>
-          </Card>
         </>
       </Client>
     </main>

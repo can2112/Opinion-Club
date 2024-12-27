@@ -1,13 +1,5 @@
-import { TrendingUp } from "lucide-react";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -20,7 +12,6 @@ import { useEffect, useState } from "react";
 
 import { formatDate } from "@/utils/common/formatDate";
 import { Ticker } from "./types";
-
 
 export const description = "A multiple line chart";
 
@@ -79,66 +70,51 @@ export function Analaytics({
   }, []);
 
   return (
-    <Card className="shadow-none  ">
-      <CardHeader>
-        <CardTitle className="flex gap-2">
-          <section className="flex gap-3">
-            Yes <div className="bg-[hsl(var(--chart-2))] h-4 rounded-sm w-4 " />
-          </section>
-          <section className="flex gap-3">
-            No <div className="bg-[hsl(var(--chart-1))] h-4 rounded-sm w-4 " />
-          </section>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <LineChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-              top: 2,
-              bottom: 2,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="timeStamp"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 10)}
-            />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <Line
-              dataKey="yes"
-              type="monotone"
-              stroke="var(--color-yes)"
-              strokeWidth={2}
-              dot={false}
-            />
-            <Line
-              dataKey="no"
-              type="monotone"
-              stroke="var(--color-no)"
-              strokeWidth={2}
-              dot={false}
-            />
-          </LineChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Tokens data
-              <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground"></div>
-          </div>
-        </div>
-      </CardFooter>
-    </Card>
+    <div className="mt-2">
+      <ChartContainer config={chartConfig}>
+        <LineChart
+          accessibilityLayer
+          data={chartData}
+          margin={{
+            left: 12,
+            right: 12,
+            top: 2,
+            bottom: 2,
+          }}
+        >
+          <CartesianGrid vertical={false} />
+          <XAxis
+            dataKey="timeStamp"
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            tickFormatter={(value) => value.slice(0, 10)}
+          />
+          <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+          <Line
+            dataKey="yes"
+            type="monotone"
+            stroke="var(--color-yes)"
+            strokeWidth={2}
+            dot={false}
+          />
+          <Line
+            dataKey="no"
+            type="monotone"
+            stroke="var(--color-no)"
+            strokeWidth={2}
+            dot={false}
+          />
+        </LineChart>
+      </ChartContainer>
+      <section className="flex justify-center mt-5 gap-4 items-center">
+        <section className="flex gap-3 items-center">
+          Yes <div className="bg-[hsl(var(--chart-2))] h-4 rounded-sm w-4 " />
+        </section>
+        <section className="flex gap-3 items-center">
+          No <div className="bg-[hsl(var(--chart-1))] h-4 rounded-sm w-4 " />
+        </section>
+      </section>
+    </div>
   );
 }

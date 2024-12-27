@@ -40,7 +40,7 @@ function Client({
         </section>
         <EngagementTab questiondId={questionId} />
 
-        <Card className="fixed right-36 top-[14.7rem] col-span-1 shadow-none w-1/4  hidden lg:flex">
+        <Card className="fixed right-36 top-[6rem] col-span-1 shadow-none w-1/4  hidden lg:flex">
           <Action
             questionId={questionId}
             selected={selected}
