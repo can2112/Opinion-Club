@@ -1,10 +1,9 @@
 import Image from "next/image";
-import { IoLinkSharp } from "react-icons/io5";
-import { FaRegStar } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { formatDate } from "@/utils/common/formatDate";
 import Client from "./Client";
 import { Metadata } from "next";
+import MarketUtilities from "./MarketUtilities";
 
 interface MarketProps {
   params: Promise<{ market: string }>;
@@ -59,27 +58,15 @@ async function Page(props: MarketProps) {
           <section className="flex mt-12 justify-between">
             <div className="flex items-center gap-5">
               <div className="flex flex-col gap-1">
-                {/* <p>Volume </p> */}
                 <p className="text-textSecondary">${tradeVolume} Vol.</p>
               </div>
 
               <div className="flex   items-center gap-2">
-                {/* <p>End date</p> */}
-                {/* <section className="flex"> */}
                 <FiClock size={15} className="cursor-pointer" />
-                {/* <p>{formatDate(expiryDate)}</p> */}
-                {/* </section> */}
                 <p className="text-textSecondary">{formatDate(expiryDate)}</p>
               </div>
-              {/* <div className="flex flex-col gap-1"> */}
-              {/* <p>End Date</p> */}
-              {/* </div> */}
             </div>
-
-            <div className="flex justify-between gap-3">
-              <FaRegStar size={20} className="cursor-pointer" />
-              <IoLinkSharp size={24} className="-rotate-45 cursor-pointer" />
-            </div>
+            <MarketUtilities />
           </section>
         </>
       </Client>

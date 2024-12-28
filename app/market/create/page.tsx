@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
-import { ApiResponse, CreateMarketBody } from "@/utils/Interfaces/market";
+import { ApiResponse, CreateMarketBody } from "@/utils/types/market";
 import useTransaction from "@/utils/hooks/transaction";
 import nextClient from "@/utils/clients/nextClient";
 import DatePicker from "@/app/components/date/Date";

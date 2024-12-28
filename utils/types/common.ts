@@ -1,4 +1,4 @@
-import { Transaction } from "../Interfaces/market";
+import { Transaction } from "../types/market";
 
 export interface Icart {
   Id: string;
@@ -38,4 +38,12 @@ export interface IMarkets {
   liquidity: string;
   tradeVolume: string;
   tradeCount: string;
+}
+
+export interface TooltipB {
+  text: string;
+  action?: () => void;
+  icon: React.ComponentType<{ size: number; className?: string }>;
+  styles?: string;
+  actionText: string;
 }

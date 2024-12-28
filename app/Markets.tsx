@@ -1,6 +1,6 @@
 "use client";
 
-import { IMarkets } from "@/utils/Interfaces/common";
+import { IMarkets } from "@/utils/types/common";
 import MarketCard from "./MarketCard";
 import Scroll from "./components/scroll/Scroll";
 
@@ -12,8 +12,8 @@ function Markets({ initialData }: { initialData: IMarkets }) {
         image={markets.image}
         eventId={markets?.questionId}
         endDate={markets?.expiryDate}
-        vol={markets?.tradeCount}
-        liqudity={markets?.liquidity}
+        orders={markets?.tradeCount}
+        vol={markets?.tradeVolume}
       />
     );
   };

@@ -1,11 +1,11 @@
 import { parseUnits } from "ethers";
 import { useAccount, useConnect } from "wagmi";
-import { SentTxn } from "@/utils/Interfaces/common";
+import { SentTxn } from "@/utils/types/common";
 import { BrowserProvider, JsonRpcSigner } from "ethers";
 import { useMemo } from "react";
 import type { Account, Chain, Client, Transport } from "viem";
 import { type Config, useConnectorClient } from "wagmi";
-import { Transaction } from "../Interfaces/market";
+import { Transaction } from "../types/market";
 import { toast } from "react-toastify";
 
 const useTransaction = () => {

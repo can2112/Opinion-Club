@@ -10,7 +10,7 @@ import {
 import Image from "next/image";
 import { Button } from "./components/ui/button";
 import Link from "next/link";
-import { Icart } from "@/utils/Interfaces/common";
+import { Icart } from "@/utils/types/common";
 export function CarouselPlugin({ data }: { data: Icart[] }) {
   const plugin = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })

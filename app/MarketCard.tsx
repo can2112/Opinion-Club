@@ -14,8 +14,8 @@ interface MarketProp {
   eventId: string;
   image: string;
   endDate?: Date;
-  vol?: string;
-  liqudity: string;
+  orders?: string;
+  vol: string;
 }
 
 const getCommentCount = async (marketId: string): Promise<number> => {
@@ -32,10 +32,10 @@ const getCommentCount = async (marketId: string): Promise<number> => {
 
 const MarketCard: React.FC<MarketProp> = ({
   title,
-  vol,
+  orders,
   eventId,
   image,
-  liqudity,
+  vol,
 }) => {
   const [commentCount, setCommentCount] = useState<number>(0);
 
@@ -85,13 +85,13 @@ const MarketCard: React.FC<MarketProp> = ({
           <section className="flex w-full px-3 text-textSecondary  h-full justify-between text-sm font-medium items-center mt-2">
             <p className="flex items-center gap-2  text-customPrimary">
               <Image src={"/Img.svg"} alt="trophy" width={"25"} height={"25"} />
-              ${liqudity} Vol.
+              ${vol} Vol.
             </p>
 
             <div className="flex gap-3 items-center">
               <section className="hover:bg-gray-200 p-1 rounded-md">
                 <p className="flex gap-2 ">
-                  <span>{vol} + Placed Bet</span>
+                  <span>{orders} + Placed Bet</span>
                 </p>
               </section>
 
