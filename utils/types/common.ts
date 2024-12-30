@@ -47,3 +47,15 @@ export interface TooltipB {
   styles?: string;
   actionText: string;
 }
+
+export interface PollQuestionProp {
+  title: string;
+  postedBy: string;
+  createdAt: Date | string;
+  description: string;
+  expiryDate?: Date | string;
+  id: number;
+  image?: string;
+  questionId: string;
+  status?: `${"IN-ACTIVE" | "ACTIVE" | "DISPUTED" | "RESOLVED"}`;
+}
