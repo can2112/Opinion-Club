@@ -24,6 +24,10 @@ function Question({
   const { address } = useAccount();
   const [userVote, setUserVote] = useState({ userId: "", vote: "" });
 
+  type Vote = {
+    userId: string;
+    vote: "voteUp" | "voteDown";
+  };
   const getVoteCount = async () => {
     const votesRef = doc(firestore, "poll", questionId);
     try {
@@ -31,7 +35,7 @@ function Question({
       if (snapShot.exists()) {
         const data = snapShot?.data();
         const { voteUp, voteDown, votedUsers } = data;
-        const userVote = votedUsers?.find((vote: any) => {
+        const userVote = votedUsers?.find((vote: Vote) => {
           return vote.userId === address;
         });
         setUserVote(userVote);

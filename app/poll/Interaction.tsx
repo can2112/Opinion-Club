@@ -18,6 +18,7 @@ import {
 import { firestore } from "../../firebase";
 import { useEffect, useState } from "react";
 
+
 function Interaction({
   voteUp,
   voteDown,
