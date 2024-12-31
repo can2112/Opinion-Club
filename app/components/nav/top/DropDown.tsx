@@ -69,6 +69,7 @@ function DropDown({
         <p className="border-border w-full mt-2 bg-border h-[2px]" />
         <div className="px-1 py-2 flex flex-col items-start gap-3">
           <Items title={"Profile"} path={`/profile/${address}`} />
+          <Items title={"Poll"} path={`/poll`} />
 
           <div
             onMouseEnter={handleMouseEnter}

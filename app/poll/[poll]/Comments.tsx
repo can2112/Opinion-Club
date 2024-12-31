@@ -47,7 +47,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ marketId }) => {
   const { address } = useAccount();
 
   useEffect(() => {
-    const commentsRef = collection(firestore, "markets", marketId, "comments");
+    const commentsRef = collection(firestore, "poll", marketId, "comments");
     const q = query(commentsRef, orderBy("createdAt", "asc"));
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -71,7 +71,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ marketId }) => {
     }
     if (!newComment.trim()) return;
 
-    const commentsRef = collection(firestore, "markets", marketId, "comments");
+    const commentsRef = collection(firestore, "poll", marketId, "comments");
     await addDoc(commentsRef, {
       text: newComment,
       user: address,
@@ -86,13 +86,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ marketId }) => {
     if (!address) {
       return toast.warning("Please connect your wallet");
     }
-    const commentRef = doc(
-      firestore,
-      "markets",
-      marketId,
-      "comments",
-      commentId
-    );
+    const commentRef = doc(firestore, "poll", marketId, "comments", commentId);
 
     const docuemt = await getDoc(commentRef);
 
@@ -118,7 +112,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ marketId }) => {
     if (!replyText.trim()) return;
     const repliesRef = collection(
       firestore,
-      "markets",
+      "poll",
       marketId,
       "comments",
       commentId,
@@ -135,14 +129,6 @@ const CommentSection: React.FC<CommentSectionProps> = ({ marketId }) => {
   return (
     <>
       <section className="relative  z-30">
-        {/* <input
-          type="text"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add a comment"
-          className="bg-white z-30  broder-border  border outline-black text-textPrimary placeholder:text-textPrimary font-normal w-full py-2 px-3 rounded-lg"
-        /> */}
-
         <Input
           label="ADD COMMENT"
           onChange={(e) => setNewComment(e.target.value)}
@@ -150,7 +136,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ marketId }) => {
           value={newComment}
         />
         <Button
-          className="text-blue-500 hover:text-blue-600 absolute right-0 top-1 text-lg"
+          className="text-green-500 hover:text-green-600 hover:bg-none absolute right-0 top-1 text-lg"
           variant={"ghost"}
           onClick={handleAddComment}
         >
@@ -203,7 +189,7 @@ const Comment: React.FC<CommentProps> = ({
   useEffect(() => {
     const repliesRef = collection(
       firestore,
-      "markets",
+      "poll",
       marketId,
       "comments",
       comment.id,

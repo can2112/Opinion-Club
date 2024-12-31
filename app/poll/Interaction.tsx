@@ -18,7 +18,6 @@ import {
 import { firestore } from "../../firebase";
 import { useEffect, useState } from "react";
 
-
 function Interaction({
   voteUp,
   voteDown,
@@ -26,6 +25,7 @@ function Interaction({
   address,
   userId,
   vote,
+  commentCount,
 }: {
   voteUp: number;
   voteDown: number;
@@ -33,6 +33,7 @@ function Interaction({
   address: string | undefined;
   userId: string;
   vote: "voteUp" | "voteDown" | string;
+  commentCount: number;
 }) {
   const [pollUp, setPollUp] = useState(voteUp);
   const [pollDown, setPollDown] = useState(voteDown);
@@ -145,7 +146,8 @@ function Interaction({
       <section className="flex gap-8 justify-start   items-center">
         <div
           className="flex justify-start justify-items-start cursor-pointer hover:bg-gray-100 p-1 rounded-lg gap-2"
-          onClick={() => {
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
             updateVote("voteUp");
           }}
         >
@@ -166,7 +168,8 @@ function Interaction({
 
         <div
           className="flex justify-start justify-items-start cursor-pointer hover:bg-gray-100 p-1 rounded-lg gap-2"
-          onClick={() => {
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
             updateVote("voteDown");
           }}
         >
@@ -181,7 +184,7 @@ function Interaction({
 
         <div className="flex justify-start justify-items-start cursor-pointer hover:bg-gray-100 p-1 rounded-lg gap-2">
           <Image src={CommentImage} width={25} height={25} alt="comment" />
-          <p>0</p>
+          <p>{commentCount}</p>
         </div>
       </section>
       <section className="flex items-center gap-5">
